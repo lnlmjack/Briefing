@@ -131,9 +131,9 @@
       </button>
     </div>
 
-    <!-- Modal com o link gerado -->
+    <!-- Bloco com o link gerado -->
     <div id="resultado" class="hidden bg-zinc-900 border border-amber-500/50 p-4 rounded-xl text-center space-y-3">
-      <p class="text-sm text-zinc-300 font-semibold text-amber-400">Link exclusivo gerado com sucesso!</p>
+      <p class="text-sm font-semibold text-amber-400">Link exclusivo gerado com sucesso!</p>
       <input type="text" id="linkGerado" readonly class="w-full p-2 bg-black border border-zinc-700 rounded text-xs text-amber-400 font-mono text-center select-all">
       <div class="flex gap-2">
         <button onclick="copiarLink()" class="flex-1 py-2 bg-zinc-800 text-xs font-semibold rounded hover:bg-zinc-700">Copiar Link</button>
@@ -145,7 +145,7 @@
   <script>
     const SUPABASE_URL = "https://ilvzmuvxloqrpqbuyvrb.supabase.co";
     const SUPABASE_ANON = "sb_publishable_KIGYo0gheSoB6DqG_o6IxQ_ceB2xcww";
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
     async function gerarBriefing() {
       const btn = document.getElementById('btnGerar');
@@ -198,7 +198,7 @@
           payload.shows.push({ nome: 'A Chama da Criação', desc: 'Espetáculo de fogo e magia gastronômica à mesa com cloche.', preco: document.getElementById('val_chama').value });
         }
 
-        const { data, error } = await supabase.from('propostas').insert([payload]).select();
+        const { data, error } = await supabaseClient.from('propostas').insert([payload]).select();
 
         if (error) {
           console.error("Erro Supabase:", error);
@@ -224,7 +224,7 @@
 
       } catch (err) {
         console.error("Erro geral:", err);
-        alert('Ocorreu um erro inesperado: ' + err.message);
+        alert('Ocorreu um erro: ' + err.message);
         btn.innerText = 'Gerar Link do Briefing';
         btn.disabled = false;
       }
@@ -239,9 +239,3 @@
     function enviarWhats() {
       const link = document.getElementById('linkGerado').value;
       const cliente = document.getElementById('cliente').value;
-      const texto = encodeURIComponent(`Olá ${cliente}! Segue a sua apresentação e briefing exclusivo com as opções de show: ${link}`);
-      window.open(`https://api.whatsapp.com/send?text=${texto}`, '_blank');
-    }
-  </script>
-</body>
-</html>
