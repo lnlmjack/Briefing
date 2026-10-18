@@ -3,56 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gerador de Briefings - Jack Ilusionista</title>
+  <title>Painel do Ilusionista - Gerador de Briefings</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .gold-gradient { background: linear-gradient(135deg, #fce082 0%, #d4af37 50%, #996515 100%); }
+    .gold-border { border: 1px solid rgba(212, 175, 55, 0.25); }
+  </style>
 </head>
-<body class="bg-zinc-950 text-zinc-100 p-4 min-h-screen">
+<body class="bg-[#09090b] text-zinc-100 p-4 min-h-screen">
   <div class="max-w-xl mx-auto space-y-6">
+
     <header class="text-center py-4 border-b border-zinc-800">
       <h1 class="text-2xl font-bold text-amber-400">Novo Briefing Exclusivo</h1>
-      <p class="text-xs text-zinc-400">Preencha e selecione o que deseja exibir</p>
+      <p class="text-xs text-zinc-400">Gerador rápido de propostas para clientes</p>
     </header>
 
+    <!-- Puxar Pedido do Cliente -->
+    <div class="bg-amber-500/10 gold-border p-4 rounded-2xl space-y-2">
+      <label class="block text-xs uppercase tracking-wider text-amber-400 font-bold flex items-center gap-1.5">
+        <i class="fa-solid fa-inbox"></i> Puxar dados de formulário recebido:
+      </label>
+      <select id="pedidosPendentes" onchange="selecionarPedido()" class="w-full p-2.5 bg-zinc-900 border border-zinc-700 rounded-xl text-xs text-amber-300">
+        <option value="">Nenhum (Preenchimento manual)</option>
+      </select>
+    </div>
+
     <div class="space-y-5">
-      <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 space-y-3">
-        <h2 class="text-sm font-semibold text-amber-300 uppercase tracking-wider">Dados do Evento</h2>
+      <!-- Dados Principais -->
+      <div class="bg-zinc-900/90 gold-border p-5 rounded-2xl space-y-3">
+        <h2 class="text-xs font-bold text-amber-300 uppercase tracking-wider">Dados do Evento</h2>
         <div>
           <label class="block text-xs text-zinc-400">Nome do Contratante *</label>
-          <input type="text" id="cliente" required placeholder="Ex: Melody Lanzieri" class="w-full mt-1 p-2 bg-zinc-800 border border-zinc-700 rounded text-sm text-white">
+          <input type="text" id="cliente" required placeholder="Ex: Melody Lanzieri" class="w-full mt-1 p-2 bg-zinc-800 border border-zinc-700 rounded-xl text-sm text-white">
         </div>
         <div class="grid grid-cols-2 gap-2">
           <div>
             <label class="block text-xs text-zinc-400">Data do Evento</label>
-            <input type="text" id="data_evento" placeholder="Ex: 24/10/2026" class="w-full mt-1 p-2 bg-zinc-800 border border-zinc-700 rounded text-sm text-white">
+            <input type="text" id="data_evento" placeholder="Ex: 24/10/2026" class="w-full mt-1 p-2 bg-zinc-800 border border-zinc-700 rounded-xl text-sm text-white">
           </div>
           <div>
-            <label class="block text-xs text-zinc-400">Horário de Início</label>
-            <input type="text" id="horario" placeholder="Ex: 19:30" class="w-full mt-1 p-2 bg-zinc-800 border border-zinc-700 rounded text-sm text-white">
+            <label class="block text-xs text-zinc-400">Horário Previsto</label>
+            <input type="text" id="horario" placeholder="Ex: 19:30" class="w-full mt-1 p-2 bg-zinc-800 border border-zinc-700 rounded-xl text-sm text-white">
           </div>
         </div>
         <div class="grid grid-cols-2 gap-2">
           <div>
-            <label class="block text-xs text-zinc-400">Quantidade Convidados</label>
-            <input type="text" id="convidados" placeholder="Ex: 50 pessoas" class="w-full mt-1 p-2 bg-zinc-800 border border-zinc-700 rounded text-sm text-white">
+            <label class="block text-xs text-zinc-400">Convidados Estimados</label>
+            <input type="text" id="convidados" placeholder="Ex: 50 pessoas" class="w-full mt-1 p-2 bg-zinc-800 border border-zinc-700 rounded-xl text-sm text-white">
           </div>
           <div>
             <label class="block text-xs text-zinc-400">Tipo de Festa</label>
-            <input type="text" id="tipo_festa" placeholder="Ex: Aniversário / Casamento" class="w-full mt-1 p-2 bg-zinc-800 border border-zinc-700 rounded text-sm text-white">
+            <input type="text" id="tipo_festa" placeholder="Ex: Casamento / Aniversário" class="w-full mt-1 p-2 bg-zinc-800 border border-zinc-700 rounded-xl text-sm text-white">
           </div>
         </div>
         <div>
           <label class="block text-xs text-zinc-400">Local</label>
-          <input type="text" id="local" placeholder="Ex: Espaço Meet / Bairro Lourdes" class="w-full mt-1 p-2 bg-zinc-800 border border-zinc-700 rounded text-sm text-white">
+          <input type="text" id="local" placeholder="Ex: Espaço Meet / Bairro Lourdes" class="w-full mt-1 p-2 bg-zinc-800 border border-zinc-700 rounded-xl text-sm text-white">
         </div>
         <div>
-          <label class="block text-xs text-zinc-400">Modalidade Sugerida (Destaque)</label>
-          <input type="text" id="modalidade_sugerida" placeholder="Ex: Las Vegas é Aqui" class="w-full mt-1 p-2 bg-zinc-800 border border-zinc-700 rounded text-sm text-white">
+          <label class="block text-xs text-zinc-400">Modalidade em Destaque</label>
+          <input type="text" id="modalidade_sugerida" value="Las Vegas é Aqui" class="w-full mt-1 p-2 bg-zinc-800 border border-zinc-700 rounded-xl text-sm text-amber-300">
         </div>
       </div>
 
-      <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 space-y-2">
-        <h2 class="text-sm font-semibold text-amber-300 uppercase tracking-wider">Módulos Facultativos</h2>
+      <!-- Seções Opcionais -->
+      <div class="bg-zinc-900/90 gold-border p-5 rounded-2xl space-y-2">
+        <h2 class="text-xs font-bold text-amber-300 uppercase tracking-wider">Módulos Facultativos</h2>
         <label class="flex items-center space-x-2 text-sm text-zinc-300">
           <input type="checkbox" id="sec_bio" checked class="rounded border-zinc-700 text-amber-500">
           <span>Quem é Jack Ilusionista</span>
@@ -63,77 +81,79 @@
         </label>
         <label class="flex items-center space-x-2 text-sm text-zinc-300">
           <input type="checkbox" id="sec_midias" checked class="rounded border-zinc-700 text-amber-500">
-          <span>Vídeos Teasers e Fotos</span>
+          <span>Vídeos e Bastidores do Instagram</span>
         </label>
         <label class="flex items-center space-x-2 text-sm text-zinc-300">
           <input type="checkbox" id="sec_pagamento" checked class="rounded border-zinc-700 text-amber-500">
-          <span>Formas de Pagamento e Condições</span>
+          <span>Condições Comerciais e Pagamento</span>
         </label>
       </div>
 
-      <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 space-y-3">
-        <h2 class="text-sm font-semibold text-amber-300 uppercase tracking-wider">Shows no Orçamento</h2>
+      <!-- Shows -->
+      <div class="bg-zinc-900/90 gold-border p-5 rounded-2xl space-y-3">
+        <h2 class="text-xs font-bold text-amber-300 uppercase tracking-wider">Shows no Orçamento</h2>
         
-        <div class="p-3 bg-zinc-800/60 rounded-lg space-y-2">
-          <label class="flex items-center space-x-2 font-medium text-sm">
+        <div class="p-3 bg-zinc-800/70 rounded-xl space-y-2">
+          <label class="flex items-center space-x-2 font-medium text-sm text-white">
             <input type="checkbox" id="show_lasvegas" checked class="rounded text-amber-500">
-            <span>Las Vegas é Aqui (Show de Mesa)</span>
+            <span>Las Vegas é Aqui (Show de Mesa / Close-up)</span>
           </label>
-          <input type="text" id="val_lasvegas" value="R$ 1.200,00" class="w-full p-1.5 bg-zinc-900 text-xs rounded border border-zinc-700 text-amber-300">
+          <input type="text" id="val_lasvegas" value="R$ 1.200,00" class="w-full p-2 bg-zinc-900 text-xs rounded-lg border border-zinc-700 text-amber-300 font-bold">
         </div>
 
-        <div class="p-3 bg-zinc-800/60 rounded-lg space-y-2">
-          <label class="flex items-center space-x-2 font-medium text-sm">
+        <div class="p-3 bg-zinc-800/70 rounded-xl space-y-2">
+          <label class="flex items-center space-x-2 font-medium text-sm text-white">
             <input type="checkbox" id="show_enganacao" class="rounded text-amber-500">
             <span>Uma Hora de Enganação (Palco Adulto)</span>
           </label>
-          <input type="text" id="val_enganacao" value="R$ 1.990,00" class="w-full p-1.5 bg-zinc-900 text-xs rounded border border-zinc-700 text-amber-300">
+          <input type="text" id="val_enganacao" value="R$ 1.990,00" class="w-full p-2 bg-zinc-900 text-xs rounded-lg border border-zinc-700 text-amber-300 font-bold">
         </div>
 
-        <div class="p-3 bg-zinc-800/60 rounded-lg space-y-2">
-          <label class="flex items-center space-x-2 font-medium text-sm">
+        <div class="p-3 bg-zinc-800/70 rounded-xl space-y-2">
+          <label class="flex items-center space-x-2 font-medium text-sm text-white">
             <input type="checkbox" id="show_infantil" class="rounded text-amber-500">
             <span>Brincando com o Impossível (Familiar/Infantil)</span>
           </label>
-          <input type="text" id="val_infantil" value="R$ 1.990,00" class="w-full p-1.5 bg-zinc-900 text-xs rounded border border-zinc-700 text-amber-300">
+          <input type="text" id="val_infantil" value="R$ 1.990,00" class="w-full p-2 bg-zinc-900 text-xs rounded-lg border border-zinc-700 text-amber-300 font-bold">
         </div>
 
-        <div class="p-3 bg-zinc-800/60 rounded-lg space-y-2">
-          <label class="flex items-center space-x-2 font-medium text-sm">
+        <div class="p-3 bg-zinc-800/70 rounded-xl space-y-2">
+          <label class="flex items-center space-x-2 font-medium text-sm text-white">
             <input type="checkbox" id="show_misto" class="rounded text-amber-500">
             <span>Show Misto (Mesa + Palco)</span>
           </label>
-          <input type="text" id="val_misto" value="R$ 2.600,00" class="w-full p-1.5 bg-zinc-900 text-xs rounded border border-zinc-700 text-amber-300">
+          <input type="text" id="val_misto" value="R$ 2.600,00" class="w-full p-2 bg-zinc-900 text-xs rounded-lg border border-zinc-700 text-amber-300 font-bold">
         </div>
 
-        <div class="p-3 bg-zinc-800/60 rounded-lg space-y-2">
-          <label class="flex items-center space-x-2 font-medium text-sm">
+        <div class="p-3 bg-zinc-800/70 rounded-xl space-y-2">
+          <label class="flex items-center space-x-2 font-medium text-sm text-white">
             <input type="checkbox" id="show_corporativo" class="rounded text-amber-500">
             <span>Mágica e Humor Corporativo</span>
           </label>
-          <input type="text" id="val_corporativo" value="Sob Consulta" class="w-full p-1.5 bg-zinc-900 text-xs rounded border border-zinc-700 text-amber-300">
+          <input type="text" id="val_corporativo" value="Sob Consulta" class="w-full p-2 bg-zinc-900 text-xs rounded-lg border border-zinc-700 text-amber-300 font-bold">
         </div>
 
-        <div class="p-3 bg-zinc-800/60 rounded-lg space-y-2">
-          <label class="flex items-center space-x-2 font-medium text-sm">
+        <div class="p-3 bg-zinc-800/70 rounded-xl space-y-2">
+          <label class="flex items-center space-x-2 font-medium text-sm text-white">
             <input type="checkbox" id="show_chama" class="rounded text-amber-500">
             <span>A Chama da Criação (Gastronômico)</span>
           </label>
-          <input type="text" id="val_chama" value="R$ 400,00" class="w-full p-1.5 bg-zinc-900 text-xs rounded border border-zinc-700 text-amber-300">
+          <input type="text" id="val_chama" value="R$ 400,00" class="w-full p-2 bg-zinc-900 text-xs rounded-lg border border-zinc-700 text-amber-300 font-bold">
         </div>
       </div>
 
-      <button type="button" id="btnGerar" onclick="gerarBriefing()" class="w-full py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 font-bold text-black rounded-xl shadow-lg hover:brightness-110 active:scale-95 transition">
+      <button type="button" id="btnGerar" onclick="gerarBriefing()" class="w-full py-4 gold-gradient font-bold text-black rounded-2xl shadow-xl hover:brightness-110 active:scale-95 transition tracking-wider uppercase text-sm">
         Gerar Link do Briefing
       </button>
     </div>
 
-    <div id="resultado" class="hidden bg-zinc-900 border border-amber-500/50 p-4 rounded-xl text-center space-y-3">
-      <p class="text-sm font-semibold text-amber-400">Link exclusivo gerado com sucesso!</p>
-      <input type="text" id="linkGerado" readonly class="w-full p-2 bg-black border border-zinc-700 rounded text-xs text-amber-400 font-mono text-center select-all">
+    <!-- Bloco Resultado -->
+    <div id="resultado" class="hidden bg-zinc-900 gold-border p-5 rounded-2xl text-center space-y-3">
+      <p class="text-sm font-bold text-amber-400">Link exclusivo gerado com sucesso!</p>
+      <input type="text" id="linkGerado" readonly class="w-full p-3 bg-black border border-zinc-700 rounded-xl text-xs text-amber-300 font-mono text-center select-all">
       <div class="flex gap-2">
-        <button onclick="copiarLink()" class="flex-1 py-2 bg-zinc-800 text-xs font-semibold rounded hover:bg-zinc-700">Copiar Link</button>
-        <button onclick="enviarWhats()" class="flex-1 py-2 bg-emerald-600 text-xs font-semibold text-white rounded hover:bg-emerald-500">Mandar no WhatsApp</button>
+        <button onclick="copiarLink()" class="flex-1 py-3 bg-zinc-800 text-xs font-semibold rounded-xl hover:bg-zinc-700">Copiar Link</button>
+        <button onclick="enviarWhats()" class="flex-1 py-3 bg-emerald-600 text-xs font-semibold text-white rounded-xl hover:bg-emerald-500">Mandar no WhatsApp</button>
       </div>
     </div>
   </div>
@@ -142,6 +162,46 @@
     const SUPABASE_URL = "https://ilvzmuvxloqrpqbuyvrb.supabase.co";
     const SUPABASE_ANON = "sb_publishable_KIGYo0gheSoB6DqG_o6IxQ_ceB2xcww";
     const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+    let pedidosCarregados = [];
+
+    async function buscarPedidosPendentes() {
+      try {
+        const { data, error } = await supabaseClient
+          .from('propostas')
+          .select('*')
+          .eq('status', 'pendente')
+          .order('created_at', { ascending: false });
+
+        if (!error && data) {
+          pedidosCarregados = data;
+          const select = document.getElementById('pedidosPendentes');
+          select.innerHTML = '<option value="">Selecione um pedido para autopreencher...</option>';
+          data.forEach((p, idx) => {
+            const opt = document.createElement('option');
+            opt.value = idx;
+            opt.innerText = `${p.cliente} - ${p.data_evento || 'Sem data'} (${p.tipo_festa || 'Evento'})`;
+            select.appendChild(opt);
+          });
+        }
+      } catch (e) {
+        console.log('Sem pedidos novos:', e);
+      }
+    }
+
+    function selecionarPedido() {
+      const idx = document.getElementById('pedidosPendentes').value;
+      if (idx === "") return;
+      const p = pedidosCarregados[idx];
+      if (!p) return;
+
+      document.getElementById('cliente').value = p.cliente || '';
+      document.getElementById('data_evento').value = p.data_evento || '';
+      document.getElementById('horario').value = p.horario || '';
+      document.getElementById('convidados').value = p.convidados || '';
+      document.getElementById('tipo_festa').value = p.tipo_festa || '';
+      document.getElementById('local').value = p.local || '';
+    }
 
     async function gerarBriefing() {
       const btn = document.getElementById('btnGerar');
@@ -154,7 +214,7 @@
         return;
       }
 
-      btn.innerText = 'A gerar link... Aguarde...';
+      btn.innerText = 'Gerando briefing exclusivo...';
       btn.disabled = true;
 
       try {
@@ -166,6 +226,7 @@
           local: document.getElementById('local').value,
           tipo_festa: document.getElementById('tipo_festa').value,
           modalidade_sugerida: document.getElementById('modalidade_sugerida').value,
+          status: 'aprovado',
           secoes: {
             bio: document.getElementById('sec_bio').checked,
             motivos: document.getElementById('sec_motivos').checked,
@@ -176,29 +237,28 @@
         };
 
         if (document.getElementById('show_lasvegas').checked) {
-          payload.shows.push({ nome: 'Las Vegas é Aqui', desc: 'Show de mesa / proximidade. Eu circulo entre os convidados levando a experiência direto para cada mesa (1h a 1h30).', preco: document.getElementById('val_lasvegas').value });
+          payload.shows.push({ nome: 'Las Vegas é Aqui', preco: document.getElementById('val_lasvegas').value });
         }
         if (document.getElementById('show_enganacao').checked) {
-          payload.shows.push({ nome: 'Uma Hora de Enganação', desc: 'Show de palco adulto: humor afiado, mágica irreverente e pegada solta (50min a 1h).', preco: document.getElementById('val_enganacao').value });
+          payload.shows.push({ nome: 'Uma Hora de Enganação', desc: 'Show de palco adulto: humor afiado, mágica irreverente e pegada descontraída (50min a 1h).', preco: document.getElementById('val_enganacao').value });
         }
         if (document.getElementById('show_infantil').checked) {
-          payload.shows.push({ nome: 'Brincando com o Impossível', desc: 'Show de palco infantil e familiar: completo, impactante e cheio de humor com participação ativa.', preco: document.getElementById('val_infantil').value });
+          payload.shows.push({ nome: 'Brincando com o Impossível', desc: 'Show familiar e interativo: divertido, cômico e com grande participação do público.', preco: document.getElementById('val_infantil').value });
         }
         if (document.getElementById('show_misto').checked) {
-          payload.shows.push({ nome: 'Show Misto', desc: 'A combinação perfeita: começo com show de mesa e finalizo com show de palco.', preco: document.getElementById('val_misto').value });
+          payload.shows.push({ nome: 'Show Misto', desc: 'O pacote completo: abertura com show de mesa passando entre os convidados e encerramento com show geral.', preco: document.getElementById('val_misto').value });
         }
         if (document.getElementById('show_corporativo').checked) {
-          payload.shows.push({ nome: 'Mágica e Humor Corporativo', desc: 'Ideal para convenções, SIPATs ou Mestre Sem Cerimônias interativo.', preco: document.getElementById('val_corporativo').value });
+          payload.shows.push({ nome: 'Mágica e Humor Corporativo', desc: 'Customizado para convenções, SIPATs ou Mestre Sem Cerimônias.', preco: document.getElementById('val_corporativo').value });
         }
         if (document.getElementById('show_chama').checked) {
-          payload.shows.push({ nome: 'A Chama da Criação', desc: 'Espetáculo de fogo e magia gastronômica à mesa com cloche.', preco: document.getElementById('val_chama').value });
+          payload.shows.push({ nome: 'A Chama da Criação', desc: 'Intervenção visual gastronômica com cloche e fogo direto na mesa.', preco: document.getElementById('val_chama').value });
         }
 
         const { data, error } = await supabaseClient.from('propostas').insert([payload]).select();
 
         if (error) {
-          console.error("Erro Supabase:", error);
-          alert('Erro ao guardar no Supabase: ' + (error.message || JSON.stringify(error)));
+          alert('Erro ao salvar no banco: ' + error.message);
           btn.innerText = 'Gerar Link do Briefing';
           btn.disabled = false;
           return;
@@ -219,16 +279,14 @@
         }, 2000);
 
       } catch (err) {
-        console.error("Erro geral:", err);
-        alert('Ocorreu um erro: ' + err.message);
+        alert('Erro: ' + err.message);
         btn.innerText = 'Gerar Link do Briefing';
         btn.disabled = false;
       }
     }
 
     function copiarLink() {
-      const input = document.getElementById('linkGerado');
-      navigator.clipboard.writeText(input.value);
+      navigator.clipboard.writeText(document.getElementById('linkGerado').value);
       alert('Link copiado com sucesso!');
     }
 
@@ -238,6 +296,8 @@
       const texto = encodeURIComponent(`Olá ${cliente}! Segue a sua apresentação e briefing exclusivo com as opções de show: ${link}`);
       window.open(`https://api.whatsapp.com/send?text=${texto}`, '_blank');
     }
+
+    buscarPedidosPendentes();
   </script>
 </body>
 </html>
