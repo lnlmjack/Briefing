@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Briefings - Jack Ilusionista</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-zinc-950 text-zinc-100 p-4 min-h-screen">
+  <div class="max-w-xl mx-auto space-y-6">
+    <header class="text-center py-4 border-b border-zinc-800">
+      <h1 class="text-2xl font-bold text-amber-400">Novo Briefing Exclusivo</h1>
+      <p class="text-xs text-zinc-400">Preencha e selecione o que deseja exibir</p>
+    </header>
+
+    <form id="propostaForm" class="space-y-5">
+      <!-- Dados Principais -->
+      <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 space-y-3">
+        <h2 class="text-sm font-semibold text-amber-300 uppercase tracking-wider">Dados do Evento</h2>
+        <div>
+          <label class="block text-xs text-zinc-400">Nome do Contratante</label>
+          <input type="text" id="cliente" required class="w-full mt-1 p-2 bg-zinc-800 border border-zinc-700 rounded text-sm text-white">
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-xs text-zinc-400">Data do Evento</label>
+            <input type="text" id="data_evento" placeholder="Ex: 24/10/2026" class="w-full mt-1 p-2 bg-zinc-800 border border-zinc-700 rounded text-sm text-white">
+          </div>
+          <div>
+            <label class="block text-xs text-zinc-400">Horário de Início</label>
+            <input type="text" id="horario" placeholder="Ex: 19:30" class="w-full mt-1 p-2 bg-zinc-800 border border-zinc-700 rounded text-sm text-white">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-xs text-zinc-400">Quantidade Convidados</label>
+            <input type="text" id="convidados" placeholder="Ex: 50 pessoas" class="w-full mt-1 p-2 bg-zinc-800 border border-zinc-700 rounded text-sm text-white">
+          </div>
+          <div>
+            <label class="block text-xs text-zinc-400">Tipo de Festa</label>
+            <input type="text" id="tipo_festa" placeholder="Ex: Aniversário / Casamento" class="w-full mt-1 p-2 bg-zinc-800 border border-zinc-700 rounded text-sm text-white">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs text-zinc-400">Local</label>
+          <input type="text" id="local" placeholder="Ex: Espaço Meet / Bairro Lourdes" class="w-full mt-1 p-2 bg-zinc-800 border border-zinc-700 rounded text-sm text-white">
+        </div>
+        <div>
+          <label class="block text-xs text-zinc-400">Modalidade Sugerida (Destaque)</label>
+          <input type="text" id="modalidade_sugerida" placeholder="Ex: Las Vegas é Aqui" class="w-full mt-1 p-2 bg-zinc-800 border border-zinc-700 rounded text-sm text-white">
+        </div>
+      </div>
+
+      <!-- Seções Opcionais -->
+      <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 space-y-2">
+        <h2 class="text-sm font-semibold text-amber-300 uppercase tracking-wider">Módulos Facultativos</h2>
+        <label class="flex items-center space-x-2 text-sm text-zinc-300">
+          <input type="checkbox" id="sec_bio" checked class="rounded border-zinc-700 text-amber-500">
+          <span>Quem é Jack Ilusionista</span>
+        </label>
+        <label class="flex items-center space-x-2 text-sm text-zinc-300">
+          <input type="checkbox" id="sec_motivos" checked class="rounded border-zinc-700 text-amber-500">
+          <span>Por que Contratar</span>
+        </label>
+        <label class="flex items-center space-x-2 text-sm text-zinc-300">
+          <input type="checkbox" id="sec_midias" checked class="rounded border-zinc-700 text-amber-500">
+          <span>Vídeos Teasers e Fotos</span>
+        </label>
+        <label class="flex items-center space-x-2 text-sm text-zinc-300">
+          <input type="checkbox" id="sec_pagamento" checked class="rounded border-zinc-700 text-amber-500">
+          <span>Formas de Pagamento e Condições</span>
+        </label>
+      </div>
+
+      <!-- Modalidades Ofertadas -->
+      <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 space-y-3">
+        <h2 class="text-sm font-semibold text-amber-300 uppercase tracking-wider">Shows no Orçamento</h2>
+        
+        <div class="p-3 bg-zinc-800/60 rounded-lg space-y-2">
+          <label class="flex items-center space-x-2 font-medium text-sm">
+            <input type="checkbox" id="show_lasvegas" checked class="rounded text-amber-500">
+            <span>Las Vegas é Aqui (Show de Mesa)</span>
+          </label>
+          <input type="text" id="val_lasvegas" value="R$ 1.200,00" class="w-full p-1.5 bg-zinc-900 text-xs rounded border border-zinc-700 text-amber-300">
+        </div>
+
+        <div class="p-3 bg-zinc-800/60 rounded-lg space-y-2">
+          <label class="flex items-center space-x-2 font-medium text-sm">
+            <input type="checkbox" id="show_enganacao" class="rounded text-amber-500">
+            <span>Uma Hora de Enganação (Palco Adulto)</span>
+          </label>
+          <input type="text" id="val_enganacao" value="R$ 1.990,00" class="w-full p-1.5 bg-zinc-900 text-xs rounded border border-zinc-700 text-amber-300">
+        </div>
+
+        <div class="p-3 bg-zinc-800/60 rounded-lg space-y-2">
+          <label class="flex items-center space-x-2 font-medium text-sm">
+            <input type="checkbox" id="show_infantil" class="rounded text-amber-500">
+            <span>Brincando com o Impossível (Familiar/Infantil)</span>
+          </label>
+          <input type="text" id="val_infantil" value="R$ 1.990,00" class="w-full p-1.5 bg-zinc-900 text-xs rounded border border-zinc-700 text-amber-300">
+        </div>
+
+        <div class="p-3 bg-zinc-800/60 rounded-lg space-y-2">
+          <label class="flex items-center space-x-2 font-medium text-sm">
+            <input type="checkbox" id="show_misto" class="rounded text-amber-500">
+            <span>Show Misto (Mesa + Palco)</span>
+          </label>
+          <input type="text" id="val_misto" value="R$ 2.600,00" class="w-full p-1.5 bg-zinc-900 text-xs rounded border border-zinc-700 text-amber-300">
+        </div>
+
+        <div class="p-3 bg-zinc-800/60 rounded-lg space-y-2">
+          <label class="flex items-center space-x-2 font-medium text-sm">
+            <input type="checkbox" id="show_corporativo" class="rounded text-amber-500">
+            <span>Mágica e Humor Corporativo</span>
+          </label>
+          <input type="text" id="val_corporativo" value="Sob Consulta" class="w-full p-1.5 bg-zinc-900 text-xs rounded border border-zinc-700 text-amber-300">
+        </div>
+
+        <div class="p-3 bg-zinc-800/60 rounded-lg space-y-2">
+          <label class="flex items-center space-x-2 font-medium text-sm">
+            <input type="checkbox" id="show_chama" class="rounded text-amber-500">
+            <span>A Chama da Criação (Gastronômico)</span>
+          </label>
+          <input type="text" id="val_chama" value="R$ 400,00" class="w-full p-1.5 bg-zinc-900 text-xs rounded border border-zinc-700 text-amber-300">
+        </div>
+      </div>
+
+      <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 font-bold text-black rounded-xl shadow-lg hover:brightness-110 active:scale-95 transition">
+        Gerar Link do Briefing
+      </button>
+    </form>
+
+    <!-- Modal com o link gerado -->
+    <div id="resultado" class="hidden bg-zinc-900 border border-amber-500/50 p-4 rounded-xl text-center space-y-3">
+      <p class="text-sm text-zinc-300">Link exclusivo gerado com validade de 15 dias:</p>
+      <input type="text" id="linkGerado" readonly class="w-full p-2 bg-black border border-zinc-700 rounded text-xs text-amber-400 font-mono text-center">
+      <div class="flex gap-2">
+        <button onclick="copiarLink()" class="flex-1 py-2 bg-zinc-800 text-xs font-semibold rounded hover:bg-zinc-700">Copiar Link</button>
+        <button onclick="enviarWhats()" class="flex-1 py-2 bg-emerald-600 text-xs font-semibold text-white rounded hover:bg-emerald-500">Mandar no WhatsApp</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SUPABASE_URL = "https://ilvzmuvxloqrpqbuyvrb.supabase.co";
+    const SUPABASE_ANON = "sb_publishable_KIGYo0gheSoB6DqG_o6IxQ_ceB2xcww";
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+    document.getElementById('propostaForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const payload = {
+        cliente: document.getElementById('cliente').value,
+        data_evento: document.getElementById('data_evento').value,
+        horario: document.getElementById('horario').value,
+        convidados: document.getElementById('convidados').value,
+        local: document.getElementById('local').value,
+        tipo_festa: document.getElementById('tipo_festa').value,
+        modalidade_sugerida: document.getElementById('modalidade_sugerida').value,
+        secoes: {
+          bio: document.getElementById('sec_bio').checked,
+          motivos: document.getElementById('sec_motivos').checked,
+          midias: document.getElementById('sec_midias').checked,
+          pagamento: document.getElementById('sec_pagamento').checked,
+        },
+        shows: []
+      };
+
+      if (document.getElementById('show_lasvegas').checked) {
+        payload.shows.push({ nome: 'Las Vegas é Aqui', desc: 'Show de mesa / proximidade. Eu circulo entre os convidados levando a experiência direto para cada mesa (1h a 1h30).', preco: document.getElementById('val_lasvegas').value });
+      }
+      if (document.getElementById('show_enganacao').checked) {
+        payload.shows.push({ nome: 'Uma Hora de Enganação', desc: 'Show de palco adulto: humor afiado, mágica irreverente e pegada solta (50min a 1h).', preco: document.getElementById('val_enganacao').value });
+      }
+      if (document.getElementById('show_infantil').checked) {
+        payload.shows.push({ nome: 'Brincando com o Impossível', desc: 'Show de palco infantil e familiar: completo, impactante e cheio de humor com participação ativa.', preco: document.getElementById('val_infantil').value });
+      }
+      if (document.getElementById('show_misto').checked) {
+        payload.shows.push({ nome: 'Show Misto', desc: 'A combinação perfeita: começo com show de mesa e finalizo com show de palco.', preco: document.getElementById('val_misto').value });
+      }
+      if (document.getElementById('show_corporativo').checked) {
+        payload.shows.push({ nome: 'Mágica e Humor Corporativo', desc: 'Ideal para convenções, SIPATs ou Mestre Sem Cerimônias interativo.', preco: document.getElementById('val_corporativo').value });
+      }
+      if (document.getElementById('show_chama').checked) {
+        payload.shows.push({ nome: 'A Chama da Criação', desc: 'Espetáculo de fogo e magia gastronômica à mesa com cloche.', preco: document.getElementById('val_chama').value });
+      }
+
+      const { data, error } = await supabase.from('propostas').insert([payload]).select();
+
+      if (error) {
+        alert('Erro ao gerar: ' + error.message);
+        return;
+      }
+
+      const id = data[0].id;
+      const link = `${window.location.origin}/proposta.html?id=${id}`;
+      document.getElementById('linkGerado').value = link;
+      document.getElementById('resultado').classList.remove('hidden');
+    });
+
+    function copiarLink() {
+      const input = document.getElementById('linkGerado');
+      navigator.clipboard.writeText(input.value);
+      alert('Link copiado!');
+    }
+
+    function enviarWhats() {
+      const link = document.getElementById('linkGerado').value;
+      const cliente = document.getElementById('cliente').value;
+      const texto = encodeURIComponent(`Olá ${cliente}! Segue sua apresentação e briefing exclusivo com as opções de show: ${link}`);
+      window.open(`https://api.whatsapp.com/send?text=${texto}`, '_blank');
+    }
+  </script>
+</body>
+</html>
