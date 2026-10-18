@@ -15,7 +15,6 @@
     </header>
 
     <div class="space-y-5">
-      <!-- Dados Principais -->
       <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 space-y-3">
         <h2 class="text-sm font-semibold text-amber-300 uppercase tracking-wider">Dados do Evento</h2>
         <div>
@@ -52,7 +51,6 @@
         </div>
       </div>
 
-      <!-- Seções Opcionais -->
       <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 space-y-2">
         <h2 class="text-sm font-semibold text-amber-300 uppercase tracking-wider">Módulos Facultativos</h2>
         <label class="flex items-center space-x-2 text-sm text-zinc-300">
@@ -73,7 +71,6 @@
         </label>
       </div>
 
-      <!-- Modalidades Ofertadas -->
       <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 space-y-3">
         <h2 class="text-sm font-semibold text-amber-300 uppercase tracking-wider">Shows no Orçamento</h2>
         
@@ -131,7 +128,6 @@
       </button>
     </div>
 
-    <!-- Bloco com o link gerado -->
     <div id="resultado" class="hidden bg-zinc-900 border border-amber-500/50 p-4 rounded-xl text-center space-y-3">
       <p class="text-sm font-semibold text-amber-400">Link exclusivo gerado com sucesso!</p>
       <input type="text" id="linkGerado" readonly class="w-full p-2 bg-black border border-zinc-700 rounded text-xs text-amber-400 font-mono text-center select-all">
@@ -239,3 +235,9 @@
     function enviarWhats() {
       const link = document.getElementById('linkGerado').value;
       const cliente = document.getElementById('cliente').value;
+      const texto = encodeURIComponent(`Olá ${cliente}! Segue a sua apresentação e briefing exclusivo com as opções de show: ${link}`);
+      window.open(`https://api.whatsapp.com/send?text=${texto}`, '_blank');
+    }
+  </script>
+</body>
+</html>
