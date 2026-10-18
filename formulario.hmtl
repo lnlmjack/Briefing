@@ -67,7 +67,7 @@
     <div id="sucesso" class="hidden text-center p-6 bg-zinc-900 gold-border rounded-3xl space-y-3">
       <i class="fa-solid fa-circle-check text-4xl text-amber-400"></i>
       <h3 class="font-serif-gold text-lg font-bold text-white">Dados recebidos com sucesso!</h3>
-      <p class="text-xs text-zinc-400">Já estou montando a sua proposta exclusiva com as melhores opções para o seu evento. Em breve você receberá o link personalizado!</p>
+      <p class="text-xs text-zinc-400">Já estou a preparar a sua proposta com as melhores opções para o seu evento. Em breve receberá o seu link personalizado!</p>
     </div>
   </div>
 
@@ -81,12 +81,12 @@
       const dataEv = document.getElementById('cli_data').value.trim();
 
       if (!nome) {
-        alert('Por favor, informe seu nome.');
+        alert('Por favor, indique o seu nome.');
         return;
       }
 
       const btn = document.getElementById('btnEnviar');
-      btn.innerText = 'Enviando dados...';
+      btn.innerText = 'A enviar dados...';
       btn.disabled = true;
 
       try {
