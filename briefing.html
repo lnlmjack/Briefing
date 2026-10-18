@@ -22,13 +22,17 @@
       font-weight: 800;
     }
     .gold-border { border: 1px solid rgba(212, 175, 55, 0.22); }
-    .gold-border-focus:hover { border-color: rgba(212, 175, 55, 0.6); }
     .card-dark { background: rgba(18, 18, 22, 0.75); backdrop-filter: blur(12px); }
+    .card-selecionado {
+      border: 2px solid #fce082 !important;
+      background: rgba(212, 175, 55, 0.08) !important;
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.25);
+    }
   </style>
 </head>
-<body class="selection:bg-amber-500 selection:text-black">
+<body class="selection:bg-amber-500 selection:text-black pb-24">
 
-  <!-- TOPO / CABEÇALHO -->
+  <!-- CABEÇALHO -->
   <header class="relative border-b border-zinc-800/80 bg-black/60 sticky top-0 z-50 backdrop-blur-md">
     <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
       <div class="flex items-center space-x-3">
@@ -64,15 +68,13 @@
 
     <!-- BLOCO DADOS DO EVENTO -->
     <section class="card-dark gold-border rounded-3xl p-6 sm:p-8 space-y-5 shadow-2xl relative overflow-hidden">
-      <div class="absolute -top-12 -right-12 w-36 h-36 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
-      
       <div class="flex items-center gap-3 border-b border-zinc-800 pb-4">
         <div class="w-8 h-8 rounded-lg bg-amber-400/10 flex items-center justify-center text-amber-400">
           <i class="fa-solid fa-calendar-check"></i>
         </div>
         <div>
           <h2 class="font-gold text-lg font-bold text-white">Dados do Seu Evento</h2>
-          <p class="text-xs text-zinc-400">Informações de reserva e planeamento</p>
+          <p class="text-xs text-zinc-400">Informações de planeamento e reserva</p>
         </div>
       </div>
 
@@ -103,7 +105,6 @@
         </div>
       </div>
 
-      <!-- OBSERVAÇÕES DO CLIENTE (SE HOUVER) -->
       <div id="boxObs" class="hidden p-4 bg-amber-500/5 gold-border rounded-2xl space-y-1">
         <span class="text-[10px] uppercase tracking-wider text-amber-400 font-bold block">Observações do Evento:</span>
         <p id="txtObs" class="text-xs text-zinc-300 italic"></p>
@@ -113,7 +114,6 @@
     <!-- QUEM É JACK ILUSIONISTA -->
     <section class="card-dark gold-border rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl">
       <div class="flex flex-col md:flex-row gap-6 items-center">
-        <!-- FOTO DE PERFIL: Pode trocar a URL abaixo por jack-perfil.jpg quando fizer upload no GitHub -->
         <div class="w-40 h-40 sm:w-48 sm:h-48 rounded-2xl overflow-hidden border-2 border-amber-400/40 shadow-xl flex-shrink-0 bg-zinc-900">
           <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" alt="Jack Ilusionista" class="w-full h-full object-cover">
         </div>
@@ -180,20 +180,28 @@
       </div>
     </section>
 
-    <!-- OPÇÕES DE SHOWS SELECIONADAS -->
+    <!-- SECÇÃO MODALIDADES COM ESCOLHA -->
     <section class="space-y-4">
       <div class="text-center space-y-1">
         <span class="text-[10px] uppercase tracking-widest text-amber-400 font-bold">Investimento & Formatos</span>
         <h2 class="font-gold text-2xl font-bold text-white">MODALIDADES DO SHOW</h2>
-        <p class="text-xs text-zinc-400">Opções selecionadas especialmente para o seu orçamento:</p>
+        <p class="text-xs text-zinc-400">Escolha abaixo a opção ideal para o seu evento:</p>
+      </div>
+
+      <!-- AVISO DE ESCOLHA EFETUADA -->
+      <div id="avisoSelecao" class="hidden p-4 rounded-2xl bg-amber-500/15 border border-amber-400/50 text-center space-y-1 transition">
+        <span class="text-xs text-amber-300 font-bold uppercase tracking-wider block">
+          <i class="fa-solid fa-circle-check text-amber-400"></i> Opção Selecionada:
+        </span>
+        <span id="nomeShowSelecionado" class="font-gold text-base font-bold text-white"></span>
       </div>
 
       <div id="listaShows" class="space-y-4">
-        <!-- Preenchido automaticamente via Supabase com base no admin -->
+        <!-- Preenchido via JavaScript -->
       </div>
     </section>
 
-    <!-- INTEGRAÇÃO INSTAGRAM & VÍDEOS -->
+    <!-- VÍDEOS & INSTAGRAM -->
     <section class="card-dark gold-border rounded-3xl p-6 sm:p-8 space-y-5 shadow-2xl">
       <div class="flex flex-col sm:flex-row items-center justify-between gap-3 border-b border-zinc-800 pb-4">
         <div>
@@ -206,13 +214,7 @@
         </a>
       </div>
 
-      <p class="text-xs text-zinc-400 leading-relaxed text-center sm:text-left">
-        Confira alguns momentos reais, a reação do público e intervenções em eventos recentes:
-      </p>
-
-      <!-- GRELHA DE MINIATURAS ESTILO INSTAGRAM FEED -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-        <!-- Post 1 -->
         <a href="https://www.instagram.com/jackilusionista/" target="_blank" class="group relative rounded-2xl overflow-hidden aspect-square border border-zinc-800 bg-zinc-900 block">
           <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=500&q=80" alt="Show de Mesa" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
           <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white">
@@ -221,7 +223,6 @@
           <span class="absolute bottom-2 left-2 text-[10px] font-bold bg-black/70 px-2 py-0.5 rounded text-zinc-200">Close-up</span>
         </a>
 
-        <!-- Post 2 -->
         <a href="https://www.instagram.com/jackilusionista/" target="_blank" class="group relative rounded-2xl overflow-hidden aspect-square border border-zinc-800 bg-zinc-900 block">
           <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=500&q=80" alt="Palco Adulto" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
           <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white">
@@ -230,7 +231,6 @@
           <span class="absolute bottom-2 left-2 text-[10px] font-bold bg-black/70 px-2 py-0.5 rounded text-zinc-200">Palco</span>
         </a>
 
-        <!-- Post 3 -->
         <a href="https://www.instagram.com/jackilusionista/" target="_blank" class="group relative rounded-2xl overflow-hidden aspect-square border border-zinc-800 bg-zinc-900 block">
           <img src="https://images.unsplash.com/photo-1469488865564-c2de10f69f96?auto=format&fit=crop&w=500&q=80" alt="Reações da Plateia" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
           <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white">
@@ -239,7 +239,6 @@
           <span class="absolute bottom-2 left-2 text-[10px] font-bold bg-black/70 px-2 py-0.5 rounded text-zinc-200">Reações</span>
         </a>
 
-        <!-- Post 4 -->
         <a href="https://www.instagram.com/jackilusionista/" target="_blank" class="group relative rounded-2xl overflow-hidden aspect-square border border-zinc-800 bg-zinc-900 block">
           <img src="https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=500&q=80" alt="Magia Gastronómica" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
           <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white">
@@ -271,185 +270,4 @@
         <div class="p-4 bg-zinc-900 rounded-2xl border border-zinc-800 space-y-1">
           <span class="text-amber-400 font-bold uppercase text-[10px] block">Opção 02</span>
           <strong class="text-white block text-sm">Até 10x no Cartão</strong>
-          <p class="text-zinc-400 text-[11px] leading-relaxed">
-            Parcelamento antecipado em até 10 vezes com a taxa administrativa da maquininha.
-          </p>
-        </div>
-
-        <div class="p-4 bg-zinc-900 rounded-2xl border border-zinc-800 space-y-1">
-          <span class="text-amber-400 font-bold uppercase text-[10px] block">Opção 03</span>
-          <strong class="text-white block text-sm">PIX Integral</strong>
-          <p class="text-zinc-400 text-[11px] leading-relaxed">
-            Pagamento à vista do valor total via chave PIX no momento da confirmação.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- OBSERVAÇÕES & PRAZOS LEGAIS -->
-    <section class="p-5 bg-zinc-900/60 rounded-2xl border border-zinc-800 text-[11px] text-zinc-400 space-y-2 leading-relaxed">
-      <h3 class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
-        <i class="fa-solid fa-circle-info"></i> Observações Importantes & Prazos
-      </h3>
-      <ul class="list-disc list-inside space-y-1">
-        <li>A presente proposta tem validade de <strong>07 (sete) dias corridos</strong> a contar do envio.</li>
-        <li>O contratante disponibilizará água potável ilimitada para o artista e a sua equipa no local.</li>
-        <li>O contratante terá o direito de arrependimento legal no prazo de 07 dias, mediante formalização por e-mail.</li>
-        <li>Após os 07 dias, o evento será considerado fechado e reservado, aplicando-se regras de caso fortuito ou força maior.</li>
-      </ul>
-    </section>
-
-    <!-- BOTÃO FIXO DE WHATSAPP -->
-    <section class="text-center pt-4">
-      <a id="btnWhatsFinal" href="https://api.whatsapp.com/send?phone=5531987114131" target="_blank" class="gold-btn w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl text-sm uppercase tracking-wider shadow-2xl hover:brightness-110 active:scale-95 transition">
-        <i class="fa-brands fa-whatsapp text-lg"></i>
-        <span>Aprovar Proposta com Jack</span>
-      </a>
-      <p class="text-[11px] text-zinc-500 mt-2">Atendimento imediato para reserva e assinatura</p>
-    </section>
-
-    <!-- RODAPÉ -->
-    <footer class="text-center pt-8 border-t border-zinc-800/60 text-xs text-zinc-500 space-y-1 pb-10">
-      <p class="font-gold text-amber-400 text-sm">MAGICORDIALMENTE</p>
-      <p class="font-bold text-white">Jack Ilusionista - O Melhor Mágico de Belo Horizonte</p>
-      <p>CNPJ: 66.723.962-0001-87 | Telefone: (31) 98711-4131</p>
-      <p>Belo Horizonte - Minas Gerais</p>
-    </footer>
-
-  </main>
-
-  <script>
-    const SUPABASE_URL = "https://ilvzmuvxloqrpqbuyvrb.supabase.co";
-    const SUPABASE_ANON = "sb_publishable_KIGYo0gheSoB6DqG_o6IxQ_ceB2xcww";
-    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
-
-    // DESCRIÇÕES OFICIAIS EXTRAÍDAS DO SEU PDF
-    const DESCRICOES_SHOWS = {
-      "Las Vegas é Aqui": {
-        desc: "Você confia nos seus olhos? Um ataque direto à sua percepção da realidade com mágica de proximidade, humor e interação direta a poucos centímetros dos convidados. Baralho, moedas, celulares e mentalismo onde as regras da física são desafiadas. Duração aproximada de 1h a 1h30.",
-        icone: "fa-solid fa-cards",
-        tag: "Show de Mesa / Close-up"
-      },
-      "Uma Hora de Enganação": {
-        desc: "E se a melhor parte da enganação fosse a diversão que ela provoca? Espetáculo completo de palco que eleva a mágica e a comédia a um novo patamar de cumplicidade com o público. Ilusões repletas de humor afiado, suspense e participação constante onde rir de si mesmo é garantido. Duração aproximada de 50 minutos.",
-        icone: "fa-solid fa-masks-theater",
-        tag: "Show de Palco Adulto"
-      },
-      "Brincando com o Impossível": {
-        desc: "Mais do que um show de mágica: uma verdadeira experiência divertida e educativa pensada para o público infantil, familiar e escolar. As crianças sobem ao palco, interagem com o ilusionista e vivem momentos inesquecíveis. Duração aproximada de 50 minutos a 1 hora.",
-        icone: "fa-solid fa-wand-magic-sparkles",
-        tag: "Espetáculo Familiar / Infantil"
-      },
-      "Show Misto": {
-        desc: "A combinação perfeita dos dois formatos: abertura dinâmica com show de mesa passando entre os convidados (1h30) e encerramento apoteótico com o show de palco para todos assistirem juntos (50min). A experiência completa e definitiva.",
-        icone: "fa-solid fa-gem",
-        tag: "O Pacote Completo"
-      },
-      "Mágica e Humor Corporativo": {
-        desc: "Intervenção envolvente que mistura ilusionismo, comédia e conteúdo estratégico para convenções, SIPATs e premiações. Também adaptável para 'Mestre Sem Cerimônia' com intervenções dinâmicas entre palestrantes. Duração aproximada de 50 minutos.",
-        icone: "fa-solid fa-briefcase",
-        tag: "Eventos Corporativos"
-      },
-      "A Chama da Criação": {
-        desc: "Um espetáculo visual de fogo e magia gastronómica. Uma cloche é aberta vazia à mesa, chamas azuis dançam sobre a bandeja e num instante surge um prato montado, quente e pronto para servir. Elegância e mistério visual inigualáveis.",
-        icone: "fa-solid fa-fire-flame-curved",
-        tag: "Intervenção Gastronómica"
-      }
-    };
-
-    async function carregarProposta() {
-      const params = new URLSearchParams(window.location.search);
-      const id = params.get('id');
-
-      if (!id) {
-        document.getElementById('txtCliente').innerText = "Cliente Especial";
-        document.getElementById('txtData').innerText = "A Definir";
-        document.getElementById('txtHorario').innerText = "Sob Consulta";
-        document.getElementById('txtConvidados').innerText = "Conforme Alinhado";
-        document.getElementById('txtTipo').innerText = "Celebração Exclusiva";
-        document.getElementById('txtLocal').innerText = "Belo Horizonte e Região";
-        renderizarShowsDefault();
-        return;
-      }
-
-      try {
-        const { data, error } = await supabaseClient
-          .from('propostas')
-          .select('*')
-          .eq('id', id)
-          .single();
-
-        if (error || !data) throw error;
-
-        document.getElementById('txtCliente').innerText = data.cliente || "Cliente Especial";
-        document.getElementById('txtData').innerText = data.data_evento || "A Confirmar";
-        document.getElementById('txtHorario').innerText = data.horario || "A Combinar";
-        document.getElementById('txtConvidados').innerText = data.convidados || "Não informado";
-        document.getElementById('txtTipo').innerText = data.tipo_festa || "Evento";
-        document.getElementById('txtLocal').innerText = data.local || "Belo Horizonte / MG";
-
-        if (data.observacoes && data.observacoes.trim() !== '') {
-          document.getElementById('txtObs').innerText = data.observacoes;
-          document.getElementById('boxObs').classList.remove('hidden');
-        }
-
-        // Atualizar botão do WhatsApp com mensagem personalizada
-        const msgWhats = encodeURIComponent(`Olá Jack! Vi a proposta do meu evento (${data.cliente}) e gostaria de confirmar a data!`);
-        document.getElementById('btnWhatsFinal').href = `https://api.whatsapp.com/send?phone=5531987114131&text=${msgWhats}`;
-
-        renderizarShows(data.shows || []);
-
-      } catch (e) {
-        console.error('Erro ao carregar proposta:', e);
-        renderizarShowsDefault();
-      }
-    }
-
-    function renderizarShows(shows) {
-      const container = document.getElementById('listaShows');
-      container.innerHTML = '';
-
-      if (!shows || shows.length === 0) {
-        renderizarShowsDefault();
-        return;
-      }
-
-      shows.forEach(show => {
-        const info = DESCRICOES_SHOWS[show.nome] || {
-          desc: show.desc || "Espetáculo exclusivo com ilusionismo de alto padrão e comédia inteligente.",
-          icone: "fa-solid fa-star",
-          tag: "Espetáculo Exclusivo"
-        };
-
-        const card = document.createElement('div');
-        card.className = "card-dark gold-border gold-border-focus p-6 rounded-3xl space-y-4 shadow-xl transition";
-        card.innerHTML = `
-          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-zinc-800 pb-3">
-            <div>
-              <span class="text-[10px] uppercase tracking-wider font-bold text-amber-400 bg-amber-400/10 px-2.5 py-1 rounded-full inline-block mb-1">
-                ${info.tag}
-              </span>
-              <h3 class="font-gold text-lg sm:text-xl font-bold text-white">${show.nome}</h3>
-            </div>
-            <div class="sm:text-right">
-              <span class="text-[10px] uppercase text-zinc-400 block font-semibold">Investimento</span>
-              <span class="text-lg font-black text-amber-300 font-gold">${show.preco || 'Sob Consulta'}</span>
-            </div>
-          </div>
-          <p class="text-xs text-zinc-300 leading-relaxed">${info.desc}</p>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    function renderizarShowsDefault() {
-      renderizarShows([
-        { nome: "Las Vegas é Aqui", preco: "R$ 1.200,00" },
-        { nome: "Uma Hora de Enganação", preco: "R$ 1.990,00" }
-      ]);
-    }
-
-    carregarProposta();
-  </script>
-</body>
-</html>
+          <p class="text-
