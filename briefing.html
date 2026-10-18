@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Briefing Exclusivo - Jack Ilusionista</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .gold-gradient {
+      background: linear-gradient(135deg, #fcd34d 0%, #b45309 100%);
+    }
+  </style>
+</head>
+<body class="bg-black text-zinc-200 antialiased font-sans selection:bg-amber-500 selection:text-black">
+
+  <!-- Mensagem de Expiração (Caso passem os 15 dias) -->
+  <div id="telaExpirada" class="hidden min-h-screen flex items-center justify-center p-6 text-center">
+    <div class="max-w-md bg-zinc-900 border border-zinc-800 p-8 rounded-2xl space-y-4">
+      <i class="fa-solid fa-hourglass-end text-4xl text-amber-500"></i>
+      <h1 class="text-xl font-bold text-white">Proposta Expirada</h1>
+      <p class="text-sm text-zinc-400">Esta proposta exclusiva tinha validade de 15 dias e expirou. Por favor, entre em contacto para verificar a disponibilidade de agenda atualizada.</p>
+      <a href="https://wa.me/5531987114131" class="inline-block px-6 py-3 bg-amber-500 text-black font-semibold rounded-xl text-sm">Falar com Jack Ilusionista</a>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div id="loading" class="min-h-screen flex items-center justify-center">
+    <div class="animate-spin rounded-full h-10 w-10 border-t-2 border-amber-500"></div>
+  </div>
+
+  <!-- Conteúdo Principal -->
+  <main id="conteudoPrincipal" class="hidden max-w-2xl mx-auto px-4 py-8 space-y-10">
+
+    <!-- Topo / Apresentação -->
+    <header class="text-center space-y-2">
+      <span class="text-xs uppercase tracking-widest text-amber-500 font-semibold">Apresentação Exclusiva</span>
+      <h1 class="text-3xl font-extrabold text-white" id="tituloCliente"></h1>
+      <p class="text-xs text-zinc-400">Jack Ilusionista • Experiência Inesquecível de Mágica e Humor</p>
+    </header>
+
+    <!-- Dados do Evento -->
+    <section class="bg-zinc-900/80 border border-amber-500/20 rounded-2xl p-6 shadow-xl backdrop-blur">
+      <h2 class="text-xs font-bold uppercase tracking-wider text-amber-400 mb-4 flex items-center gap-2">
+        <i class="fa-solid fa-calendar-check"></i> Dados do Evento
+      </h2>
+      <div class="grid grid-cols-2 gap-4 text-sm" id="gridDados">
+        <!-- Renderizado dinamicamente -->
+      </div>
+    </section>
+
+    <!-- Modalidades Selecionadas -->
+    <section class="space-y-4">
+      <h2 class="text-lg font-bold text-white flex items-center gap-2">
+        <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Opções de Show para o seu Evento
+      </h2>
+      <div id="listaShows" class="space-y-4">
+        <!-- Renderizado dinamicamente -->
+      </div>
+    </section>
+
+    <!-- Bio (Opcional) -->
+    <section id="boxBio" class="hidden bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 space-y-3">
+      <h3 class="text-base font-bold text-amber-400">Quem é Jack Ilusionista</h3>
+      <p class="text-xs leading-relaxed text-zinc-300">
+        Com mais de 29 anos de trajetória e mais de 2.500 apresentações realizadas, Jack combina técnicas de ilusionismo moderno, humor afiado e improvisação teatral para entregar momentos inesquecíveis que transformam os espectadores em testemunhas do impossível[cite: 3, 4].
+      </p>
+    </section>
+
+    <!-- Por que Contratar (Opcional) -->
+    <section id="boxMotivos" class="hidden bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 space-y-3">
+      <h3 class="text-base font-bold text-amber-400">Por que Contratar?</h3>
+      <ul class="text-xs space-y-2 text-zinc-300">
+        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-amber-500 mt-0.5"></i> <span><strong>Entretenimento que vira assunto:</strong> humor inteligente e impacto real[cite: 5].</span></li>
+        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-amber-500 mt-0.5"></i> <span><strong>Interatividade total:</strong> o público não só assiste, mas participa ativamente[cite: 5].</span></li>
+        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-amber-500 mt-0.5"></i> <span><strong>Performance adaptável:</strong> formato desenhado à medida para o evento[cite: 5].</span></li>
+      </ul>
+    </section>
+
+    <!-- Teaser e Redes (Opcional) -->
+    <section id="boxMidias" class="hidden space-y-3">
+      <h3 class="text-base font-bold text-white flex items-center gap-2">
+        <i class="fa-brands fa-instagram text-amber-400"></i> Veja no Instagram
+      </h3>
+      <a href="https://www.instagram.com/jackilusionista" target="_blank" class="block bg-gradient-to-r from-zinc-900 to-zinc-800 border border-zinc-700 p-4 rounded-xl hover:border-amber-500 transition text-center text-sm font-semibold text-amber-300 flex items-center justify-center gap-2">
+        <i class="fa-brands fa-instagram text-lg"></i> Acompanhe bastidores e vídeos no @jackilusionista[cite: 17]
+      </a>
+    </section>
+
+    <!-- Pagamento e Regras (Opcional) -->
+    <section id="boxPagamento" class="hidden bg-zinc-900/40 border border-zinc-800 rounded-2xl p-5 text-xs text-zinc-400 space-y-2">
+      <h4 class="font-bold text-zinc-200">Condições Comerciais[cite: 6, 7]</h4>
+      <p>• <strong>Pagamento:</strong> 50% de sinal para reserva da data e 50% antes do início da apresentação[cite: 14, 15]. Aceitamos PIX e parcelamento no cartão em até 10x com taxas[cite: 7, 8, 14, 15].</p>
+      <p>• <strong>Validade:</strong> Proposta exclusiva com valores garantidos por 15 dias corridos.</p>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="pt-6 border-t border-zinc-800 text-center text-xs text-zinc-500 space-y-2">
+      <p>Jack Ilusionista • Belo Horizonte e Região[cite: 5, 17]</p>
+      <p>CNPJ: 66.723.962-0001-87[cite: 17]</p>
+    </footer>
+
+  </main>
+
+  <script>
+    const SUPABASE_URL = "https://ilvzmuvxloqrpqbuyvrb.supabase.co";
+    const SUPABASE_ANON = "sb_publishable_KIGYo0gheSoB6DqG_o6IxQ_ceB2xcww";
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+    async function carregarProposta() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get('id');
+
+      if (!id) {
+        document.getElementById('loading').innerHTML = '<p class="text-zinc-500">Proposta não encontrada.</p>';
+        return;
+      }
+
+      const { data, error } = await supabase
+        .from('propostas')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      document.getElementById('loading').classList.add('hidden');
+
+      if (error || !data) {
+        document.getElementById('telaExpirada').classList.remove('hidden');
+        return;
+      }
+
+      // Verificação dos 15 dias de expiração
+      const dataCriacao = new Date(data.created_at);
+      const agora = new Date();
+      const diferencaDias = (agora - dataCriacao) / (1000 * 60 * 60 * 24);
+
+      if (diferencaDias > 15) {
+        document.getElementById('telaExpirada').classList.remove('hidden');
+        return;
+      }
+
+      // Preenchimento dos dados do evento
+      document.getElementById('conteudoPrincipal').classList.remove('hidden');
+      document.getElementById('tituloCliente').innerText = `Briefing para ${data.cliente}`;
+
+      const grid = document.getElementById('gridDados');
+      grid.innerHTML = `
+        <div><span class="text-zinc-500 block text-xs">Data:</span><strong>${data.data_evento || 'A combinar'}</strong></div>
+        <div><span class="text-zinc-500 block text-xs">Início:</span><strong>${data.horario || 'A combinar'}</strong></div>
+        <div><span class="text-zinc-500 block text-xs">Convidados:</span><strong>${data.convidados || 'Não informado'}</strong></div>
+        <div><span class="text-zinc-500 block text-xs">Tipo de Festa:</span><strong>${data.tipo_festa || 'Evento'}</strong></div>
+        <div class="col-span-2"><span class="text-zinc-500 block text-xs">Local:</span><strong>${data.local || 'A definir'}</strong></div>
+        ${data.modalidade_sugerida ? `<div class="col-span-2 bg-amber-500/10 p-2 rounded border border-amber-500/20 text-amber-300"><span class="text-xs block text-amber-400">Modalidade Sugerida:</span><strong>${data.modalidade_sugerida}</strong></div>` : ''}
+      `;
+
+      // Lista de shows
+      const listaShows = document.getElementById('listaShows');
+      data.shows.forEach(show => {
+        const msgWhats = encodeURIComponent(`Olá Jack! Vi a proposta para o evento do dia ${data.data_evento || ''} e escolhi a modalidade: ${show.nome}!`);
+        const card = document.createElement('div');
+        card.className = "bg-zinc-900 border border-zinc-800 p-5 rounded-2xl flex flex-col justify-between gap-4";
+        card.innerHTML = `
+          <div>
+            <div class="flex justify-between items-baseline mb-1">
+              <h4 class="font-bold text-white text-base">${show.nome}</h4>
+              <span class="text-amber-400 font-extrabold text-sm">${show.preco}</span>
+            </div>
+            <p class="text-xs text-zinc-400 leading-relaxed">${show.desc}</p>
+          </div>
+          <a href="https://wa.me/5531987114131?text=${msgWhats}" target="_blank" class="w-full text-center py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 text-black font-bold text-xs rounded-xl hover:brightness-110 transition">
+            Escolher ${show.nome}
+          </a>
+        `;
+        listaShows.appendChild(card);
+      });
+
+      // Módulos facultativos
+      if (data.secoes?.bio) document.getElementById('boxBio').classList.remove('hidden');
+      if (data.secoes?.motivos) document.getElementById('boxMotivos').classList.remove('hidden');
+      if (data.secoes?.midias) document.getElementById('boxMidias').classList.remove('hidden');
+      if (data.secoes?.pagamento) document.getElementById('boxPagamento').classList.remove('hidden');
+    }
+
+    carregarProposta();
+  </script>
+</body>
+</html>
