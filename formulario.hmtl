@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planejamento do seu Evento - Jack Ilusionista</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-serif-gold { font-family: 'Cinzel', serif; }
+    .gold-gradient { background: linear-gradient(135deg, #fce082 0%, #d4af37 50%, #996515 100%); }
+    .gold-border { border: 1px solid rgba(212, 175, 55, 0.25); }
+  </style>
+</head>
+<body class="bg-[#09090b] text-zinc-100 p-4 min-h-screen">
+  <div class="max-w-lg mx-auto py-8 space-y-6">
+
+    <header class="text-center space-y-2">
+      <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold">Jack Ilusionista</span>
+      <h1 class="font-serif-gold text-2xl md:text-3xl font-bold text-white">Dados para sua Proposta</h1>
+      <p class="text-xs text-zinc-400 max-w-sm mx-auto">
+        Preencha os detalhes do seu evento abaixo para que eu possa montar uma apresentação sob medida para você.
+      </p>
+    </header>
+
+    <div class="bg-zinc-900/80 gold-border p-6 rounded-3xl space-y-4 shadow-xl">
+      <div>
+        <label class="block text-xs font-semibold text-zinc-300">Seu Nome Completo *</label>
+        <input type="text" id="cli_nome" placeholder="Ex: Maria Clara Ferreira" class="w-full mt-1.5 p-3 bg-zinc-800 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400">
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-semibold text-zinc-300">Data do Evento *</label>
+          <input type="text" id="cli_data" placeholder="Ex: 15/11/2026" class="w-full mt-1.5 p-3 bg-zinc-800 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-zinc-300">Horário Previsto</label>
+          <input type="text" id="cli_horario" placeholder="Ex: 20:00" class="w-full mt-1.5 p-3 bg-zinc-800 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-semibold text-zinc-300">Nº Estimado de Pessoas</label>
+          <input type="text" id="cli_convidados" placeholder="Ex: 80 convidados" class="w-full mt-1.5 p-3 bg-zinc-800 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-zinc-300">Tipo de Evento</label>
+          <input type="text" id="cli_tipo" placeholder="Ex: Casamento / Aniversário" class="w-full mt-1.5 p-3 bg-zinc-800 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400">
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-zinc-300">Local ou Bairro / Cidade</label>
+        <input type="text" id="cli_local" placeholder="Ex: Bairro Lourdes, BH" class="w-full mt-1.5 p-3 bg-zinc-800 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400">
+      </div>
+
+      <button type="button" id="btnEnviar" onclick="enviarDados()" class="w-full mt-2 py-4 gold-gradient text-black font-extrabold text-sm uppercase tracking-wider rounded-xl shadow-lg hover:brightness-110 active:scale-95 transition">
+        Enviar Detalhes do Evento
+      </button>
+    </div>
+
+    <div id="sucesso" class="hidden text-center p-6 bg-zinc-900 gold-border rounded-3xl space-y-3">
+      <i class="fa-solid fa-circle-check text-4xl text-amber-400"></i>
+      <h3 class="font-serif-gold text-lg font-bold text-white">Dados recebidos com sucesso!</h3>
+      <p class="text-xs text-zinc-400">Já estou montando a sua proposta exclusiva com as melhores opções para o seu evento. Em breve você receberá o link personalizado!</p>
+    </div>
+  </div>
+
+  <script>
+    const SUPABASE_URL = "https://ilvzmuvxloqrpqbuyvrb.supabase.co";
+    const SUPABASE_ANON = "sb_publishable_KIGYo0gheSoB6DqG_o6IxQ_ceB2xcww";
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+    async function enviarDados() {
+      const nome = document.getElementById('cli_nome').value.trim();
+      const dataEv = document.getElementById('cli_data').value.trim();
+
+      if (!nome) {
+        alert('Por favor, informe seu nome.');
+        return;
+      }
+
+      const btn = document.getElementById('btnEnviar');
+      btn.innerText = 'Enviando dados...';
+      btn.disabled = true;
+
+      try {
+        const payload = {
+          cliente: nome,
+          data_evento: dataEv,
+          horario: document.getElementById('cli_horario').value,
+          convidados: document.getElementById('cli_convidados').value,
+          tipo_festa: document.getElementById('cli_tipo').value,
+          local: document.getElementById('cli_local').value,
+          status: 'pendente',
+          shows: [],
+          secoes: { bio: true, motivos: true, midias: true, pagamento: true }
+        };
+
+        const { error } = await supabase.from('propostas').insert([payload]);
+
+        if (error) {
+          alert('Erro ao enviar dados: ' + error.message);
+          btn.innerText = 'Enviar Detalhes do Evento';
+          btn.disabled = false;
+          return;
+        }
+
+        document.querySelector('.bg-zinc-900\\/80').classList.add('hidden');
+        document.getElementById('sucesso').classList.remove('hidden');
+
+      } catch (err) {
+        alert('Erro inesperado: ' + err.message);
+        btn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>
