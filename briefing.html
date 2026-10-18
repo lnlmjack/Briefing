@@ -3,86 +3,199 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Briefing Exclusivo - Jack Ilusionista</title>
+  <title>Apresentação Exclusiva - Jack Ilusionista</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-serif-gold { font-family: 'Cinzel', serif; }
+    .gold-gradient {
+      background: linear-gradient(135deg, #fce082 0%, #d4af37 50%, #996515 100%);
+    }
+    .gold-border {
+      border: 1px solid rgba(212, 175, 55, 0.25);
+    }
+    .gold-glow {
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
+    }
+  </style>
 </head>
-<body class="bg-black text-zinc-200 antialiased font-sans selection:bg-amber-500 selection:text-black">
+<body class="bg-[#09090b] text-zinc-200 antialiased selection:bg-[#d4af37] selection:text-black">
 
-  <!-- Mensagem de Expiracao (15 dias) -->
+  <!-- Tela Expirada -->
   <div id="telaExpirada" class="hidden min-h-screen flex items-center justify-center p-6 text-center">
-    <div class="max-w-md bg-zinc-900 border border-zinc-800 p-8 rounded-2xl space-y-4">
-      <i class="fa-solid fa-hourglass-end text-4xl text-amber-500"></i>
-      <h1 class="text-xl font-bold text-white">Proposta Expirada</h1>
-      <p class="text-sm text-zinc-400">Esta proposta exclusiva tinha validade de 15 dias e expirou. Entre em contato para verificar a disponibilidade de agenda atualizada.</p>
-      <a href="https://wa.me/5531987114131" class="inline-block px-6 py-3 bg-amber-500 text-black font-semibold rounded-xl text-sm">Falar com Jack Ilusionista</a>
+    <div class="max-w-md bg-zinc-900/90 gold-border p-8 rounded-3xl space-y-4 shadow-2xl">
+      <i class="fa-solid fa-hourglass-end text-5xl text-amber-400"></i>
+      <h1 class="font-serif-gold text-2xl font-bold text-white tracking-wide">Proposta Expirada</h1>
+      <p class="text-sm text-zinc-400 leading-relaxed">
+        Esta proposta exclusiva possuía validade de 15 dias corridos. Para verificar a disponibilidade de agenda ou solicitar uma nova cotação, fale diretamente comigo.
+      </p>
+      <a href="https://wa.me/5531987114131" class="inline-flex items-center gap-2 px-6 py-3.5 gold-gradient text-black font-bold rounded-xl text-sm shadow-lg hover:brightness-110 transition">
+        <i class="fa-brands fa-whatsapp text-lg"></i> Falar com Jack Ilusionista
+      </a>
     </div>
   </div>
 
-  <!-- Loading / Mensagem de Erro -->
+  <!-- Loading -->
   <div id="loading" class="min-h-screen flex flex-col items-center justify-center p-4 text-center">
-    <div id="spinner" class="animate-spin rounded-full h-10 w-10 border-t-2 border-amber-500 mb-4"></div>
-    <p id="loadingTexto" class="text-xs text-zinc-500">Carregando briefing exclusivo...</p>
+    <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-400 mb-4"></div>
+    <p class="text-xs tracking-widest uppercase text-amber-300 font-semibold">Carregando briefing exclusivo...</p>
   </div>
 
-  <!-- Conteudo Principal -->
-  <main id="conteudoPrincipal" class="hidden max-w-2xl mx-auto px-4 py-8 space-y-10">
+  <!-- Conteúdo Principal -->
+  <main id="conteudoPrincipal" class="hidden max-w-2xl mx-auto px-4 py-10 space-y-12">
 
-    <header class="text-center space-y-2">
-      <span class="text-xs uppercase tracking-widest text-amber-500 font-semibold">Apresentacao Exclusiva</span>
-      <h1 class="text-3xl font-extrabold text-white" id="tituloCliente"></h1>
-      <p class="text-xs text-zinc-400">Jack Ilusionista • Experiência Inesquecível de Mágica e Humor</p>
+    <!-- Hero / Header com Foto de Capa -->
+    <header class="text-center space-y-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs tracking-widest uppercase font-semibold">
+        <i class="fa-solid fa-sparkles"></i> Proposta Personalizada
+      </div>
+      
+      <h1 class="font-serif-gold text-3xl md:text-4xl font-extrabold text-white tracking-tight" id="tituloCliente"></h1>
+      <p class="text-sm text-zinc-400 max-w-md mx-auto">
+        Uma experiência imersiva de ilusionismo moderno e alta comédia desenhada especialmente para você e seus convidados.
+      </p>
+
+      <!-- Banner de Foto Artística -->
+      <div class="relative w-full h-56 md:h-64 rounded-3xl overflow-hidden gold-border gold-glow mt-6 group">
+        <img 
+          src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80" 
+          alt="Show Jack Ilusionista" 
+          class="w-full h-full object-cover object-center filter brightness-90 contrast-105 group-hover:scale-105 transition duration-700"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent flex items-end p-6">
+          <div>
+            <p class="font-serif-gold text-lg font-bold text-amber-300">Jack Ilusionista</p>
+            <p class="text-xs text-zinc-300">O espetáculo certo para quem não quer um evento comum</p>
+          </div>
+        </div>
+      </div>
     </header>
 
-    <section class="bg-zinc-900/80 border border-amber-500/20 rounded-2xl p-6 shadow-xl backdrop-blur">
-      <h2 class="text-xs font-bold uppercase tracking-wider text-amber-400 mb-4 flex items-center gap-2">
-        <i class="fa-solid fa-calendar-check"></i> Dados do Evento
-      </h2>
-      <div class="grid grid-cols-2 gap-4 text-sm" id="gridDados"></div>
+    <!-- Dados do Evento -->
+    <section class="bg-zinc-900/70 gold-border rounded-3xl p-6 md:p-8 backdrop-blur shadow-xl relative overflow-hidden">
+      <div class="flex items-center justify-between border-b border-zinc-800 pb-4 mb-6">
+        <h2 class="font-serif-gold text-base font-bold text-amber-300 flex items-center gap-2">
+          <i class="fa-solid fa-calendar-check text-amber-400"></i> Resumo do seu Evento
+        </h2>
+        <span class="text-[11px] text-zinc-500 font-mono">CONFIDENCIAL</span>
+      </div>
+      <div class="grid grid-cols-2 gap-y-5 gap-x-4 text-sm" id="gridDados"></div>
     </section>
 
-    <section class="space-y-4">
-      <h2 class="text-lg font-bold text-white flex items-center gap-2">
-        <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Opções de Show para o seu Evento
-      </h2>
-      <div id="listaShows" class="space-y-4"></div>
+    <!-- Modalidades e Apresentações -->
+    <section class="space-y-6">
+      <div class="space-y-1">
+        <h2 class="font-serif-gold text-2xl font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Opções de Show Selecionadas
+        </h2>
+        <p class="text-xs text-zinc-400">Escolha o formato que melhor se adapta à dinâmica do seu local e público:</p>
+      </div>
+
+      <div id="listaShows" class="space-y-6"></div>
     </section>
 
-    <section id="boxBio" class="hidden bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 space-y-3">
-      <h3 class="text-base font-bold text-amber-400">Quem é Jack Ilusionista</h3>
-      <p class="text-xs leading-relaxed text-zinc-300">
-        Com mais de 29 anos de trajetória e mais de 2.500 apresentações realizadas, Jack combina técnicas de ilusionismo moderno, humor afiado e improvisação teatral para transformar os espectadores em testemunhas do impossível[cite: 3, 4].
+    <!-- Bio: Quem é Jack -->
+    <section id="boxBio" class="hidden bg-zinc-900/60 gold-border rounded-3xl p-6 md:p-8 space-y-4">
+      <div class="flex items-center gap-4">
+        <div class="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-300 text-2xl">
+          <i class="fa-solid fa-hat-wizard"></i>
+        </div>
+        <div>
+          <h3 class="font-serif-gold text-lg font-bold text-amber-300">Quem é Jack Ilusionista</h3>
+          <p class="text-xs text-zinc-400">Trajetória e Excelência em Palco</p>
+        </div>
+      </div>
+      <p class="text-sm leading-relaxed text-zinc-300">
+        Com mais de 29 anos de trajetória e mais de 1.500 apresentações realizadas, Jack combina técnicas de ilusionismo moderno, humor afiado e improvisação teatral para transformar os espectadores em testemunhas do impossível. Cada espetáculo é conduzido com ritmo cinematográfico, garantindo gargalhadas e espanto do início ao fim.
       </p>
     </section>
 
-    <section id="boxMotivos" class="hidden bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 space-y-3">
-      <h3 class="text-base font-bold text-amber-400">Por que Contratar?</h3>
-      <ul class="text-xs space-y-2 text-zinc-300">
-        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-amber-500 mt-0.5"></i> <span><strong>Entretenimento que vira assunto:</strong> humor inteligente e impacto real[cite: 5].</span></li>
-        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-amber-500 mt-0.5"></i> <span><strong>Interatividade total:</strong> o público participa ativamente[cite: 5].</span></li>
-        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-amber-500 mt-0.5"></i> <span><strong>Performance adaptável:</strong> formato sob medida para o seu evento[cite: 5].</span></li>
-      </ul>
+    <!-- Por que Contratar -->
+    <section id="boxMotivos" class="hidden bg-zinc-900/60 gold-border rounded-3xl p-6 md:p-8 space-y-4">
+      <h3 class="font-serif-gold text-lg font-bold text-amber-300 flex items-center gap-2">
+        <i class="fa-solid fa-crown text-amber-400"></i> O Diferencial da Apresentação
+      </h3>
+      <div class="grid gap-3 text-xs md:text-sm text-zinc-300">
+        <div class="p-3.5 bg-black/40 border border-zinc-800 rounded-xl flex items-start gap-3">
+          <i class="fa-solid fa-check text-amber-400 mt-1"></i>
+          <div>
+            <strong class="text-white block mb-0.5">Entretenimento que vira assunto:</strong>
+            Humor inteligente, participativo e sem constrangimento para os convidados.
+          </div>
+        </div>
+        <div class="p-3.5 bg-black/40 border border-zinc-800 rounded-xl flex items-start gap-3">
+          <i class="fa-solid fa-check text-amber-400 mt-1"></i>
+          <div>
+            <strong class="text-white block mb-0.5">Interatividade total:</strong>
+            O público é o protagonista de momentos mágicos que acontecem na mão deles.
+          </div>
+        </div>
+        <div class="p-3.5 bg-black/40 border border-zinc-800 rounded-xl flex items-start gap-3">
+          <i class="fa-solid fa-check text-amber-400 mt-1"></i>
+          <div>
+            <strong class="text-white block mb-0.5">Adaptação sob medida:</strong>
+            Formato técnico e sonoro flexível tanto para salas íntimas quanto para grandes auditórios.
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section id="boxMidias" class="hidden space-y-3">
-      <h3 class="text-base font-bold text-white flex items-center gap-2">
-        <i class="fa-brands fa-instagram text-amber-400"></i> Veja no Instagram
-      </h3>
-      <a href="https://www.instagram.com/jackilusionista" target="_blank" class="block bg-gradient-to-r from-zinc-900 to-zinc-800 border border-zinc-700 p-4 rounded-xl hover:border-amber-500 transition text-center text-sm font-semibold text-amber-300 flex items-center justify-center gap-2">
-        <i class="fa-brands fa-instagram text-lg"></i> Acompanhe bastidores e vídeos no @jackilusionista[cite: 17]
+    <!-- Galeria / Instagram Teaser -->
+    <section id="boxMidias" class="hidden space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="font-serif-gold text-lg font-bold text-white flex items-center gap-2">
+          <i class="fa-brands fa-instagram text-amber-400"></i> Vídeos e Bastidores
+        </h3>
+        <span class="text-xs text-amber-400 font-semibold">@jackilusionista</span>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <a href="https://www.instagram.com/jackilusionista" target="_blank" class="group relative rounded-2xl overflow-hidden gold-border h-44 bg-zinc-900 block">
+          <img src="https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&w=600&q=80" alt="Show" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 filter brightness-90">
+          <div class="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/20 transition">
+            <div class="w-10 h-10 rounded-full bg-amber-500/90 text-black flex items-center justify-center text-sm shadow-lg">
+              <i class="fa-solid fa-play ml-0.5"></i>
+            </div>
+          </div>
+          <div class="absolute bottom-2 left-2 text-[11px] font-semibold text-white drop-shadow">Show ao Vivo</div>
+        </a>
+
+        <a href="https://www.instagram.com/jackilusionista" target="_blank" class="group relative rounded-2xl overflow-hidden gold-border h-44 bg-zinc-900 block">
+          <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=600&q=80" alt="Mágica de Perto" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 filter brightness-90">
+          <div class="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/20 transition">
+            <div class="w-10 h-10 rounded-full bg-amber-500/90 text-black flex items-center justify-center text-sm shadow-lg">
+              <i class="fa-solid fa-play ml-0.5"></i>
+            </div>
+          </div>
+          <div class="absolute bottom-2 left-2 text-[11px] font-semibold text-white drop-shadow">Reações do Público</div>
+        </a>
+      </div>
+
+      <a href="https://www.instagram.com/jackilusionista" target="_blank" class="w-full py-3.5 bg-zinc-900 gold-border rounded-xl hover:border-amber-400 text-center text-xs font-bold text-amber-300 flex items-center justify-center gap-2 transition">
+        <i class="fa-brands fa-instagram text-base"></i> Abrir perfil completo no Instagram
       </a>
     </section>
 
-    <section id="boxPagamento" class="hidden bg-zinc-900/40 border border-zinc-800 rounded-2xl p-5 text-xs text-zinc-400 space-y-2">
-      <h4 class="font-bold text-zinc-200">Condições Comerciais[cite: 6, 7]</h4>
-      <p>• <strong>Pagamento:</strong> 50% de sinal para reserva da data e 50% antes do início da apresentação[cite: 14, 15]. Aceitamos PIX e parcelamento no cartão em até 10x com taxas[cite: 7, 8, 14, 15].</p>
-      <p>• <strong>Validade:</strong> Proposta exclusiva com valores garantidos por 15 dias corridos.</p>
+    <!-- Condições Comerciais -->
+    <section id="boxPagamento" class="hidden bg-zinc-900/40 gold-border rounded-3xl p-6 text-xs text-zinc-400 space-y-3">
+      <h4 class="font-serif-gold text-sm font-bold text-white uppercase tracking-wider">Condições Comerciais</h4>
+      <p class="leading-relaxed">
+        • <strong class="text-zinc-200">Forma de Pagamento:</strong> 50% de sinal para bloqueio exclusivo da data na agenda e 50% antes do início da apresentação. Aceitamos PIX e parcelamento no cartão de crédito em até 10x com as taxas da maquininha.
+      </p>
+      <p class="leading-relaxed">
+        • <strong class="text-zinc-200">Garantia de Data:</strong> Os valores e a disponibilidade apresentados neste link são válidos por 15 dias corridos.
+      </p>
     </section>
 
-    <footer class="pt-6 border-t border-zinc-800 text-center text-xs text-zinc-500 space-y-2">
-      <p>Jack Ilusionista • Belo Horizonte e Região[cite: 5, 17]</p>
-      <p>CNPJ: 66.723.962-0001-87[cite: 17]</p>
+    <!-- Footer -->
+    <footer class="pt-8 border-t border-zinc-900 text-center text-xs text-zinc-500 space-y-2">
+      <p class="font-serif-gold text-amber-400 font-bold">Jack Ilusionista • Belo Horizonte e Região</p>
+      <p>CNPJ: 66.723.962-0001-87</p>
     </footer>
 
   </main>
@@ -97,8 +210,7 @@
       const id = urlParams.get('id');
 
       if (!id) {
-        document.getElementById('spinner').classList.add('hidden');
-        document.getElementById('loadingTexto').innerText = 'Identificador da proposta ausente.';
+        document.getElementById('loading').innerHTML = '<p class="text-xs text-red-400">Identificador da proposta ausente.</p>';
         return;
       }
 
@@ -110,7 +222,6 @@
           .single();
 
         if (error || !data) {
-          console.error("Erro busca proposta:", error);
           document.getElementById('loading').classList.add('hidden');
           document.getElementById('telaExpirada').classList.remove('hidden');
           return;
@@ -128,34 +239,53 @@
 
         document.getElementById('loading').classList.add('hidden');
         document.getElementById('conteudoPrincipal').classList.remove('hidden');
-        document.getElementById('tituloCliente').innerText = `Briefing para ${data.cliente}`;
+        document.getElementById('tituloCliente').innerText = `Apresentação para ${data.cliente}`;
 
         const grid = document.getElementById('gridDados');
         grid.innerHTML = `
-          <div><span class="text-zinc-500 block text-xs">Data:</span><strong>${data.data_evento || 'A combinar'}</strong></div>
-          <div><span class="text-zinc-500 block text-xs">Início:</span><strong>${data.horario || 'A combinar'}</strong></div>
-          <div><span class="text-zinc-500 block text-xs">Convidados:</span><strong>${data.convidados || 'Não informado'}</strong></div>
-          <div><span class="text-zinc-500 block text-xs">Tipo de Festa:</span><strong>${data.tipo_festa || 'Evento'}</strong></div>
-          <div class="col-span-2"><span class="text-zinc-500 block text-xs">Local:</span><strong>${data.local || 'A definir'}</strong></div>
-          ${data.modalidade_sugerida ? `<div class="col-span-2 bg-amber-500/10 p-2 rounded border border-amber-500/20 text-amber-300"><span class="text-xs block text-amber-400">Modalidade Sugerida:</span><strong>${data.modalidade_sugerida}</strong></div>` : ''}
+          <div><span class="text-zinc-500 block text-xs uppercase tracking-wider mb-1">Data:</span><strong class="text-white text-base">${data.data_evento || 'A combinar'}</strong></div>
+          <div><span class="text-zinc-500 block text-xs uppercase tracking-wider mb-1">Horário Previsto:</span><strong class="text-white text-base">${data.horario || 'A combinar'}</strong></div>
+          <div><span class="text-zinc-500 block text-xs uppercase tracking-wider mb-1">Público:</span><strong class="text-white text-base">${data.convidados || 'Não informado'}</strong></div>
+          <div><span class="text-zinc-500 block text-xs uppercase tracking-wider mb-1">Ocasião:</span><strong class="text-white text-base">${data.tipo_festa || 'Evento'}</strong></div>
+          <div class="col-span-2"><span class="text-zinc-500 block text-xs uppercase tracking-wider mb-1">Localização:</span><strong class="text-white text-base">${data.local || 'A definir'}</strong></div>
+          ${data.modalidade_sugerida ? `<div class="col-span-2 bg-amber-500/10 p-3 rounded-2xl border border-amber-500/20 text-amber-300"><span class="text-[11px] block uppercase tracking-wider text-amber-400 font-bold mb-0.5">Sugestão Recomendada:</span><strong>${data.modalidade_sugerida}</strong></div>` : ''}
         `;
 
         const listaShows = document.getElementById('listaShows');
         if (data.shows && Array.isArray(data.shows)) {
           data.shows.forEach(show => {
-            const msgWhats = encodeURIComponent(`Olá Jack! Vi a proposta para o evento do dia ${data.data_evento || ''} e escolhi a modalidade: ${show.nome}!`);
+            const msgWhats = encodeURIComponent(`Olá Jack! Acessei o briefing para o evento do dia ${data.data_evento || ''} e escolhi a opção: ${show.nome}! Vamos fechar?`);
+            const isLasVegas = show.nome.includes('Las Vegas');
+
             const card = document.createElement('div');
-            card.className = "bg-zinc-900 border border-zinc-800 p-5 rounded-2xl flex flex-col justify-between gap-4";
+            card.className = "bg-zinc-900/80 gold-border p-6 rounded-3xl space-y-4 shadow-xl";
             card.innerHTML = `
-              <div>
-                <div class="flex justify-between items-baseline mb-1">
-                  <h4 class="font-bold text-white text-base">${show.nome}</h4>
-                  <span class="text-amber-400 font-extrabold text-sm">${show.preco}</span>
+              <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-zinc-800/80 pb-3">
+                <div>
+                  <h4 class="font-serif-gold font-bold text-lg text-white">${show.nome}</h4>
+                  <span class="text-xs text-amber-400 font-semibold tracking-wide">${isLasVegas ? 'Mágica de Proximidade / Close-up' : 'Performance Exclusiva'}</span>
                 </div>
-                <p class="text-xs text-zinc-400 leading-relaxed">${show.desc}</p>
+                <div class="text-left md:text-right">
+                  <span class="text-xs text-zinc-500 block">Investimento</span>
+                  <span class="text-xl font-extrabold text-amber-300 font-mono">${show.preco}</span>
+                </div>
               </div>
-              <a href="https://wa.me/5531987114131?text=${msgWhats}" target="_blank" class="w-full text-center py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 text-black font-bold text-xs rounded-xl hover:brightness-110 transition">
-                Escolher ${show.nome}
+
+              ${isLasVegas ? `
+                <div class="p-3.5 bg-black/50 rounded-2xl border border-zinc-800 space-y-2 text-xs text-zinc-300">
+                  <p class="font-semibold text-amber-300 flex items-center gap-1.5">
+                    <i class="fa-solid fa-circle-info"></i> Como funciona esta experiência:
+                  </p>
+                  <p class="leading-relaxed">
+                    Eu circulo livremente entre os convidados, parando de mesa em mesa ou nos grupos de bate-papo. Mágicas com cartas, moedas, anéis emprestados e leitura de pensamentos acontecem a poucos centímetros dos olhos de cada pessoa (1h a 1h30 de duração). Quebra o gelo da festa instantaneamente e gera gargalhadas e reações espontâneas sem exigir palco.
+                  </p>
+                </div>
+              ` : `
+                <p class="text-xs text-zinc-400 leading-relaxed">${show.desc}</p>
+              `}
+
+              <a href="https://wa.me/5531987114131?text=${msgWhats}" target="_blank" class="w-full text-center py-3.5 gold-gradient text-black font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-lg hover:brightness-110 active:scale-95 transition flex items-center justify-center gap-2">
+                <i class="fa-brands fa-whatsapp text-base"></i> Escolher ${show.nome}
               </a>
             `;
             listaShows.appendChild(card);
@@ -168,9 +298,7 @@
         if (data.secoes?.pagamento) document.getElementById('boxPagamento').classList.remove('hidden');
 
       } catch (err) {
-        console.error("Erro geral no briefing:", err);
-        document.getElementById('spinner').classList.add('hidden');
-        document.getElementById('loadingTexto').innerText = 'Erro ao processar briefing: ' + err.message;
+        document.getElementById('loading').innerHTML = '<p class="text-xs text-red-400">Erro ao processar briefing: ' + err.message + '</p>';
       }
     }
 
