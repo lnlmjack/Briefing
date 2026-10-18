@@ -13,6 +13,9 @@
     .font-serif-gold { font-family: 'Cinzel', serif; }
     .gold-gradient { background: linear-gradient(135deg, #fce082 0%, #d4af37 50%, #996515 100%); }
     .gold-border { border: 1px solid rgba(212, 175, 55, 0.25); }
+    /* Força visualmente todas as entradas a ficarem em letras maiúsculas */
+    input, textarea { text-transform: uppercase; }
+    input::placeholder, textarea::placeholder { text-transform: none; }
   </style>
 </head>
 <body class="bg-[#09090b] text-zinc-100 p-4 min-h-screen flex items-center justify-center">
@@ -29,46 +32,44 @@
     <div id="cardForm" class="bg-zinc-900/80 gold-border p-6 rounded-3xl space-y-4 shadow-2xl backdrop-blur-sm">
       <div>
         <label class="block text-xs font-semibold text-zinc-300">Seu Nome Completo *</label>
-        <input type="text" id="cli_nome" placeholder="Ex: Maria Clara Ferreira" class="w-full mt-1.5 p-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition">
+        <input type="text" id="cli_nome" placeholder="Ex: Maria Clara Ferreira" class="w-full mt-1.5 p-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition uppercase">
       </div>
 
       <div class="grid grid-cols-2 gap-3">
         <div>
           <label class="block text-xs font-semibold text-zinc-300">Data do Evento *</label>
-          <input type="text" id="cli_data" placeholder="Ex: 15/11/2026" class="w-full mt-1.5 p-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition">
+          <input type="text" id="cli_data" placeholder="Ex: 15/11/2026" class="w-full mt-1.5 p-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition uppercase">
         </div>
         <div>
           <label class="block text-xs font-semibold text-zinc-300">Horário Previsto</label>
-          <input type="text" id="cli_horario" placeholder="Ex: 20:00" class="w-full mt-1.5 p-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition">
+          <input type="text" id="cli_horario" placeholder="Ex: 20:00" class="w-full mt-1.5 p-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition uppercase">
         </div>
       </div>
 
       <div class="grid grid-cols-2 gap-3">
         <div>
           <label class="block text-xs font-semibold text-zinc-300">Nº Estimado de Pessoas</label>
-          <input type="text" id="cli_convidados" placeholder="Ex: 80 convidados" class="w-full mt-1.5 p-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition">
+          <input type="text" id="cli_convidados" placeholder="Ex: 80 convidados" class="w-full mt-1.5 p-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition uppercase">
         </div>
         <div>
           <label class="block text-xs font-semibold text-zinc-300">Tipo de Evento</label>
-          <input type="text" id="cli_tipo" placeholder="Ex: Casamento / Aniversário" class="w-full mt-1.5 p-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition">
+          <input type="text" id="cli_tipo" placeholder="Ex: Casamento / Aniversário" class="w-full mt-1.5 p-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition uppercase">
         </div>
       </div>
 
       <div>
         <label class="block text-xs font-semibold text-zinc-300">Local ou Bairro / Cidade</label>
-        <input type="text" id="cli_local" placeholder="Ex: Bairro Lourdes, BH" class="w-full mt-1.5 p-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition">
+        <input type="text" id="cli_local" placeholder="Ex: Bairro Lourdes, BH" class="w-full mt-1.5 p-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition uppercase">
       </div>
 
-      <!-- NOVO CAMPO: WhatsApp do Cliente -->
       <div>
         <label class="block text-xs font-semibold text-zinc-300">Seu WhatsApp / Telefone</label>
-        <input type="text" id="cli_telefone" placeholder="Ex: (31) 99999-9999" class="w-full mt-1.5 p-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition">
+        <input type="text" id="cli_telefone" placeholder="Ex: (31) 99999-9999" class="w-full mt-1.5 p-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition uppercase">
       </div>
 
-      <!-- NOVO CAMPO: Observações Importantes -->
       <div>
         <label class="block text-xs font-semibold text-zinc-300">Observações que achar importante colocar</label>
-        <textarea id="cli_obs" rows="3" placeholder="Ex: É surpresa para o noivo, espaço pequeno, presença de muitas crianças, etc." class="w-full mt-1.5 p-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 resize-none transition"></textarea>
+        <textarea id="cli_obs" rows="3" placeholder="Ex: É surpresa para o noivo, espaço pequeno, presença de muitas crianças, etc." class="w-full mt-1.5 p-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 resize-none transition uppercase"></textarea>
       </div>
 
       <button type="button" id="btnEnviar" onclick="enviarDados()" class="w-full mt-2 py-4 gold-gradient text-black font-extrabold text-sm uppercase tracking-wider rounded-xl shadow-lg hover:brightness-110 active:scale-95 transition">
@@ -76,7 +77,6 @@
       </button>
     </div>
 
-    <!-- Tela de Sucesso -->
     <div id="sucesso" class="hidden text-center p-8 bg-zinc-900/90 gold-border rounded-3xl space-y-4 shadow-2xl">
       <i class="fa-solid fa-circle-check text-5xl text-amber-400"></i>
       <h3 class="font-serif-gold text-xl font-bold text-white">Dados enviados com sucesso!</h3>
@@ -92,8 +92,8 @@
     const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
     async function enviarDados() {
-      const nome = document.getElementById('cli_nome').value.trim();
-      const dataEv = document.getElementById('cli_data').value.trim();
+      const nome = document.getElementById('cli_nome').value.trim().toUpperCase();
+      const dataEv = document.getElementById('cli_data').value.trim().toUpperCase();
 
       if (!nome) {
         alert('Por favor, indique o seu nome completo.');
@@ -101,19 +101,19 @@
       }
 
       const btn = document.getElementById('btnEnviar');
-      btn.innerText = 'A enviar dados...';
+      btn.innerText = 'A ENVIAR DADOS...';
       btn.disabled = true;
 
       try {
         const payload = {
           cliente: nome,
           data_evento: dataEv,
-          horario: document.getElementById('cli_horario').value.trim(),
-          convidados: document.getElementById('cli_convidados').value.trim(),
-          tipo_festa: document.getElementById('cli_tipo').value.trim(),
-          local: document.getElementById('cli_local').value.trim(),
-          observacoes: document.getElementById('cli_obs').value.trim(),
-          telefone: document.getElementById('cli_telefone').value.trim(),
+          horario: document.getElementById('cli_horario').value.trim().toUpperCase(),
+          convidados: document.getElementById('cli_convidados').value.trim().toUpperCase(),
+          tipo_festa: document.getElementById('cli_tipo').value.trim().toUpperCase(),
+          local: document.getElementById('cli_local').value.trim().toUpperCase(),
+          observacoes: document.getElementById('cli_obs').value.trim().toUpperCase(),
+          telefone: document.getElementById('cli_telefone').value.trim().toUpperCase(),
           status: 'pendente',
           shows: [],
           secoes: { bio: true, motivos: true, midias: true, pagamento: true }
