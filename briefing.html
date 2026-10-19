@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR"><head><meta charset="UTF-8">
-<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","errorBeacon":"bam.nr-data.net","licenseKey":"NRBR-79c55be788cf6d20c36","applicationID":"552100530","transactionName":"el0NTBAMDVxdSxoFSVAdFQlNAAlRTBZUFk1QVAJbFhBOU1dXQQFXTQ==","queueTime":0,"applicationTime":229,"agent":""}</script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Proposta Personalizada - Jack Ilusionista</title>
 <script src="https://cdn.tailwindcss.com"></script>
@@ -35,6 +34,13 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#050507;color:#f4f4f5
 </section>
 
 <div id="aviso" class="hidden card p-6 text-center text-amber-300">Não foi possível localizar esta proposta. Peça ao Jack um novo link.</div>
+
+<div id="expirado" class="hidden card p-8 text-center space-y-3">
+<i class="fa-regular fa-clock text-4xl text-amber-400"></i>
+<p class="font-gold text-xl">Esta proposta expirou</p>
+<p class="text-sm text-zinc-400 max-w-sm mx-auto">O prazo de validade deste orçamento já passou. Fale com o Jack para solicitar uma nova proposta atualizada.</p>
+<a href="https://api.whatsapp.com/send?phone=5531987114131" target="_blank" rel="noopener" class="gold-btn inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs mt-2"><i class="fa-brands fa-whatsapp"></i>Pedir Novo Orçamento</a>
+</div>
 
 <div id="conteudo" class="hidden space-y-7">
 
@@ -109,8 +115,11 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#050507;color:#f4f4f5
 
 <section class="card p-6 sm:p-8 space-y-3">
 <h2 class="font-gold text-lg flex items-center gap-2"><i class="fa-solid fa-circle-info text-amber-400"></i>Observações Importantes & Prazos</h2>
+<div class="bg-amber-500/10 border border-amber-400/40 rounded-xl p-4 flex items-start gap-3">
+<i class="fa-regular fa-clock text-amber-400 text-lg mt-0.5"></i>
+<p id="validadeTexto" class="text-sm font-bold text-amber-200"></p>
+</div>
 <ul class="space-y-2 text-xs text-zinc-400">
-<li class="flex items-start gap-2"><i class="fa-solid fa-check text-amber-400 mt-0.5"></i>A presente proposta tem validade de 07 (sete) dias corridos a contar desta data.</li>
 <li class="flex items-start gap-2"><i class="fa-solid fa-check text-amber-400 mt-0.5"></i>O contratante disponibilizará água potável ilimitada para o artista e sua equipe.</li>
 <li class="flex items-start gap-2"><i class="fa-solid fa-check text-amber-400 mt-0.5"></i>O contratante terá o direito de arrependimento segundo a lei no prazo de 07 (sete) dias, mediante e-mail.</li>
 <li class="flex items-start gap-2"><i class="fa-solid fa-check text-amber-400 mt-0.5"></i>Após os 07 dias de direito de arrependimento, o evento será considerado fechado e, por estar reservada a data e horário, só haverá cancelamento por caso fortuito ou força maior.</li>
@@ -163,7 +172,7 @@ let detalhes=show.isCustom?(show.desc||base.desc):base.desc;
 const card=document.createElement('article');
 card.className='card p-5 sm:p-6 space-y-4';
 const titulo=document.createElement('div');
-titulo.innerHTML=`<span class="text-[10px] uppercase tracking-wider text-amber-400">${escapeHtml(show.tag||base.tag)}</span><h3 class="font-gold text-xl font-bold mt-1">${escapeHtml(nome)}</h3><div class="mt-2"><span class="block text-[9px] text-zinc-500 uppercase">Investimento</span><strong class="text-amber-300 text-xl">${escapeHtml(show.preco||base.preco)}</strong></div>`;
+titulo.innerHTML=`<span class="text-[10px] uppercase tracking-wider text-amber-400">${escapeHtml(show.tag||base.tag)}</span><h3 class="font-gold text-xl font-bold mt-1">${escapeHtml(nome)}</h3><div class="mt-2"><span class="block text-[9px] text-zinc-500 uppercase">Investimento</span><strong class="text-amber-300 text-lg">${escapeHtml(show.preco||base.preco)}</strong></div>`;
 const desc=document.createElement('p');
 desc.className='text-sm text-zinc-300 leading-relaxed whitespace-pre-line';
 desc.textContent=(show.destaque?show.destaque+'\n\n':'')+detalhes;
@@ -190,6 +199,18 @@ if(!token||!/^[0-9a-f-]{36}$/i.test(token)){document.getElementById('aviso').cla
 try{
 const {data,error}=await db.rpc('get_public_proposta',{p_token:token});
 if(error||!data)throw error||new Error('Proposta não encontrada');
+
+const diasValidade=data.dias_validade?Number(data.dias_validade):7;
+const criadoEm=data.criado_em?new Date(data.criado_em):null;
+if(criadoEm){
+const expiraEm=new Date(criadoEm.getTime()+diasValidade*24*60*60*1000);
+if(Date.now()>expiraEm.getTime()){
+document.getElementById('expirado').classList.remove('hidden');
+return;
+}
+}
+document.getElementById('validadeTexto').textContent=`A presente proposta tem validade de ${diasValidade} dia${diasValidade==1?'':'s'} corrido${diasValidade==1?'':'s'} a contar desta data.`;
+
 cliente=data.cliente||'Cliente';
 const dados=[['Contratante',data.cliente],['Data do evento',data.data_evento||'A confirmar'],['Horário',data.horario||'A combinar'],['Convidados',data.convidados||'Não informado'],['Tipo de festa',data.tipo_festa||'Evento'],['Local',data.local||'A combinar']];
 document.getElementById('dados').innerHTML=dados.map(([k,v])=>`<div class="bg-zinc-900 p-3 rounded-xl"><span class="block text-[10px] text-zinc-500 uppercase">${escapeHtml(k)}</span><span class="font-semibold">${escapeHtml(v||'Não informado')}</span></div>`).join('');
