@@ -60,14 +60,14 @@
         <div><h2 class="font-gold text-lg font-bold text-white">Dados do Seu Evento</h2></div>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-        <div class="p-3.5 bg-zinc-900/90 rounded-2xl border border-zinc-800"><span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[10px]">Contratante</span><span id="txtCliente" class="text-sm font-bold text-amber-300 mt-0.5 block">Cliente Especial</span></div>
+        <div class="p-3.5 bg-zinc-900/90 rounded-2xl border border-zinc-800"><span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[10px]">Contratante</span><span id="txtCliente" class="text-sm font-bold text-amber-300 mt-0.5 block uppercase">Cliente Especial</span></div>
         <div class="p-3.5 bg-zinc-900/90 rounded-2xl border border-zinc-800"><span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[10px]">Data do Evento</span><span id="txtData" class="text-sm font-bold text-white mt-0.5 block">A Confirmar</span></div>
         <div class="p-3.5 bg-zinc-900/90 rounded-2xl border border-zinc-800"><span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[10px]">Horário de Início</span><span id="txtHorario" class="text-sm font-bold text-white mt-0.5 block">A Combinar</span></div>
-        <div class="p-3.5 bg-zinc-900/90 rounded-2xl border border-zinc-800"><span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[10px]">Nº de Convidados</span><span id="txtConvidados" class="text-sm font-bold text-white mt-0.5 block">Conforme Alinhado</span></div>
-        <div class="p-3.5 bg-zinc-900/90 rounded-2xl border border-zinc-800"><span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[10px]">Tipo de Festa</span><span id="txtTipo" class="text-sm font-bold text-white mt-0.5 block">Celebração Especial</span></div>
-        <div class="p-3.5 bg-zinc-900/90 rounded-2xl border border-zinc-800"><span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[10px]">Local / Bairro / Cidade</span><span id="txtLocal" class="text-sm font-bold text-white mt-0.5 block">Belo Horizonte / MG</span></div>
+        <div class="p-3.5 bg-zinc-900/90 rounded-2xl border border-zinc-800"><span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[10px]">Nº de Convidados</span><span id="txtConvidados" class="text-sm font-bold text-white mt-0.5 block uppercase">Conforme Alinhado</span></div>
+        <div class="p-3.5 bg-zinc-900/90 rounded-2xl border border-zinc-800"><span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[10px]">Tipo de Festa</span><span id="txtTipo" class="text-sm font-bold text-white mt-0.5 block uppercase">Celebração Especial</span></div>
+        <div class="p-3.5 bg-zinc-900/90 rounded-2xl border border-zinc-800"><span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[10px]">Local / Bairro / Cidade</span><span id="txtLocal" class="text-sm font-bold text-white mt-0.5 block uppercase">Belo Horizonte / MG</span></div>
       </div>
-      <div id="boxObs" class="hidden p-4 bg-amber-500/5 gold-border rounded-2xl space-y-1"><span class="text-[10px] uppercase tracking-wider text-amber-400 font-bold block">Observações do Evento:</span><p id="txtObs" class="text-xs text-zinc-300 italic"></p></div>
+      <div id="boxObs" class="hidden p-4 bg-amber-500/5 gold-border rounded-2xl space-y-1"><span class="text-[10px] uppercase tracking-wider text-amber-400 font-bold block">Observações do Evento:</span><p id="txtObs" class="text-xs text-zinc-300 italic uppercase"></p></div>
     </section>
 
     <!-- QUEM É JACK ILUSIONISTA -->
@@ -195,7 +195,7 @@
       </div>
     </section>
 
-    <!-- CONTATOS E OBSERVAÇÕES -->
+    <!-- CONTATOS -->
     <section class="card-dark gold-border rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl">
       <div class="text-center sm:text-left border-b border-zinc-800 pb-4">
         <span class="text-[10px] uppercase tracking-widest text-amber-400 font-bold">Canais de Atendimento</span>
@@ -249,7 +249,7 @@
     let precoEscolhido = "";
     let pagamentoEscolhido = "Não definido";
 
-    // Textos Definitivos das 5 Modalidades (Sem Gastronômico)
+    // Base de dados das modalidades padrão
     const SHOWS_DB = {
       "Las Vegas é Aqui": {
         tag: "Show de Mesa / Close-up",
@@ -316,23 +316,23 @@
 
     function criarCard(show, idUnico) {
       let info = {
-        tag: "Espetáculo Exclusivo",
-        detalhes: ["Espetáculo de ilusionismo e comédia inteligente."],
-        ficha: { porte: "Geral", publico: "Todos", duracao: "A combinar" },
-        preco: "Sob Consulta"
+        tag: "Espetáculo Exclusivo", detalhes: ["Espetáculo de ilusionismo."],
+        ficha: { porte: "Geral", publico: "Todos", duracao: "A combinar" }, preco: "Sob Consulta"
       };
 
       if(show.isCustom) {
         info.tag = show.tag || "Exclusivo";
         info.detalhes = show.desc ? show.desc.split('\n').filter(p=>p.trim()!=='') : ["Espetáculo personalizado."];
-        info.ficha = {
-          porte: show.porte || "Personalizado",
-          publico: show.publico || "Geral",
-          duracao: show.duracao || "A combinar"
-        };
+        
+        // Coloca a "Frase de Destaque" no formato idêntico ao original (negrito em cima)
+        if (show.destaque && show.destaque.trim() !== '') {
+          info.detalhes.unshift(`<strong class='text-white text-sm block mb-1'>${show.destaque}</strong>`);
+        }
+
+        info.ficha = { porte: show.porte || "Personalizado", publico: show.publico || "Geral", duracao: show.duracao || "A combinar" };
         info.preco = show.preco || "Sob Consulta";
       } else if (SHOWS_DB[show.nome]) {
-        // Clonamos o objecto para não afetar as outras referências
+        // Copia os dados do padrão sem afetar outros
         info = JSON.parse(JSON.stringify(SHOWS_DB[show.nome]));
         info.preco = show.preco || info.precoPadrao;
       }
@@ -370,12 +370,12 @@
 
       let selecionados = (showsData && showsData.length > 0) ? showsData : [];
       
-      // Renderiza Shows Principais marcados no admin
+      // Renderiza na área Principal APENAS os shows que você selecionou no painel admin
       selecionados.forEach((show, index) => {
         containerPrincipais.appendChild(criarCard(show, 'card_prin_' + index));
       });
 
-      // Filtra os Oficiais que NÃO foram selecionados e coloca no bloco "oculto"
+      // Filtra os shows Oficiais que NÃO foram selecionados e coloca no bloco "Conheça outras modalidades"
       const nomesSelecionados = selecionados.map(s => s.nome);
       const naoSelecionados = OFICIAIS.filter(n => !nomesSelecionados.includes(n));
 
@@ -385,93 +385,10 @@
         });
         blocoOutros.classList.remove('hidden');
       } else {
-        blocoOutros.classList.add('hidden');
+        blocoOutros.classList.add('hidden'); // Oculta o botão se todos tiverem sido marcados
       }
     }
 
     function selecionarShow(nome, preco, cardId) {
-      showEscolhido = nome;
-      precoEscolhido = preco;
-      document.querySelectorAll('.card-show-item').forEach(el => {
-        el.classList.remove('card-selecionado');
-        const btn = el.querySelector('.btn-escolher-show');
-        if (btn) {
-          btn.innerHTML = `<i class="fa-solid fa-check"></i> ESCOLHER ESTA OPÇÃO`;
-          btn.className = "btn-escolher-show w-full py-3.5 bg-zinc-800 hover:bg-zinc-700 text-amber-400 border border-amber-400/30 rounded-xl text-xs font-bold uppercase tracking-wider transition flex items-center justify-center gap-2";
-        }
-      });
-      const card = document.getElementById(cardId);
-      if (card) {
-        card.classList.add('card-selecionado');
-        const btn = card.querySelector('.btn-escolher-show');
-        if (btn) {
-          btn.innerHTML = `<i class="fa-solid fa-circle-check"></i> OPÇÃO ESCOLHIDA`;
-          btn.className = "btn-escolher-show w-full py-3.5 gold-btn rounded-xl text-xs font-extrabold uppercase tracking-wider shadow-lg transition flex items-center justify-center gap-2";
-        }
-      }
-      document.getElementById('nomeShowSelecionado').innerText = `${nome} (${preco})`;
-      document.getElementById('avisoSelecao').classList.remove('hidden');
-      atualizarMensagemWhatsApp();
-      document.getElementById('avisoSelecao').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-
-    function selecionarPagamento(opcao, cardId) {
-      pagamentoEscolhido = opcao;
-      document.querySelectorAll('.card-pag-item').forEach(el => {
-        el.classList.remove('card-selecionado');
-        const btn = el.querySelector('.btn-escolher-pag');
-        if (btn) btn.className = "btn-escolher-pag w-full py-2 bg-zinc-800 hover:bg-zinc-700 text-amber-300 border border-amber-400/30 rounded-xl text-[11px] font-bold uppercase tracking-wider transition";
-      });
-      const card = document.getElementById(cardId);
-      if (card) {
-        card.classList.add('card-selecionado');
-        const btn = card.querySelector('.btn-escolher-pag');
-        if (btn) btn.className = "btn-escolher-pag w-full py-2 gold-btn rounded-xl text-[11px] font-extrabold uppercase tracking-wider shadow-lg transition";
-      }
-      document.getElementById('txtPagamentoEscolhido').innerText = opcao;
-      document.getElementById('avisoPagamento').classList.remove('hidden');
-      atualizarMensagemWhatsApp();
-    }
-
-    async function carregarProposta() {
-      const params = new URLSearchParams(window.location.search);
-      const id = params.get('id');
-
-      if (!id) {
-        renderizarShowsDinamicamente([]);
-        return;
-      }
-
-      try {
-        const { data, error } = await supabaseClient.from('propostas').select('*').eq('id', id).single();
-        if (error || !data) {
-          renderizarShowsDinamicamente([]);
-          return;
-        }
-
-        clienteAtual = data.cliente || "Cliente";
-        document.getElementById('txtCliente').innerText = data.cliente || "Cliente Especial";
-        document.getElementById('txtData').innerText = data.data_evento || "A Confirmar";
-        document.getElementById('txtHorario').innerText = data.horario || "A Combinar";
-        document.getElementById('txtConvidados').innerText = data.convidados || "Não informado";
-        document.getElementById('txtTipo').innerText = data.tipo_festa || "Evento";
-        document.getElementById('txtLocal').innerText = data.local || "Belo Horizonte / MG";
-
-        if (data.observacoes && data.observacoes.trim() !== '') {
-          document.getElementById('txtObs').innerText = data.observacoes;
-          document.getElementById('boxObs').classList.remove('hidden');
-        }
-
-        renderizarShowsDinamicamente(data.shows);
-        atualizarMensagemWhatsApp();
-
-      } catch (e) {
-        console.error('Erro:', e);
-        renderizarShowsDinamicamente([]);
-      }
-    }
-
-    carregarProposta();
-  </script>
-</body>
-</html>
+      showEscolhido = nome; precoEscolhido = preco;
+      document.
