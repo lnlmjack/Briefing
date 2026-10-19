@@ -36,10 +36,7 @@
   <header class="relative border-b border-zinc-800/80 bg-black/60 sticky top-0 z-50 backdrop-blur-md">
     <div class="max-w-4xl mx-auto px-4 py-2 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <img src="logo-jack.png" alt="Jack Ilusionista" class="h-12 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('fallbackIcon').classList.remove('hidden');">
-        <div id="fallbackIcon" class="hidden w-10 h-10 rounded-full border border-amber-400/40 p-0.5 overflow-hidden bg-zinc-900 flex items-center justify-center">
-          <i class="fa-solid fa-wand-magic-sparkles text-amber-400 text-lg"></i>
-        </div>
+        <img src="logo-jack.PNG" alt="Jack Ilusionista" class="h-12 w-auto object-contain">
         <div>
           <span class="font-gold font-bold text-sm tracking-wider text-white block leading-tight">JACK ILUSIONISTA</span>
           <span class="text-[10px] text-zinc-400 uppercase tracking-widest block leading-tight">O Ilusionista Mais Aloprado do Brasil</span>
@@ -112,20 +109,20 @@
       </div>
     </section>
 
-    <!-- QUEM É JACK ILUSIONISTA (FOTO DE SMOKING VERMELHO COM CARTAS) -->
+    <!-- QUEM É JACK ILUSIONISTA COM SUA FOTO DE SMOKING VERMELHO -->
     <section class="card-dark gold-border rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl">
       <div class="flex flex-col md:flex-row gap-6 items-center">
         <div class="w-48 h-60 sm:w-56 sm:h-72 rounded-2xl overflow-hidden border-2 border-amber-400/40 shadow-2xl flex-shrink-0 bg-zinc-900">
-          <img src="jack-cartas-voando.jpg" alt="Jack Ilusionista" class="w-full h-full object-cover object-center" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80'">
+          <img src="jack-cartas-voando.jpeg" alt="Jack Ilusionista" class="w-full h-full object-cover object-center">
         </div>
         <div class="space-y-3 text-center md:text-left">
           <span class="text-[10px] uppercase tracking-widest text-amber-400 font-bold">Trajetória & Credibilidade</span>
           <h2 class="font-gold text-2xl font-bold text-white">QUEM É JACK ILUSIONISTA</h2>
           <p class="text-xs text-amber-300 font-semibold leading-relaxed">
-            Mais de 29 anos enganando olhos, desafiando certezas e transformando o impossível em entretenimento[cite: 15].
+            Mais de 29 anos enganando olhos, desafiando certezas e transformando o impossível em entretenimento[cite: 11].
           </p>
           <p class="text-xs text-zinc-400 leading-relaxed">
-            Jack Ilusionista é uma referência no ilusionismo moderno, com mais de <strong>2.500 apresentações</strong> realizadas[cite: 15]. Ex-presidente da Academia Mineira de Ilusionismo, hipnólogo certificado e participante de congressos nacionais e internacionais, combina técnica refinada, presença cênica marcante e humor aloprado para criar um espetáculo que transforma espectadores em testemunhas do impossível[cite: 15].
+            Jack Ilusionista é uma referência no ilusionismo moderno, com mais de <strong>2.500 apresentações</strong> realizadas[cite: 11]. Ex-presidente da Academia Mineira de Ilusionismo, hipnólogo certificado e participante de congressos nacionais e internacionais, combina técnica refinada, presença cênica marcante e humor aloprado para criar um espetáculo que transforma espectadores em testemunhas do impossível[cite: 11].
           </p>
         </div>
       </div>
@@ -145,7 +142,7 @@
           </div>
           <h3 class="text-sm font-bold text-white">Entretenimento que Vira Assunto</h3>
           <p class="text-xs text-zinc-400 leading-relaxed">
-            Esqueça o tradicional. O show une mágica de alto impacto e comédia afiada, criando uma experiência inesquecível que todos os seus convidados vão comentar depois[cite: 16].
+            Esqueça o tradicional. O show une mágica de alto impacto e comédia afiada, criando uma experiência inesquecível que todos os seus convidados vão comentar depois[cite: 12].
           </p>
         </div>
 
@@ -155,7 +152,7 @@
           </div>
           <h3 class="text-sm font-bold text-white">Totalmente Adaptável</h3>
           <p class="text-xs text-zinc-400 leading-relaxed">
-            De festas privadas, casamentos e aniversários até convenções corporativas: o espetáculo molda-se com precisão ao perfil do seu público e espaço[cite: 16].
+            De festas privadas, casamentos e aniversários até convenções corporativas: o espetáculo molda-se com precisão ao perfil do seu público e espaço[cite: 12].
           </p>
         </div>
 
@@ -165,7 +162,7 @@
           </div>
           <h3 class="text-sm font-bold text-white">Experiência 100% Interativa</h3>
           <p class="text-xs text-zinc-400 leading-relaxed">
-            Os convidados não são meros espectadores: participam ativamente nos números[cite: 16]. Quebra o gelo da festa na hora com risadas e surpresa[cite: 16].
+            Os convidados não são meros espectadores: participam ativamente nos números[cite: 12]. Quebra o gelo da festa na hora com risadas e surpresa[cite: 12].
           </p>
         </div>
 
@@ -175,7 +172,7 @@
           </div>
           <h3 class="text-sm font-bold text-white">Um Showman Completo</h3>
           <p class="text-xs text-zinc-400 leading-relaxed">
-            Muito mais do que truques com cartas[cite: 16]. Uma atmosfera inspirada nas noites de Las Vegas diretamente no seu evento em Belo Horizonte e região[cite: 16].
+            Muito mais do que truques com cartas[cite: 12]. Uma atmosfera inspirada nas noites de Las Vegas diretamente no seu evento em Belo Horizonte e região[cite: 12].
           </p>
         </div>
       </div>
@@ -196,12 +193,10 @@
         <span id="nomeShowSelecionado" class="font-gold text-base font-bold text-white"></span>
       </div>
 
-      <div id="listaShows" class="space-y-4">
-        <!-- Renderizado dinamicamente com as fotos reais -->
-      </div>
+      <div id="listaShows" class="space-y-4"></div>
     </section>
 
-    <!-- VÍDEOS & INSTAGRAM COM SUAS FOTOS REAIS NAS CAPAS -->
+    <!-- INSTAGRAM COM SUAS FOTOS REAIS -->
     <section class="card-dark gold-border rounded-3xl p-6 sm:p-8 space-y-5 shadow-2xl">
       <div class="flex flex-col sm:flex-row items-center justify-between gap-3 border-b border-zinc-800 pb-4">
         <div>
@@ -210,13 +205,13 @@
         </div>
         <a href="https://www.instagram.com/jackilusionista/" target="_blank" class="px-4 py-2 bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 rounded-xl text-xs font-bold text-white flex items-center gap-2 hover:opacity-90 transition">
           <i class="fa-brands fa-instagram text-sm"></i>
-          @jackilusionista[cite: 28]
+          @jackilusionista[cite: 24]
         </a>
       </div>
 
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
         <a href="https://www.instagram.com/jackilusionista/" target="_blank" class="group relative rounded-2xl overflow-hidden aspect-square border border-zinc-800 bg-zinc-900 block">
-          <img src="jack-baralho.jpg" alt="Close-up" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.src='https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=500&q=80'">
+          <img src="jack-baralho.PNG" alt="Close-up" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
           <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white">
             <i class="fa-solid fa-play text-2xl text-amber-400"></i>
           </div>
@@ -224,7 +219,7 @@
         </a>
 
         <a href="https://www.instagram.com/jackilusionista/" target="_blank" class="group relative rounded-2xl overflow-hidden aspect-square border border-zinc-800 bg-zinc-900 block">
-          <img src="jack-pensativo.jpg" alt="Show de Palco" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.src='https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=500&q=80'">
+          <img src="jack-pensativo.PNG" alt="Mentalismo" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
           <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white">
             <i class="fa-solid fa-play text-2xl text-amber-400"></i>
           </div>
@@ -232,7 +227,7 @@
         </a>
 
         <a href="https://www.instagram.com/jackilusionista/" target="_blank" class="group relative rounded-2xl overflow-hidden aspect-square border border-zinc-800 bg-zinc-900 block">
-          <img src="jack-cartas-voando.jpg" alt="Show Completo" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.src='https://images.unsplash.com/photo-1469488865564-c2de10f69f96?auto=format&fit=crop&w=500&q=80'">
+          <img src="jack-cartas-voando.jpeg" alt="Ilusão" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
           <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white">
             <i class="fa-solid fa-play text-2xl text-amber-400"></i>
           </div>
@@ -240,7 +235,7 @@
         </a>
 
         <a href="https://www.instagram.com/jackilusionista/" target="_blank" class="group relative rounded-2xl overflow-hidden aspect-square border border-zinc-800 bg-zinc-900 block">
-          <img src="jack-fogo.jpg" alt="Magia com Fogo" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.src='https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=500&q=80'">
+          <img src="jack-fogo.jpeg" alt="Fogo" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
           <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white">
             <i class="fa-solid fa-play text-2xl text-amber-400"></i>
           </div>
@@ -263,7 +258,7 @@
           <span class="text-amber-400 font-bold uppercase text-[10px] block">Opção 01</span>
           <strong class="text-white block text-sm">50% + 50%</strong>
           <p class="text-zinc-400 text-[11px] leading-relaxed">
-            50% de sinal para reserva da data e 50% no dia do evento (antes do início do show)[cite: 26].
+            50% de sinal para reserva da data e 50% no dia do evento (antes do início do show)[cite: 22].
           </p>
         </div>
 
@@ -271,7 +266,7 @@
           <span class="text-amber-400 font-bold uppercase text-[10px] block">Opção 02</span>
           <strong class="text-white block text-sm">Até 10x no Cartão</strong>
           <p class="text-zinc-400 text-[11px] leading-relaxed">
-            Parcelamento antecipado em até 10 vezes com a taxa administrativa da maquininha[cite: 26].
+            Parcelamento antecipado em até 10 vezes com a taxa administrativa da maquininha[cite: 22].
           </p>
         </div>
 
@@ -279,7 +274,7 @@
           <span class="text-amber-400 font-bold uppercase text-[10px] block">Opção 03</span>
           <strong class="text-white block text-sm">PIX Integral</strong>
           <p class="text-zinc-400 text-[11px] leading-relaxed">
-            Pagamento à vista do valor total via chave PIX no momento da confirmação[cite: 26].
+            Pagamento à vista do valor total via chave PIX no momento da confirmação[cite: 22].
           </p>
         </div>
       </div>
@@ -291,10 +286,10 @@
         <i class="fa-solid fa-circle-info"></i> Observações Importantes & Prazos
       </h3>
       <ul class="list-disc list-inside space-y-1">
-        <li>A presente proposta tem validade de <strong>07 (sete) dias corridos</strong> a contar do envio[cite: 25].</li>
-        <li>O contratante disponibilizará água potável ilimitada para o artista e a sua equipe no local[cite: 25].</li>
-        <li>O contratante terá o direito de arrependimento legal no prazo de 07 dias, mediante formalização por e-mail[cite: 25].</li>
-        <li>Após os 07 dias, o evento será considerado fechado e reservado, aplicando-se regras de caso fortuito ou força maior[cite: 25].</li>
+        <li>A presente proposta tem validade de <strong>07 (sete) dias corridos</strong> a contar do envio[cite: 21].</li>
+        <li>O contratante disponibilizará água potável ilimitada para o artista e a sua equipe no local[cite: 21].</li>
+        <li>O contratante terá o direito de arrependimento legal no prazo de 07 dias, mediante formalização por e-mail[cite: 21].</li>
+        <li>Após os 07 dias, o evento será considerado fechado e reservado, aplicando-se regras de caso fortuito ou força maior[cite: 21].</li>
       </ul>
     </section>
 
@@ -309,9 +304,9 @@
 
     <!-- RODAPÉ -->
     <footer class="text-center pt-8 border-t border-zinc-800/60 text-xs text-zinc-500 space-y-1 pb-10">
-      <p class="font-gold text-amber-400 text-sm">MAGICORDIALMENTE[cite: 29]</p>
-      <p class="font-bold text-white">Jack Ilusionista - O Melhor Mágico de Belo Horizonte[cite: 29]</p>
-      <p>CNPJ: 66.723.962-0001-87 | Telefone: (31) 98711-4131[cite: 28]</p>
+      <p class="font-gold text-amber-400 text-sm">MAGICORDIALMENTE[cite: 25]</p>
+      <p class="font-bold text-white">Jack Ilusionista - O Melhor Mágico de Belo Horizonte[cite: 25]</p>
+      <p>CNPJ: 66.723.962-0001-87 | Telefone: (31) 98711-4131[cite: 24]</p>
       <p>Belo Horizonte - Minas Gerais</p>
     </footer>
 
@@ -329,32 +324,32 @@
       "Las Vegas é Aqui": {
         desc: "Você confia nos seus olhos? Um ataque direto à sua percepção da realidade com mágica de proximidade, humor e interação direta a poucos centímetros dos convidados. Baralho, moedas, celulares e mentalismo onde as regras da física são desafiadas. Duração aproximada de 1h a 1h30.",
         tag: "Show de Mesa / Close-up",
-        img: "jack-baralho.jpg"
+        img: "jack-baralho.PNG"
       },
       "Uma Hora de Enganação": {
         desc: "E se a melhor parte da enganação fosse a diversão que ela provoca? Espetáculo completo de palco que eleva a mágica e a comédia a um novo patamar de cumplicidade com o público. Ilusões repletas de humor afiado, suspense e participação constante onde rir de si mesmo é garantido. Duração aproximada de 50 minutos.",
         tag: "Show de Palco Adulto",
-        img: "jack-pensativo.jpg"
+        img: "jack-pensativo.PNG"
       },
       "Brincando com o Impossível": {
         desc: "Mais do que um show de mágica: uma verdadeira experiência divertida e educativa pensada para o público infantil, familiar e escolar. As crianças sobem ao palco, interagem com o ilusionista e vivem momentos inesquecíveis. Duração aproximada de 50 minutos a 1 hora.",
         tag: "Espetáculo Familiar / Infantil",
-        img: "jack-cartas-voando.jpg"
+        img: "jack-cartas-voando.jpeg"
       },
       "Show Misto": {
         desc: "A combinação perfeita dos dois formatos: abertura dinâmica com show de mesa passando entre os convidados (1h30) e encerramento apoteótico com o show de palco para todos assistirem juntos (50min). A experiência completa e definitiva.",
         tag: "O Pacote Completo",
-        img: "jack-baralho.jpg"
+        img: "jack-baralho.PNG"
       },
       "Mágica e Humor Corporativo": {
         desc: "Intervenção envolvente que mistura ilusionismo, comédia e conteúdo estratégico para convenções, SIPATs e premiações. Também adaptável para 'Mestre Sem Cerimônia' com intervenções dinâmicas entre palestrantes. Duração aproximada de 50 minutos.",
         tag: "Eventos Corporativos",
-        img: "jack-pensativo.jpg"
+        img: "jack-pensativo.PNG"
       },
       "A Chama da Criação": {
         desc: "Um espetáculo visual de fogo e magia gastronômica. Uma cloche é aberta vazia à mesa, chamas azuis dançam sobre a bandeja e num instante surge um prato montado, quente e pronto para servir. Elegância e mistério visual inigualáveis.",
         tag: "Intervenção Gastronômica",
-        img: "jack-fogo.jpg"
+        img: "jack-fogo.jpeg"
       }
     };
 
@@ -375,7 +370,7 @@
         const info = DESCRICOES_SHOWS[show.nome] || {
           desc: show.desc || "Espetáculo exclusivo com ilusionismo de alto padrão e comédia inteligente.",
           tag: "Espetáculo Exclusivo",
-          img: "jack-cartas-voando.jpg"
+          img: "jack-cartas-voando.jpeg"
         };
 
         const cardId = "card_show_" + index;
@@ -383,7 +378,7 @@
 
         const imagemHtml = info.img ? `
           <div class="w-full sm:w-36 h-32 rounded-2xl overflow-hidden border border-zinc-800 flex-shrink-0 bg-zinc-900 shadow-lg">
-            <img src="${info.img}" alt="${show.nome}" class="w-full h-full object-cover object-center" onerror="this.parentElement.style.display='none'">
+            <img src="${info.img}" alt="${show.nome}" class="w-full h-full object-cover object-center">
           </div>
         ` : '';
 
