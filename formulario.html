@@ -63,8 +63,10 @@
           <i class="fa-solid fa-paper-plane mr-2"></i> Enviar Pedido de Proposta
         </button>
 
-        <div id="formResultado" class="hidden mt-4 p-4 bg-green-500/10 border border-green-500/30 rounded-xl text-center text-green-400 text-xs font-bold uppercase tracking-wider">
-          <i class="fa-solid fa-circle-check mr-2"></i> Pedido enviado com sucesso! Entraremos em contato em breve.
+        <!-- PÁGINA / BLOCO DE CONFIRMAÇÃO RESTAURADO -->
+        <div id="formResultado" class="hidden mt-4 p-5 bg-zinc-950 border border-amber-400/50 rounded-2xl text-center space-y-3">
+          <p class="text-sm font-bold text-amber-400"><i class="fa-solid fa-circle-check mr-2"></i> Pedido enviado com sucesso!</p>
+          <p class="text-xs text-zinc-300">Obrigado! O seu pedido foi registado no sistema do Jack Ilusionista. Entraremos em contacto muito em breve.</p>
         </div>
       </div>
     </div>
@@ -110,20 +112,16 @@
         tipo_festa: document.getElementById('form_tipo').value.trim().toUpperCase(),
         local: document.getElementById('form_local').value.trim().toUpperCase(),
         observacoes: document.getElementById('form_obs').value.trim().toUpperCase(),
-        shows: [] // Inicializa vazio para que o gestor saiba que é um novo pedido via formulário
+        shows: []
       };
 
       try {
         const { error } = await supabaseClient.from('propostas').insert([payload]);
         if (error) throw error;
 
+        // Esconde o formulário e mostra a confirmação de sucesso
         document.getElementById('formResultado').classList.remove('hidden');
-        btn.innerHTML = '<i class="fa-solid fa-check mr-2"></i> Enviado com Sucesso!';
-        
-        // Limpa os campos após o envio
-        setTimeout(() => {
-          location.reload();
-        }, 3000);
+        btn.classList.add('hidden');
 
       } catch (err) {
         alert("Erro ao enviar o pedido: " + err.message);
