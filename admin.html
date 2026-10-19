@@ -6,69 +6,110 @@
   <title>Painel Jack Ilusionista</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #050507; color: #f4f4f5; }
     .gold-btn { background: linear-gradient(135deg, #fce082 0%, #d4af37 50%, #996515 100%); color: #000; }
   </style>
 </head>
-<body class="p-6">
-  <div class="max-w-3xl mx-auto bg-zinc-900 border border-zinc-800 p-8 rounded-3xl shadow-2xl">
-    <h1 class="text-2xl font-bold text-amber-400 mb-6 border-b border-zinc-800 pb-4">Gerador de Propostas - Jack Ilusionista</h1>
-    
-    <div class="space-y-6">
-      <!-- DADOS DO EVENTO -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div><label class="text-xs text-zinc-400 block mb-1">Nome do Cliente</label><input type="text" id="cliente" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm" placeholder="Ex: João e Maria"></div>
-        <div><label class="text-xs text-zinc-400 block mb-1">Data do Evento</label><input type="text" id="data" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm" placeholder="Ex: 25 de Novembro de 2026"></div>
-        <div><label class="text-xs text-zinc-400 block mb-1">Horário</label><input type="text" id="horario" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm" placeholder="Ex: 20h00"></div>
-        <div><label class="text-xs text-zinc-400 block mb-1">Convidados</label><input type="text" id="convidados" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm" placeholder="Ex: 150 pessoas"></div>
-        <div><label class="text-xs text-zinc-400 block mb-1">Tipo de Festa</label><input type="text" id="tipo" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm" placeholder="Ex: Casamento"></div>
-        <div><label class="text-xs text-zinc-400 block mb-1">Local / Cidade</label><input type="text" id="local" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm" placeholder="Ex: Espaço Meet - BH"></div>
-      </div>
-      <div>
-        <label class="text-xs text-zinc-400 block mb-1">Observações (Opcional)</label>
-        <textarea id="obs" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm" rows="2" placeholder="Detalhes extras que aparecem na proposta..."></textarea>
-      </div>
+<body class="p-4 sm:p-6 pb-20">
+  <div class="max-w-4xl mx-auto space-y-8">
 
-      <!-- SELEÇÃO DE MODALIDADES PADRÃO -->
-      <div class="pt-6 border-t border-zinc-800">
-        <h2 class="text-lg font-bold text-white mb-4">Quais shows oferecer? (Padrão)</h2>
-        <div class="space-y-3">
-          <div class="flex items-center gap-3"><input type="checkbox" id="cb_vegas" value="Las Vegas é Aqui" class="w-5 h-5 show-cb"><label class="text-sm font-semibold flex-1">Las Vegas é Aqui</label><input type="text" id="preco_vegas" placeholder="R$ 1.200,00" class="w-32 p-2 bg-zinc-950 border border-zinc-700 rounded-lg text-xs"></div>
-          <div class="flex items-center gap-3"><input type="checkbox" id="cb_enganacao" value="Uma Hora de Enganação" class="w-5 h-5 show-cb"><label class="text-sm font-semibold flex-1">Uma Hora de Enganação</label><input type="text" id="preco_enganacao" placeholder="R$ 1.990,00" class="w-32 p-2 bg-zinc-950 border border-zinc-700 rounded-lg text-xs"></div>
-          <div class="flex items-center gap-3"><input type="checkbox" id="cb_misto" value="Show Misto" class="w-5 h-5 show-cb"><label class="text-sm font-semibold flex-1">Show Misto</label><input type="text" id="preco_misto" placeholder="R$ 2.600,00" class="w-32 p-2 bg-zinc-950 border border-zinc-700 rounded-lg text-xs"></div>
-          <div class="flex items-center gap-3"><input type="checkbox" id="cb_infantil" value="Brincando com o Impossível" class="w-5 h-5 show-cb"><label class="text-sm font-semibold flex-1">Brincando com o Impossível</label><input type="text" id="preco_infantil" placeholder="R$ 1.990,00" class="w-32 p-2 bg-zinc-950 border border-zinc-700 rounded-lg text-xs"></div>
-          <div class="flex items-center gap-3"><input type="checkbox" id="cb_corp" value="Mágica e Humor Corporativo" class="w-5 h-5 show-cb"><label class="text-sm font-semibold flex-1">Mágica e Humor Corporativo</label><input type="text" id="preco_corp" placeholder="Sob Consulta" class="w-32 p-2 bg-zinc-950 border border-zinc-700 rounded-lg text-xs"></div>
+    <!-- CABEÇALHO DO PAINEL -->
+    <div class="bg-zinc-900 border border-zinc-800 p-6 sm:p-8 rounded-3xl shadow-2xl">
+      <div class="flex items-center gap-4 border-b border-zinc-800 pb-4 mb-6">
+        <div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-xl">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+        </div>
+        <div>
+          <h1 class="text-xl sm:text-2xl font-bold text-white">Painel Administrativo</h1>
+          <p class="text-xs text-zinc-400">Gerador de Propostas & Histórico de Pedidos</p>
         </div>
       </div>
-
-      <!-- MODALIDADE PERSONALIZADA NA HORA -->
-      <div class="pt-6 border-t border-zinc-800 bg-amber-500/5 p-4 rounded-2xl border border-amber-500/20 mt-6">
-        <h2 class="text-sm font-bold text-amber-400 mb-2 uppercase tracking-wider">Criar Modalidade Personalizada</h2>
-        <p class="text-[10px] text-zinc-400 mb-4">Preencha apenas se quiser enviar um show exclusivo que não está na lista acima.</p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Nome do Show</label><input type="text" id="cust_nome" class="w-full p-2 bg-zinc-950 border border-zinc-700 rounded-lg text-xs text-white" placeholder="Ex: Intervenção VIP"></div>
-          <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Preço</label><input type="text" id="cust_preco" class="w-full p-2 bg-zinc-950 border border-zinc-700 rounded-lg text-xs text-white" placeholder="Ex: R$ 3.500,00"></div>
-          <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Etiqueta Dourada</label><input type="text" id="cust_tag" class="w-full p-2 bg-zinc-950 border border-zinc-700 rounded-lg text-xs text-white" placeholder="Ex: Exclusivo / Premium"></div>
-          <div class="sm:col-span-2"><label class="text-[10px] text-zinc-500 uppercase block mb-1">Descrição do Show (pode usar 'Enter' para parágrafos)</label><textarea id="cust_desc" class="w-full p-2 bg-zinc-950 border border-zinc-700 rounded-lg text-xs text-white" rows="3" placeholder="Digite o texto de apresentação..."></textarea></div>
-          <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Porte / Ambiente</label><input type="text" id="cust_porte" class="w-full p-2 bg-zinc-950 border border-zinc-700 rounded-lg text-xs text-white" placeholder="Ex: Evento de Luxo"></div>
-          <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Público</label><input type="text" id="cust_publico" class="w-full p-2 bg-zinc-950 border border-zinc-700 rounded-lg text-xs text-white" placeholder="Ex: Adultos"></div>
-          <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Duração</label><input type="text" id="cust_duracao" class="w-full p-2 bg-zinc-950 border border-zinc-700 rounded-lg text-xs text-white" placeholder="Ex: 40 minutos"></div>
+      
+      <!-- FORMULÁRIO DE DADOS (GERADOR) -->
+      <div class="space-y-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div><label class="text-xs text-zinc-400 block mb-1">Nome do Cliente</label><input type="text" id="cliente" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm" placeholder="Ex: João e Maria"></div>
+          <div><label class="text-xs text-zinc-400 block mb-1">Data do Evento</label><input type="text" id="data" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm" placeholder="Ex: 25 de Novembro de 2026"></div>
+          <div><label class="text-xs text-zinc-400 block mb-1">Horário</label><input type="text" id="horario" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm" placeholder="Ex: 20h00"></div>
+          <div><label class="text-xs text-zinc-400 block mb-1">Convidados</label><input type="text" id="convidados" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm" placeholder="Ex: 150 pessoas"></div>
+          <div><label class="text-xs text-zinc-400 block mb-1">Tipo de Festa</label><input type="text" id="tipo" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm" placeholder="Ex: Casamento"></div>
+          <div><label class="text-xs text-zinc-400 block mb-1">Local / Cidade</label><input type="text" id="local" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm" placeholder="Ex: Espaço Meet - BH"></div>
         </div>
-      </div>
+        <div>
+          <label class="text-xs text-zinc-400 block mb-1">Observações do Evento (Aparece na Proposta)</label>
+          <textarea id="obs" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm" rows="2" placeholder="Ex: Cliente pediu foco em mágica para adultos..."></textarea>
+        </div>
 
-      <!-- BOTÃO GERAR -->
-      <button onclick="gerarProposta()" class="w-full py-4 gold-btn rounded-xl font-bold uppercase tracking-widest mt-6">Gerar Proposta e Criar Link</button>
+        <!-- SELEÇÃO DE MODALIDADES PADRÃO -->
+        <div class="pt-6 border-t border-zinc-800">
+          <h2 class="text-base font-bold text-white mb-4"><i class="fa-solid fa-list-check text-amber-400 mr-2"></i> 1. Quais shows oferecer? (Marque as caixas)</h2>
+          <div class="space-y-3">
+            <div class="flex items-center gap-3 bg-zinc-950/50 p-2 rounded-xl border border-zinc-800/50 hover:border-amber-500/30 transition"><input type="checkbox" id="cb_vegas" value="Las Vegas é Aqui" class="w-5 h-5 show-cb accent-amber-500 cursor-pointer"><label class="text-sm font-semibold flex-1 cursor-pointer" onclick="document.getElementById('cb_vegas').click()">Las Vegas é Aqui</label><input type="text" id="preco_vegas" placeholder="R$ 1.200,00" class="w-32 p-2 bg-black border border-zinc-700 rounded-lg text-xs text-amber-300 font-bold text-center"></div>
+            <div class="flex items-center gap-3 bg-zinc-950/50 p-2 rounded-xl border border-zinc-800/50 hover:border-amber-500/30 transition"><input type="checkbox" id="cb_enganacao" value="Uma Hora de Enganação" class="w-5 h-5 show-cb accent-amber-500 cursor-pointer"><label class="text-sm font-semibold flex-1 cursor-pointer" onclick="document.getElementById('cb_enganacao').click()">Uma Hora de Enganação</label><input type="text" id="preco_enganacao" placeholder="R$ 1.990,00" class="w-32 p-2 bg-black border border-zinc-700 rounded-lg text-xs text-amber-300 font-bold text-center"></div>
+            <div class="flex items-center gap-3 bg-zinc-950/50 p-2 rounded-xl border border-zinc-800/50 hover:border-amber-500/30 transition"><input type="checkbox" id="cb_misto" value="Show Misto" class="w-5 h-5 show-cb accent-amber-500 cursor-pointer"><label class="text-sm font-semibold flex-1 cursor-pointer" onclick="document.getElementById('cb_misto').click()">Show Misto</label><input type="text" id="preco_misto" placeholder="R$ 2.600,00" class="w-32 p-2 bg-black border border-zinc-700 rounded-lg text-xs text-amber-300 font-bold text-center"></div>
+            <div class="flex items-center gap-3 bg-zinc-950/50 p-2 rounded-xl border border-zinc-800/50 hover:border-amber-500/30 transition"><input type="checkbox" id="cb_infantil" value="Brincando com o Impossível" class="w-5 h-5 show-cb accent-amber-500 cursor-pointer"><label class="text-sm font-semibold flex-1 cursor-pointer" onclick="document.getElementById('cb_infantil').click()">Brincando com o Impossível</label><input type="text" id="preco_infantil" placeholder="R$ 1.990,00" class="w-32 p-2 bg-black border border-zinc-700 rounded-lg text-xs text-amber-300 font-bold text-center"></div>
+            <div class="flex items-center gap-3 bg-zinc-950/50 p-2 rounded-xl border border-zinc-800/50 hover:border-amber-500/30 transition"><input type="checkbox" id="cb_corp" value="Mágica e Humor Corporativo" class="w-5 h-5 show-cb accent-amber-500 cursor-pointer"><label class="text-sm font-semibold flex-1 cursor-pointer" onclick="document.getElementById('cb_corp').click()">Mágica e Humor Corporativo</label><input type="text" id="preco_corp" placeholder="Sob Consulta" class="w-32 p-2 bg-black border border-zinc-700 rounded-lg text-xs text-amber-300 font-bold text-center"></div>
+          </div>
+        </div>
 
-      <!-- RESULTADO -->
-      <div id="resultado" class="hidden mt-6 p-5 bg-zinc-950 border border-amber-400 rounded-2xl text-center space-y-3">
-        <p class="text-sm text-zinc-300">Link gerado com sucesso!</p>
-        <input type="text" id="linkGerado" class="w-full p-3 bg-black text-amber-400 text-xs rounded-lg border border-zinc-800 text-center" readonly>
-        <button onclick="copiarLink()" class="px-6 py-2 bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold rounded-lg uppercase transition">Copiar Link</button>
-        <a id="btnAbrir" href="#" target="_blank" class="px-6 py-2 bg-amber-500 hover:bg-amber-400 text-black text-xs font-bold rounded-lg uppercase transition inline-block">Abrir Proposta</a>
+        <!-- CRIAR MODALIDADE PERSONALIZADA NA HORA -->
+        <div class="pt-6 border-t border-zinc-800 bg-amber-500/5 p-5 rounded-2xl border border-amber-500/20 mt-6 relative overflow-hidden">
+          <div class="absolute top-0 right-0 bg-amber-500 text-black text-[9px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-widest">Opcional</div>
+          <h2 class="text-sm font-bold text-amber-400 mb-1 uppercase tracking-wider"><i class="fa-solid fa-pen-nib mr-2"></i>2. Criar Modalidade Exclusiva</h2>
+          <p class="text-[10px] text-zinc-400 mb-4">Preencha os campos abaixo APENAS se quiser adicionar um show extra que não está na lista padrão.</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Nome do Show</label><input type="text" id="cust_nome" class="w-full p-2.5 bg-black border border-zinc-700 rounded-lg text-xs text-white" placeholder="Ex: Intervenção VIP"></div>
+            <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Preço Cobrado</label><input type="text" id="cust_preco" class="w-full p-2.5 bg-black border border-amber-500/40 rounded-lg text-xs text-amber-300 font-bold" placeholder="Ex: R$ 3.500,00"></div>
+            <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Etiqueta Dourada do Cartão</label><input type="text" id="cust_tag" class="w-full p-2.5 bg-black border border-zinc-700 rounded-lg text-xs text-white" placeholder="Ex: Exclusivo / Premium"></div>
+            <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Duração</label><input type="text" id="cust_duracao" class="w-full p-2.5 bg-black border border-zinc-700 rounded-lg text-xs text-white" placeholder="Ex: 40 minutos"></div>
+            <div class="sm:col-span-2"><label class="text-[10px] text-zinc-500 uppercase block mb-1">Descrição Completa do Show (pode usar 'Enter' para parágrafos)</label><textarea id="cust_desc" class="w-full p-3 bg-black border border-zinc-700 rounded-lg text-xs text-white leading-relaxed" rows="3" placeholder="Digite o texto de apresentação deste show..."></textarea></div>
+            <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Porte / Ambiente</label><input type="text" id="cust_porte" class="w-full p-2.5 bg-black border border-zinc-700 rounded-lg text-xs text-white" placeholder="Ex: Evento de Luxo"></div>
+            <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Público Alvo</label><input type="text" id="cust_publico" class="w-full p-2.5 bg-black border border-zinc-700 rounded-lg text-xs text-white" placeholder="Ex: Adultos"></div>
+          </div>
+        </div>
+
+        <!-- BOTÃO GERAR -->
+        <button id="btnGerar" onclick="gerarProposta()" class="w-full py-4 gold-btn rounded-xl font-bold uppercase tracking-widest mt-6 shadow-xl hover:scale-[1.01] active:scale-95 transition">
+          <i class="fa-solid fa-link mr-2"></i> Criar Proposta e Gerar Link
+        </button>
+
+        <!-- CAIXA DE RESULTADO -->
+        <div id="resultado" class="hidden mt-6 p-5 bg-zinc-950 border border-amber-400/50 rounded-2xl text-center space-y-4 shadow-[0_0_20px_rgba(212,175,55,0.15)]">
+          <p class="text-sm font-bold text-amber-400"><i class="fa-solid fa-circle-check mr-2"></i> Proposta pronta para envio!</p>
+          <input type="text" id="linkGerado" class="w-full p-3 bg-black text-white font-mono text-[10px] sm:text-xs rounded-xl border border-zinc-800 text-center" readonly>
+          <div class="flex flex-col sm:flex-row justify-center gap-3">
+            <button onclick="copiarLink()" class="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold rounded-xl uppercase transition shadow-lg"><i class="fa-regular fa-copy mr-2"></i> Copiar Link</button>
+            <a id="btnAbrir" href="#" target="_blank" class="px-6 py-3 bg-amber-500 hover:bg-amber-400 text-black text-xs font-bold rounded-xl uppercase transition shadow-lg"><i class="fa-solid fa-eye mr-2"></i> Ver Briefing</a>
+          </div>
+        </div>
       </div>
     </div>
+
+    <!-- SEÇÃO: PEDIDOS RECEBIDOS E HISTÓRICO -->
+    <div class="bg-zinc-900 border border-zinc-800 p-6 sm:p-8 rounded-3xl shadow-2xl">
+      <div class="flex items-center justify-between border-b border-zinc-800 pb-4 mb-6">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400">
+            <i class="fa-solid fa-inbox"></i>
+          </div>
+          <div>
+            <h2 class="text-lg sm:text-xl font-bold text-white">Pedidos Recebidos & Histórico</h2>
+            <p class="text-[10px] text-zinc-400 uppercase tracking-wider">Últimos preenchimentos do formulário</p>
+          </div>
+        </div>
+        <button onclick="carregarPedidos()" class="w-8 h-8 flex items-center justify-center rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-400 transition" title="Atualizar Lista">
+          <i class="fa-solid fa-rotate-right"></i>
+        </button>
+      </div>
+
+      <div id="listaPedidos" class="space-y-4">
+        <p class="text-zinc-500 text-sm text-center py-4"><i class="fa-solid fa-spinner fa-spin mr-2"></i> A carregar os pedidos...</p>
+      </div>
+    </div>
+
   </div>
 
   <script>
@@ -76,10 +117,16 @@
     const SUPABASE_ANON = "sb_publishable_KIGYo0gheSoB6DqG_o6IxQ_ceB2xcww";
     const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
+    let pedidoEditandoId = null;
+
+    // FUNÇÃO 1: SALVAR OU ATUALIZAR A PROPOSTA
     async function gerarProposta() {
+      const btn = document.getElementById('btnGerar');
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> A processar...';
+      
       const shows = [];
       
-      // Shows Padrões Marcados
+      // Recolhe shows padrão marcados
       const cbs = [
         {id: 'cb_vegas', input: 'preco_vegas'},
         {id: 'cb_enganacao', input: 'preco_enganacao'},
@@ -99,7 +146,7 @@
         }
       });
 
-      // Show Personalizado
+      // Recolhe show personalizado se o nome estiver preenchido
       const custNome = document.getElementById('cust_nome').value;
       if(custNome.trim() !== "") {
         shows.push({
@@ -126,26 +173,162 @@
       };
 
       try {
-        const { data, error } = await supabaseClient.from('propostas').insert([payload]).select();
-        if (error) throw error;
+        let result;
+        if (pedidoEditandoId) {
+          // Se clicou em "Editar" num pedido antigo, atualiza a mesma ficha
+          result = await supabaseClient.from('propostas').update(payload).eq('id', pedidoEditandoId).select();
+        } else {
+          // Senão, cria uma ficha nova
+          result = await supabaseClient.from('propostas').insert([payload]).select();
+        }
         
-        // Usa o domínio da Vercel em que o admin está hospedado automaticamente
+        if (result.error) throw result.error;
+        
+        const data = result.data;
         const linkOficial = window.location.origin + '/briefing.html?id=' + data[0].id;
         
         document.getElementById('linkGerado').value = linkOficial;
         document.getElementById('btnAbrir').href = linkOficial;
         document.getElementById('resultado').classList.remove('hidden');
+        
+        // Atualiza a lista lá de baixo para mostrar a alteração
+        carregarPedidos();
+        
+        btn.innerHTML = '<i class="fa-solid fa-link mr-2"></i> Criar Proposta e Gerar Link';
+        
       } catch (err) {
         alert("Erro ao salvar: " + err.message);
+        btn.innerHTML = '<i class="fa-solid fa-link mr-2"></i> Tentar Novamente';
       }
     }
 
+    // FUNÇÃO 2: COPIAR O LINK GERADO
     function copiarLink() {
       const input = document.getElementById('linkGerado');
       input.select();
       document.execCommand('copy');
-      alert('Link copiado!');
+      alert('Link copiado e pronto a colar no WhatsApp!');
     }
+
+    // FUNÇÃO 3: BUSCAR OS PEDIDOS DO BANCO E LISTÁ-LOS
+    async function carregarPedidos() {
+      const container = document.getElementById('listaPedidos');
+      try {
+        const { data, error } = await supabaseClient
+          .from('propostas')
+          .select('*')
+          .order('id', { ascending: false });
+
+        if (error) throw error;
+
+        container.innerHTML = '';
+
+        if (!data || data.length === 0) {
+          container.innerHTML = '<p class="text-zinc-500 text-sm text-center py-4">Ainda não existem pedidos registados.</p>';
+          return;
+        }
+
+        data.forEach(pedido => {
+          // Verifica se já tem shows atrelados (Proposta Pronta) ou se é um lead cru do formulário (Novo Pedido)
+          const statusHTML = (pedido.shows && pedido.shows.length > 0) ? 
+            '<span class="text-[9px] bg-green-500/20 text-green-400 border border-green-500/30 px-2 py-1 rounded uppercase tracking-wider font-bold">Proposta Pronta</span>' : 
+            '<span class="text-[9px] bg-blue-500/20 text-blue-400 border border-blue-500/30 px-2 py-1 rounded uppercase tracking-wider font-bold">Novo Pedido</span>';
+
+          const link = window.location.origin + '/briefing.html?id=' + pedido.id;
+          
+          const card = document.createElement('div');
+          card.className = "bg-black border border-zinc-800 p-4 sm:p-5 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:border-amber-500/30 transition shadow-lg";
+          
+          card.innerHTML = `
+            <div class="flex-1 w-full">
+              <div class="flex items-center gap-3 mb-2">
+                <h3 class="text-amber-400 font-black text-sm uppercase tracking-wider line-clamp-1">${pedido.cliente || 'Sem Nome Registado'}</h3>
+                ${statusHTML}
+              </div>
+              <div class="grid grid-cols-2 gap-x-4 gap-y-1.5 text-xs text-zinc-400 mt-2">
+                <p><i class="fa-regular fa-calendar text-zinc-500 mr-1.5 w-3 text-center"></i> ${pedido.data_evento || 'N/A'}</p>
+                <p><i class="fa-regular fa-clock text-zinc-500 mr-1.5 w-3 text-center"></i> ${pedido.horario || 'N/A'}</p>
+                <p><i class="fa-solid fa-users text-zinc-500 mr-1.5 w-3 text-center"></i> ${pedido.convidados || 'N/A'}</p>
+                <p class="line-clamp-1"><i class="fa-solid fa-location-dot text-zinc-500 mr-1.5 w-3 text-center"></i> ${pedido.local || 'N/A'}</p>
+              </div>
+            </div>
+            <div class="flex flex-col gap-2 w-full sm:w-auto mt-2 sm:mt-0 flex-shrink-0">
+              <button onclick="carregarParaEdicao('${pedido.id}')" class="w-full sm:w-32 px-4 py-2 bg-zinc-800 hover:bg-amber-500 hover:text-black text-white text-xs font-bold rounded-xl transition flex items-center justify-center gap-2"><i class="fa-solid fa-pen"></i> Preparar</button>
+              <a href="${link}" target="_blank" class="w-full sm:w-32 px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold rounded-xl transition flex items-center justify-center gap-2"><i class="fa-solid fa-eye"></i> Visualizar</a>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      } catch (err) {
+        console.error(err);
+        container.innerHTML = '<p class="text-red-400 text-sm text-center py-4">Erro ao carregar a lista de pedidos.</p>';
+      }
+    }
+
+    // FUNÇÃO 4: PUXAR UM PEDIDO DA LISTA PARA DENTRO DO GERADOR (EDITAR)
+    async function carregarParaEdicao(id) {
+      try {
+        const { data, error } = await supabaseClient.from('propostas').select('*').eq('id', id).single();
+        if (error) throw error;
+
+        // Guarda o ID para saber que vamos atualizar e não duplicar
+        pedidoEditandoId = data.id;
+        
+        // Preenche os dados do cliente
+        document.getElementById('cliente').value = data.cliente || '';
+        document.getElementById('data').value = data.data_evento || '';
+        document.getElementById('horario').value = data.horario || '';
+        document.getElementById('convidados').value = data.convidados || '';
+        document.getElementById('tipo').value = data.tipo_festa || '';
+        document.getElementById('local').value = data.local || '';
+        document.getElementById('obs').value = data.observacoes || '';
+
+        // Limpa todas as caixas de show antes de carregar
+        document.querySelectorAll('.show-cb').forEach(cb => cb.checked = false);
+        
+        // Limpa o formulário do Show Personalizado
+        document.getElementById('cust_nome').value = '';
+        document.getElementById('cust_preco').value = '';
+        document.getElementById('cust_tag').value = '';
+        document.getElementById('cust_desc').value = '';
+        document.getElementById('cust_porte').value = '';
+        document.getElementById('cust_publico').value = '';
+        document.getElementById('cust_duracao').value = '';
+
+        // Se o pedido já tinha shows marcados (ex: edição posterior), ele marca novamente as caixas e puxa os preços
+        if (data.shows && Array.isArray(data.shows)) {
+          data.shows.forEach(show => {
+            if (show.nome === "Las Vegas é Aqui") { document.getElementById('cb_vegas').checked = true; document.getElementById('preco_vegas').value = show.preco; }
+            else if (show.nome === "Uma Hora de Enganação") { document.getElementById('cb_enganacao').checked = true; document.getElementById('preco_enganacao').value = show.preco; }
+            else if (show.nome === "Show Misto") { document.getElementById('cb_misto').checked = true; document.getElementById('preco_misto').value = show.preco; }
+            else if (show.nome === "Brincando com o Impossível") { document.getElementById('cb_infantil').checked = true; document.getElementById('preco_infantil').value = show.preco; }
+            else if (show.nome === "Mágica e Humor Corporativo") { document.getElementById('cb_corp').checked = true; document.getElementById('preco_corp').value = show.preco; }
+            else if (show.isCustom) {
+               document.getElementById('cust_nome').value = show.nome;
+               document.getElementById('cust_preco').value = show.preco;
+               document.getElementById('cust_tag').value = show.tag;
+               document.getElementById('cust_desc').value = show.desc;
+               document.getElementById('cust_porte').value = show.porte;
+               document.getElementById('cust_publico').value = show.publico;
+               document.getElementById('cust_duracao').value = show.duracao;
+            }
+          });
+        }
+        
+        // Sobe o ecrã suavemente até ao formulário
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        // Altera o texto do botão para indicar que está a atualizar
+        document.getElementById('btnGerar').innerHTML = '<i class="fa-solid fa-arrows-rotate mr-2"></i> Atualizar Proposta e Gerar Link';
+        document.getElementById('resultado').classList.add('hidden');
+
+      } catch (err) {
+        alert("Erro ao abrir pedido: " + err.message);
+      }
+    }
+
+    // Carrega a lista automaticamente ao abrir a página
+    window.onload = carregarPedidos;
   </script>
 </body>
 </html>
