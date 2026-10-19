@@ -334,7 +334,6 @@
         info.detalhes = SHOWS_DB[show.nome].detalhes;
         info.ficha = SHOWS_DB[show.nome].ficha;
         
-        // Garante que o preço guardado no painel venha para o card
         if (show.preco && show.preco.trim() !== "") {
           info.preco = show.preco;
         } else {
@@ -365,7 +364,7 @@
       return div;
     }
 
-    // RENDERIZAÇÃO BLINDADA COM OS PREÇOS EXATOS
+    // RENDERIZAÇÃO COMPLETA: OFICIAIS + CUSTOMIZADOS
     function renderizarShowsDinamicamente(showsData) {
       const containerPrincipais = document.getElementById('listaShowsPrincipais');
       const containerOcultos = document.getElementById('listaShowsOcultos');
@@ -387,14 +386,14 @@
         selecionados = [{nome: "Las Vegas é Aqui", preco: "R$ 1.200,00", isCustom: false}];
       }
       
-      // Renderiza as marcadas usando explicitamente o preço que veio do banco
+      // Renderiza na lista principal todos os selecionados (incluindo personalizados)
       selecionados.forEach((show, index) => {
         containerPrincipais.appendChild(criarCard(show, 'card_prin_' + index));
       });
 
-      // Põe as restantes no botão oculto
-      const nomesSelecionados = selecionados.map(s => (s.nome || "").trim().toLowerCase());
-      const naoSelecionados = OFICIAIS.filter(n => !nomesSelecionados.includes(n.trim().toLowerCase()));
+      // Pega apenas os nomes dos shows oficiais para o botão de "outros"
+      const nomesSelecionadosOficiais = selecionados.filter(s => !s.isCustom).map(s => (s.nome || "").trim().toLowerCase());
+      const naoSelecionados = OFICIAIS.filter(n => !nomesSelecionadosOficiais.includes(n.trim().toLowerCase()));
 
       if(naoSelecionados.length > 0) {
         naoSelecionados.forEach((nome, index) => {
