@@ -63,7 +63,7 @@
           <i class="fa-solid fa-paper-plane mr-2"></i> Enviar Pedido de Proposta
         </button>
 
-        <!-- PÁGINA / BLOCO DE CONFIRMAÇÃO RESTAURADO -->
+        <!-- PÁGINA DE CONFIRMAÇÃO -->
         <div id="formResultado" class="hidden mt-4 p-5 bg-zinc-950 border border-amber-400/50 rounded-2xl text-center space-y-3">
           <p class="text-sm font-bold text-amber-400"><i class="fa-solid fa-circle-check mr-2"></i> Pedido enviado com sucesso!</p>
           <p class="text-xs text-zinc-300">Obrigado! O seu pedido foi registado no sistema do Jack Ilusionista. Entraremos em contacto muito em breve.</p>
@@ -119,7 +119,6 @@
         const { error } = await supabaseClient.from('propostas').insert([payload]);
         if (error) throw error;
 
-        // Esconde o formulário e mostra a confirmação de sucesso
         document.getElementById('formResultado').classList.remove('hidden');
         btn.classList.add('hidden');
 
