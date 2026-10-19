@@ -285,7 +285,7 @@
         detalhes: [
           "<strong class='text-white text-sm block mb-1'>Mais do que um show de mágica: uma verdadeira experiência divertida e educativa!</strong>",
           "Pensado especialmente para o público infantil, familiar e o ambiente escolar, este espetáculo une humor, ilusionismo e interatividade para despertar a curiosidade e o raciocínio dos pequenos.",
-          "Com participação ativa do público, das crianças sobem ao palco, interagem com o artista e vivem momentos inesquecíveis, provando que aprender também pode ser pura diversão!",
+          "Com participação ativa do público, as crianças sobem ao palco, interagem com o artista e vivem momentos inesquecíveis, provando que aprender também pode ser pura diversão!",
           "Show de palco ideal para escolas, festas infantis e eventos adolescentes."
         ],
         ficha: { porte: "Escolas e Festas", publico: "Infantil / Familiar", duracao: "50 minutos a 1 hora" },
@@ -318,22 +318,26 @@
         tag: "Espetáculo Exclusivo", 
         detalhes: ["Espetáculo de ilusionismo."],
         ficha: { porte: "Geral", publico: "Todos", duracao: "A combinar" }, 
-        preco: show.preco && show.preco.trim() !== "" ? show.preco : "Sob Consulta"
+        preco: "Sob Consulta"
       };
 
-      if(show.isCustom) {
+      if (show.isCustom) {
         info.tag = show.tag || "Exclusivo";
         info.detalhes = show.desc ? show.desc.split('\n').filter(p=>p.trim()!=='') : ["Espetáculo personalizado."];
         if (show.destaque && show.destaque.trim() !== '') {
           info.detalhes.unshift(`<strong class='text-white text-sm block mb-1'>${show.destaque}</strong>`);
         }
         info.ficha = { porte: show.porte || "Personalizado", publico: show.publico || "Geral", duracao: show.duracao || "A combinar" };
+        info.preco = show.preco && show.preco.trim() !== "" ? show.preco : "Sob Consulta";
       } else if (SHOWS_DB[show.nome]) {
         info.tag = SHOWS_DB[show.nome].tag;
         info.detalhes = SHOWS_DB[show.nome].detalhes;
         info.ficha = SHOWS_DB[show.nome].ficha;
-        // Pega o preço enviado do painel ou usa o padrão do banco de dados
-        if (!show.preco || show.preco.trim() === "") {
+        
+        // Garante que o preço guardado no painel venha para o card
+        if (show.preco && show.preco.trim() !== "") {
+          info.preco = show.preco;
+        } else {
           info.preco = SHOWS_DB[show.nome].precoPadrao;
         }
       }
@@ -361,7 +365,7 @@
       return div;
     }
 
-    // LEITURA CORRETA DE PREÇOS E MODALIDADES NO BRIEFING
+    // RENDERIZAÇÃO BLINDADA COM OS PREÇOS EXATOS
     function renderizarShowsDinamicamente(showsData) {
       const containerPrincipais = document.getElementById('listaShowsPrincipais');
       const containerOcultos = document.getElementById('listaShowsOcultos');
@@ -383,7 +387,7 @@
         selecionados = [{nome: "Las Vegas é Aqui", preco: "R$ 1.200,00", isCustom: false}];
       }
       
-      // Renderiza as modalidades marcadas puxando o preço exato preenchido
+      // Renderiza as marcadas usando explicitamente o preço que veio do banco
       selecionados.forEach((show, index) => {
         containerPrincipais.appendChild(criarCard(show, 'card_prin_' + index));
       });
