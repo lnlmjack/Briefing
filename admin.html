@@ -185,7 +185,7 @@
 
     function getSelectedIds() {
       const containerId = abaAtual === 'ativos' ? 'listaPedidosAtivos' : 'listaPedidosArquivados';
-      return Array.from(document.getElementById(containerId).querySelectorAll('.cb-pedido:checked')).map(c => String(c.value));
+      return Array.from(document.getElementById(containerId).querySelectorAll('.cb-pedido:checked')).map(c => c.value);
     }
 
     function arquivarSelecionados() {
@@ -198,15 +198,37 @@
       document.getElementById('cb_selectAll').checked = false; renderizarListas();
     }
 
+    // FUNÇÃO DE EXCLUSÃO CORRIGIDA PARA TRATAR IDs NUMÉRICOS OU TEXTO
     async function excluirSelecionados() {
-      const ids = getSelectedIds();
-      if (ids.length === 0) return alert("Selecione pelo menos um pedido.");
-      if(!confirm(`Apagar PERMANENTEMENTE ${ids.length} pedido(s)?`)) return;
+      const rawIds = getSelectedIds();
+      if (rawIds.length === 0) return alert("Selecione pelo menos um pedido.");
+      if(!confirm(`Apagar PERMANENTEMENTE ${rawIds.length} pedido(s)?`)) return;
       try {
-        await supabaseClient.from('propostas').delete().in('id', ids);
-        let arr = getArquivados(); localStorage.setItem('arquivados_jack', JSON.stringify(arr.filter(a => !ids.includes(a))));
-        document.getElementById('cb_selectAll').checked = false; carregarPedidos();
+        // Converte os IDs para o formato correto (número se for numérico, string se for UUID)
+        const idsFormatados = rawIds.map(id => isNaN(id) ? id : Number(id));
+
+        const { error } = await supabaseClient.from('propostas').delete().in('id', idsFormatados);
+        if (error) throw error;
+
+        let arr = getArquivados(); 
+        localStorage.setItem('arquivados_jack', JSON.stringify(arr.filter(a => !rawIds.includes(a))));
+        document.getElementById('cb_selectAll').checked = false; 
+        carregarPedidos();
       } catch (err) { alert("Erro ao excluir: " + err.message); }
+    }
+
+    async function excluirPedido(id) {
+      if(confirm("Apagar permanentemente este pedido?")){
+        try {
+          const idFormatado = isNaN(id) ? id : Number(id);
+          const { error } = await supabaseClient.from('propostas').delete().eq('id', idFormatado);
+          if (error) throw error;
+
+          let arr = getArquivados(); 
+          localStorage.setItem('arquivados_jack', JSON.stringify(arr.filter(a => a !== String(id)))); 
+          carregarPedidos();
+        } catch (err) { alert("Erro ao excluir: " + err.message); }
+      }
     }
 
     function mudarAba(aba) {
@@ -225,7 +247,6 @@
       }
     }
 
-    // GERADOR COM LINK PADRÃO briefing.html?cliente=NOME
     async function gerarProposta() {
       const btn = document.getElementById('btnGerar');
       const nomeClienteInput = document.getElementById('cliente')?.value || '';
@@ -276,7 +297,8 @@
       try {
         let result;
         if (pedidoEditandoId) {
-          result = await supabaseClient.from('propostas').update(payload).eq('id', pedidoEditandoId).select();
+          const idFormatado = isNaN(pedidoEditandoId) ? pedidoEditandoId : Number(pedidoEditandoId);
+          result = await supabaseClient.from('propostas').update(payload).eq('id', idFormatado).select();
         } else {
           result = await supabaseClient.from('propostas').insert([payload]).select();
         }
@@ -306,15 +328,6 @@
         txt.innerText = "Copiado!";
         setTimeout(() => { txt.innerText = "Copiar Link"; }, 2000);
       });
-    }
-
-    async function excluirPedido(id) {
-      if(confirm("Apagar permanentemente este pedido?")){
-        try {
-          await supabaseClient.from('propostas').delete().eq('id', id);
-          let arr = getArquivados(); localStorage.setItem('arquivados_jack', JSON.stringify(arr.filter(a => a !== String(id)))); carregarPedidos();
-        } catch (err) { alert("Erro ao excluir: " + err.message); }
-      }
     }
 
     function renderizarListas() {
@@ -363,7 +376,8 @@
 
     async function carregarParaEdicao(id) {
       try {
-        const { data, error } = await supabaseClient.from('propostas').select('*').eq('id', id).single();
+        const idFormatado = isNaN(id) ? id : Number(id);
+        const { data, error } = await supabaseClient.from('propostas').select('*').eq('id', idFormatado).single();
         if (error) throw error;
         pedidoEditandoId = data.id;
         
