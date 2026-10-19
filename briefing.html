@@ -364,7 +364,7 @@
       return div;
     }
 
-    // RENDERIZAÇÃO BLINDADA PARA LER MÚLTIPLOS SHOWS (ARRAY OU JSON)
+    // RENDERIZAÇÃO BLINDADA PARA MÚLTIPLOS SHOWS (SUPORTA JSONB DO SUPABASE)
     function renderizarShowsDinamicamente(showsData) {
       const containerPrincipais = document.getElementById('listaShowsPrincipais');
       const containerOcultos = document.getElementById('listaShowsOcultos');
@@ -386,7 +386,7 @@
         selecionados = [{nome: "Las Vegas é Aqui", preco: "R$ 1.200,00", isCustom: false}];
       }
       
-      // Renderiza todos os shows selecionados no painel principal
+      // Renderiza TODOS os shows selecionados no painel principal
       selecionados.forEach((show, index) => {
         containerPrincipais.appendChild(criarCard(show, 'card_prin_' + index));
       });
