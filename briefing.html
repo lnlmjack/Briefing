@@ -86,15 +86,8 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#050507;color:#f4f4f5
 <section class="card p-6 sm:p-8 space-y-4">
 <span class="text-amber-400 text-xs uppercase tracking-widest">Publicações & Bastidores</span>
 <div class="flex flex-wrap justify-between items-center gap-3"><h2 class="font-gold text-xl">Instagram Oficial</h2><a href="https://instagram.com/jackilusionista" target="_blank" rel="noopener" class="gold-btn px-4 py-2 rounded-xl text-xs"><i class="fa-brands fa-instagram mr-1"></i>Seguir @jackilusionista</a></div>
-<div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center space-y-3">
-<i class="fa-brands fa-instagram text-4xl text-amber-400"></i>
-<h3 class="font-gold text-lg">Acompanhe as Apresentações</h3>
-<p class="text-xs text-zinc-400 max-w-sm mx-auto">Veja vídeos reais das reações da plateia, números de mentalismo e os bastidores dos eventos que são postados diariamente.</p>
-<div class="flex flex-wrap justify-center gap-3 pt-2">
-<a href="https://instagram.com/jackilusionista" target="_blank" rel="noopener" class="bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs font-bold hover:border-amber-400"><i class="fa-solid fa-play mr-1"></i>Assistir Reels</a>
-<a href="https://instagram.com/jackilusionista" target="_blank" rel="noopener" class="gold-btn rounded-xl px-4 py-2 text-xs font-bold"><i class="fa-solid fa-up-right-from-square mr-1"></i>Abrir Feed Oficial</a>
-</div>
-</div>
+<script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+<div class="elfsight-app-6630be00-6361-43e3-b077-c9a6954bce92" data-elfsight-app-lazy></div>
 </section>
 
 <section class="card p-6 sm:p-8 space-y-4">
@@ -208,8 +201,11 @@ let shows=data.shows||[];
 if(typeof shows==='string'){try{shows=JSON.parse(shows)}catch{shows=[]}}
 if(!Array.isArray(shows)||!shows.length)shows=[{nome:'Las Vegas é Aqui',preco:oficiais['Las Vegas é Aqui'].preco}];
 
-document.getElementById('shows').appendChild(renderShow(shows[0]));
-const extras=shows.slice(1);
+const showsBox=document.getElementById('shows');
+shows.forEach(s=>showsBox.appendChild(renderShow(s)));
+
+const nomesEscolhidos=shows.map(s=>String(s.nome||'').trim());
+const extras=Object.keys(oficiais).filter(nome=>!nomesEscolhidos.includes(nome)).map(nome=>({nome,...oficiais[nome]}));
 if(extras.length){
 const extrasBox=document.getElementById('showsExtras');
 extras.forEach(s=>extrasBox.appendChild(renderShow(s)));
