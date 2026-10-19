@@ -198,16 +198,18 @@
       document.getElementById('cb_selectAll').checked = false; renderizarListas();
     }
 
-    // EXCLUSÃO ROBUSTA CORRIGIDA PARA SUPABASE (TESTA NÚMERO E STRING)
+    // EXCLUSÃO BLINDADA (Tenta apagar como número e como string diretamente)
     async function excluirSelecionados() {
       const rawIds = getSelectedIds();
       if (rawIds.length === 0) return alert("Selecione pelo menos um pedido.");
       if(!confirm(`Apagar PERMANENTEMENTE ${rawIds.length} pedido(s)?`)) return;
       try {
         for (let id of rawIds) {
-          // Tenta apagar como número e como string para garantir que remove
+          // Tenta apagar convertendo para número caso seja numérico
           let idNum = Number(id);
           await supabaseClient.from('propostas').delete().eq('id', isNaN(idNum) ? id : idNum);
+          // Tenta também apagar como string direta para garantir
+          await supabaseClient.from('propostas').delete().eq('id', id);
         }
         let arr = getArquivados(); 
         localStorage.setItem('arquivados_jack', JSON.stringify(arr.filter(a => !rawIds.includes(a))));
@@ -220,8 +222,8 @@
       if(confirm("Apagar permanentemente este pedido?")){
         try {
           let idNum = Number(id);
-          const { error } = await supabaseClient.from('propostas').delete().eq('id', isNaN(idNum) ? id : idNum);
-          if (error) throw error;
+          await supabaseClient.from('propostas').delete().eq('id', isNaN(idNum) ? id : idNum);
+          await supabaseClient.from('propostas').delete().eq('id', id);
 
           let arr = getArquivados(); 
           localStorage.setItem('arquivados_jack', JSON.stringify(arr.filter(a => a !== String(id)))); 
@@ -364,76 +366,4 @@
       try {
         let result = await supabaseClient.from('propostas').select('*').order('created_at', { ascending: false });
         if (result.error) {
-          result = await supabaseClient.from('propostas').select('*').order('id', { ascending: false });
-        }
-        listaGlobalPedidos = result.data || []; 
-        renderizarListas();
-      } catch (err) { 
-        document.getElementById('listaPedidosAtivos').innerHTML = '<p class="text-red-400 text-sm text-center py-4">Erro ao carregar os pedidos.</p>'; 
-      }
-    }
-
-    async function carregarParaEdicao(id) {
-      try {
-        let idNum = Number(id);
-        const { data, error } = await supabaseClient.from('propostas').select('*').eq('id', isNaN(idNum) ? id : idNum).single();
-        if (error) throw error;
-        pedidoEditandoId = data.id;
-        
-        document.getElementById('cliente').value = data.cliente || ''; 
-        document.getElementById('data').value = data.data_evento || ''; 
-        document.getElementById('horario').value = data.horario || ''; 
-        document.getElementById('convidados').value = data.convidados || ''; 
-        document.getElementById('tipo').value = data.tipo_festa || ''; 
-        document.getElementById('local').value = data.local || ''; 
-        document.getElementById('obs').value = data.observacoes || '';
-
-        document.querySelectorAll('.show-cb').forEach(cb => { cb.checked = false; });
-        document.getElementById('cust_nome').value = '';
-        document.getElementById('cust_preco').value = '';
-        document.getElementById('cust_tag').value = '';
-        document.getElementById('cust_destaque').value = '';
-        document.getElementById('cust_desc').value = '';
-        document.getElementById('cust_porte').value = '';
-        document.getElementById('cust_publico').value = '';
-        document.getElementById('cust_duracao').value = '';
-
-        let showsParsed = data.shows;
-        if (typeof showsParsed === 'string') {
-          try { showsParsed = JSON.parse(showsParsed); } catch(e) { showsParsed = []; }
-        }
-
-        if (showsParsed && Array.isArray(showsParsed)) {
-          showsParsed.forEach(show => {
-            if (show.isCustom) {
-              document.getElementById('cust_nome').value = show.nome || '';
-              document.getElementById('cust_preco').value = show.preco || '';
-              document.getElementById('cust_tag').value = show.tag || '';
-              document.getElementById('cust_destaque').value = show.destaque || '';
-              document.getElementById('cust_desc').value = show.desc || '';
-              document.getElementById('cust_porte').value = show.porte || '';
-              document.getElementById('cust_publico').value = show.publico || '';
-              document.getElementById('cust_duracao').value = show.duracao || '';
-            } else {
-              document.querySelectorAll('.show-cb').forEach(cb => {
-                if (cb.value.trim().toLowerCase() === show.nome.trim().toLowerCase()) {
-                  cb.checked = true;
-                  let precoId = cb.getAttribute('data-preco-id');
-                  if (precoId && document.getElementById(precoId)) {
-                    document.getElementById(precoId).value = show.preco;
-                  }
-                }
-              });
-            }
-          });
-        }
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        document.getElementById('btnGerar').innerHTML = '<i class="fa-solid fa-arrows-rotate mr-2"></i> Atualizar Proposta e Gerar Link';
-        document.getElementById('resultado').classList.add('hidden');
-      } catch (err) { alert("Erro ao abrir pedido: " + err.message); }
-    }
-
-    window.onload = carregarPedidos;
-  </script>
-</body>
-</html>
+          result = await supabaseClient.from('propostas').select('*').order('id', {
