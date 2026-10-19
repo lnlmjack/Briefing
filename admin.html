@@ -198,22 +198,33 @@
       document.getElementById('cb_selectAll').checked = false; renderizarListas();
     }
 
+    // EXCLUSÃO CORRIGIDA QUE CONverte o ID CORRETAMENTE PARA NÚMERO OU UUID
     async function excluirSelecionados() {
-      const ids = getSelectedIds();
-      if (ids.length === 0) return alert("Selecione pelo menos um pedido.");
-      if(!confirm(`Apagar PERMANENTEMENTE ${ids.length} pedido(s)?`)) return;
+      const rawIds = getSelectedIds();
+      if (rawIds.length === 0) return alert("Selecione pelo menos um pedido.");
+      if(!confirm(`Apagar PERMANENTEMENTE ${rawIds.length} pedido(s)?`)) return;
       try {
-        await supabaseClient.from('propostas').delete().in('id', ids);
-        let arr = getArquivados(); localStorage.setItem('arquivados_jack', JSON.stringify(arr.filter(a => !ids.includes(a))));
-        document.getElementById('cb_selectAll').checked = false; carregarPedidos();
+        for (let id of rawIds) {
+          let idFormatado = isNaN(id) ? id : Number(id);
+          await supabaseClient.from('propostas').delete().eq('id', idFormatado);
+        }
+        let arr = getArquivados(); 
+        localStorage.setItem('arquivados_jack', JSON.stringify(arr.filter(a => !rawIds.includes(a))));
+        document.getElementById('cb_selectAll').checked = false; 
+        carregarPedidos();
       } catch (err) { alert("Erro ao excluir: " + err.message); }
     }
 
     async function excluirPedido(id) {
       if(confirm("Apagar permanentemente este pedido?")){
         try {
-          await supabaseClient.from('propostas').delete().eq('id', id);
-          let arr = getArquivados(); localStorage.setItem('arquivados_jack', JSON.stringify(arr.filter(a => a !== String(id)))); carregarPedidos();
+          let idFormatado = isNaN(id) ? id : Number(id);
+          const { error } = await supabaseClient.from('propostas').delete().eq('id', idFormatado);
+          if (error) throw error;
+
+          let arr = getArquivados(); 
+          localStorage.setItem('arquivados_jack', JSON.stringify(arr.filter(a => a !== String(id)))); 
+          carregarPedidos();
         } catch (err) { alert("Erro ao excluir: " + err.message); }
       }
     }
@@ -284,7 +295,8 @@
       try {
         let result;
         if (pedidoEditandoId) {
-          result = await supabaseClient.from('propostas').update(payload).eq('id', pedidoEditandoId).select();
+          let idFormatado = isNaN(pedidoEditandoId) ? pedidoEditandoId : Number(pedidoEditandoId);
+          result = await supabaseClient.from('propostas').update(payload).eq('id', idFormatado).select();
         } else {
           result = await supabaseClient.from('propostas').insert([payload]).select();
         }
@@ -330,7 +342,7 @@
       let countAtivos = 0; let countArquivados = 0;
       listaGlobalPedidos.forEach(pedido => {
         const strId = String(pedido.id); const isArquivado = arquivadosIds.includes(strId);
-        const statusHTML = (pedido.shows && Array.isArray(pedido.shows) && pedido.shows.length > 0) ? '<span class="text-[9px] bg-green-500/20 text-green-400 border border-green-500/30 px-2 py-1 rounded uppercase tracking-wider font-bold">Proposta Pronta</span>' : '<span class="text-[9px] bg-blue-500/20 text-blue-400 border border-blue-500/30 px-2 py-1 rounded uppercase tracking-wider font-bold">Novo Pedido</span>';
+        const statusHTML = (pedido.shows && (Array.isArray(pedido.shows) || typeof pedido.shows === 'string')) ? '<span class="text-[9px] bg-green-500/20 text-green-400 border border-green-500/30 px-2 py-1 rounded uppercase tracking-wider font-bold">Proposta Pronta</span>' : '<span class="text-[9px] bg-blue-500/20 text-blue-400 border border-blue-500/30 px-2 py-1 rounded uppercase tracking-wider font-bold">Novo Pedido</span>';
         
         const slugCliente = encodeURIComponent(pedido.cliente || '');
         const link = window.location.origin + '/briefing.html?cliente=' + slugCliente;
@@ -362,7 +374,8 @@
 
     async function carregarParaEdicao(id) {
       try {
-        const { data, error } = await supabaseClient.from('propostas').select('*').eq('id', id).single();
+        let idFormatado = isNaN(id) ? id : Number(id);
+        const { data, error } = await supabaseClient.from('propostas').select('*').eq('id', idFormatado).single();
         if (error) throw error;
         pedidoEditandoId = data.id;
         
@@ -384,8 +397,13 @@
         document.getElementById('cust_publico').value = '';
         document.getElementById('cust_duracao').value = '';
 
-        if (data.shows && Array.isArray(data.shows)) {
-          data.shows.forEach(show => {
+        let showsParsed = data.shows;
+        if (typeof showsParsed === 'string') {
+          try { showsParsed = JSON.parse(showsParsed); } catch(e) { showsParsed = []; }
+        }
+
+        if (showsParsed && Array.isArray(showsParsed)) {
+          showsParsed.forEach(show => {
             if (show.isCustom) {
               document.getElementById('cust_nome').value = show.nome || '';
               document.getElementById('cust_preco').value = show.preco || '';
