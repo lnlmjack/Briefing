@@ -225,7 +225,7 @@
       }
     }
 
-    // GERAÇÃO BLINDADA DE PROPOSTAS
+    // CAPTURA 100% GARANTIDA DAS MODALIDADES MARCADAS
     async function gerarProposta() {
       const btn = document.getElementById('btnGerar');
       btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> A processar...';
@@ -293,18 +293,17 @@
       }
     }
 
-    // MÉTODO MODERNO E INFALÍVEL PARA COPIAR O LINK
     function copiarLink() {
       const input = document.getElementById('linkGerado');
       input.select();
-      input.setSelectionRange(0, 99999); // Para dispositivos móveis
+      input.setSelectionRange(0, 99999);
       
       navigator.clipboard.writeText(input.value).then(() => {
         const txt = document.getElementById('txtCopiar');
         txt.innerText = "Copiado!";
         setTimeout(() => { txt.innerText = "Copiar Link"; }, 2000);
       }).catch(err => {
-        alert("Erro ao copiar link automaticamente. Selecione e copie manualmente.");
+        alert("Erro ao copiar link automaticamente.");
       });
     }
 
@@ -390,7 +389,7 @@
         if (data.shows && Array.isArray(data.shows)) {
           data.shows.forEach(show => {
             document.querySelectorAll('.show-cb').forEach(cb => {
-              if (cb.value === show.nome) {
+              if (cb.value.trim().toLowerCase() === show.nome.trim().toLowerCase()) {
                 cb.checked = true;
                 let precoId = cb.getAttribute('data-preco');
                 if (precoId && document.getElementById(precoId)) document.getElementById(precoId).value = show.preco;
