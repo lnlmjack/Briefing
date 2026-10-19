@@ -51,7 +51,7 @@
 
   <main class="max-w-3xl mx-auto px-4 py-8 space-y-10">
 
-    <!-- HERO -->
+    <!-- HERO / TÍTULO DA PROPOSTA -->
     <section class="text-center space-y-3 py-4">
       <span class="inline-block px-3 py-1 bg-amber-400/10 border border-amber-400/30 text-amber-400 text-[11px] font-semibold tracking-widest uppercase rounded-full">
         Apresentação & Orçamento Exclusivo
@@ -72,7 +72,7 @@
         </div>
         <div>
           <h2 class="font-gold text-lg font-bold text-white">Dados do Seu Evento</h2>
-          <p class="text-xs text-zinc-400">Informações de planeamento e reserva</p>
+          <p class="text-xs text-zinc-400">Informações de planejamento e reserva</p>
         </div>
       </div>
 
@@ -109,7 +109,7 @@
       </div>
     </section>
 
-    <!-- QUEM É JACK ILUSIONISTA -->
+    <!-- ETAPA 1: QUEM É JACK ILUSIONISTA (COM 1500 APRESENTAÇÕES) -->
     <section class="card-dark gold-border rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl">
       <div class="flex flex-col md:flex-row gap-6 items-center">
         <div class="w-48 h-60 sm:w-56 sm:h-72 rounded-2xl overflow-hidden border-2 border-amber-400/40 shadow-2xl flex-shrink-0 bg-zinc-900">
@@ -122,7 +122,10 @@
             Mais de 29 anos enganando olhos, desafiando certezas e transformando o impossível em entretenimento.
           </p>
           <p class="text-xs text-zinc-400 leading-relaxed">
-            Jack Ilusionista é uma referência no ilusionismo moderno, com mais de <strong>2.500 apresentações</strong> realizadas ao longo de uma carreira dedicada a uma missão: fazer o público duvidar da própria realidade e ainda morrer de rir no processo. À frente do espetáculo "Las Vegas é Aqui", Jack traz a atmosfera dos grandes shows internacionais para uma experiência de mágica de proximidade, humor, teatro e interação, onde o impossível acontece a poucos centímetros dos olhos do espectador. Ex-presidente da Academia Mineira de Ilusionismo, hipnólogo certificado e participante de congressos nacionais e internacionais, combina técnica, presença de palco, improvisação e uma personalidade irreverente para criar apresentações que transformam espectadores em testemunhas do impossível.
+            Jack Ilusionista é uma referência no ilusionismo moderno, com mais de <strong>1.500 apresentações</strong> realizadas ao longo de uma carreira dedicada a uma missão: fazer o público duvidar da própria realidade e ainda morrer de rir no processo. À frente do espetáculo "Las Vegas é Aqui", Jack traz a atmosfera dos grandes shows internacionais para uma experiência de mágica de proximidade, humor, teatro e interação, onde o impossível acontece a poucos centímetros dos olhos do espectador.
+          </p>
+          <p class="text-xs text-zinc-400 leading-relaxed">
+            Ex-presidente da Academia Mineira de Ilusionismo, hipnólogo certificado e participante de congressos nacionais e internacionais, combina técnica, presença de palco, improvisação e uma personalidade irreverente para criar apresentações que transformam espectadores em testemunhas do impossível.
           </p>
         </div>
       </div>
@@ -178,7 +181,7 @@
       </div>
     </section>
 
-    <!-- MODALIDADES DE SHOWS COM TEXTO COMPLETO ESTÁTICO -->
+    <!-- ETAPAS 3 E 4: TODAS AS 5 MODALIDADES SEM FOTOS INTERNAS -->
     <section class="space-y-6">
       <div class="text-center space-y-1">
         <span class="text-[10px] uppercase tracking-widest text-amber-400 font-bold">Investimento & Formatos</span>
@@ -186,60 +189,53 @@
         <p class="text-xs text-zinc-400">Escolha abaixo a opção ideal para o seu evento:</p>
       </div>
 
-      <!-- AVISO DE ESCOLHA -->
+      <!-- AVISO DE ESCOLHA EFETUADA -->
       <div id="avisoSelecao" class="hidden p-4 rounded-2xl bg-amber-500/15 border border-amber-400/50 text-center space-y-1 transition">
         <span class="text-xs text-amber-300 font-bold uppercase tracking-wider block">
-          <i class="fa-solid fa-circle-check text-amber-400"></i> Opção Selecionada:
+          <i class="fa-solid fa-circle-check text-amber-400"></i> Show Selecionado:
         </span>
         <span id="nomeShowSelecionado" class="font-gold text-base font-bold text-white"></span>
       </div>
 
-      <!-- SHOW 1: LAS VEGAS É AQUI -->
+      <!-- MODALIDADE 1: LAS VEGAS É AQUI -->
       <div id="card_vegas" class="card-dark gold-border p-6 sm:p-7 rounded-3xl space-y-4 shadow-xl transition card-show-item">
-        <div class="flex flex-col sm:flex-row gap-5 items-center sm:items-start">
-          <div class="w-full sm:w-44 h-44 sm:h-56 rounded-2xl overflow-hidden border border-zinc-800 flex-shrink-0 bg-zinc-900 shadow-xl">
-            <img src="jack-baralho.PNG" alt="Show Las Vegas é Aqui" class="w-full h-full object-cover object-center">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1 border-b border-zinc-800 pb-3">
+          <div>
+            <span class="text-[10px] uppercase tracking-wider font-bold text-amber-400 bg-amber-400/10 px-2.5 py-0.5 rounded-full inline-block">
+              Show de Mesa / Close-up
+            </span>
+            <h3 class="font-gold text-xl font-bold text-white mt-1">Show Las Vegas é Aqui</h3>
           </div>
-          <div class="flex-1 space-y-3 text-center sm:text-left w-full">
-            <div class="flex flex-col sm:flex-row justify-between items-center sm:items-center gap-1 border-b border-zinc-800 pb-2">
-              <div>
-                <span class="text-[10px] uppercase tracking-wider font-bold text-amber-400 bg-amber-400/10 px-2.5 py-0.5 rounded-full inline-block">
-                  Show de Mesa / Close-up
-                </span>
-                <h3 class="font-gold text-lg sm:text-xl font-bold text-white mt-1">Show Las Vegas é Aqui</h3>
-              </div>
-              <div class="sm:text-right mt-1 sm:mt-0">
-                <span class="text-[10px] uppercase text-zinc-400 block font-semibold">Investimento</span>
-                <span id="preco_vegas" class="text-lg font-black text-amber-300 font-gold">R$ 1.200,00</span>
-              </div>
-            </div>
-
-            <!-- TEXTO INTEGRAL SOLICITADO -->
-            <div class="space-y-2 text-left text-xs text-zinc-300 leading-relaxed">
-              <p class="font-bold text-white text-sm">Você confia nos seus olhos?</p>
-              <p>O SHOW LAS VEGAS É AQUI é um ataque direto à sua percepção da realidade. Um espetáculo de mágica de proximidade, humor e interação, onde não existe palco para se esconder, a mágica acontece a poucos centímetros de você.</p>
-              <p>A magia de Las Vegas vem para o seu evento: um baralho, uma moeda, uma caneta, um celular... e, principalmente, você.</p>
-              <p>Objetos desaparecem, pensamentos são antecipados e lidos, impossibilidades acontecem diante dos seus olhos e, no meio de tudo isso, boas doses de humor tornam cada momento ainda mais imprevisível.</p>
-              <p>As regras da física são colocadas à prova. A lógica é desafiada. E seus próprios olhos podem se tornar o seu pior inimigo.</p>
-              <p>A única aposta da noite é descobrir até onde você está disposto a acreditar no impossível.</p>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-zinc-800/80 text-[11px]">
-              <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
-                <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Porte do evento</span>
-                <span class="text-zinc-200 font-medium">Todos</span>
-              </div>
-              <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
-                <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Público</span>
-                <span class="text-zinc-200 font-medium">Familiar</span>
-              </div>
-              <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
-                <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Duração</span>
-                <span class="text-amber-300 font-medium">A partir de 1 hora</span>
-              </div>
-            </div>
+          <div class="sm:text-right mt-1 sm:mt-0">
+            <span class="text-[10px] uppercase text-zinc-400 block font-semibold">Investimento</span>
+            <span id="preco_vegas" class="text-xl font-black text-amber-300 font-gold">R$ 1.200,00</span>
           </div>
         </div>
+
+        <div class="space-y-2.5 text-xs text-zinc-300 leading-relaxed">
+          <p class="font-bold text-white text-sm">Você confia nos seus olhos?</p>
+          <p>O SHOW LAS VEGAS É AQUI é um ataque direto à sua percepção da realidade. Um espetáculo de mágica de proximidade, humor e interação, onde não existe palco para se esconder, a mágica acontece a poucos centímetros de você.</p>
+          <p>A magia de Las Vegas vem para o seu evento: um baralho, uma moeda, uma caneta, um celular... e, principalmente, você.</p>
+          <p>Objetos desaparecem, pensamentos são antecipados e lidos, impossibilidades acontecem diante dos seus olhos e, no meio de tudo isso, boas doses de humor tornam cada momento ainda mais imprevisível.</p>
+          <p>As regras da física são colocadas à prova. A lógica é desafiada. E seus próprios olhos podem se tornar o seu pior inimigo.</p>
+          <p>A única aposta da noite é descobrir até onde você está disposto a acreditar no impossível.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-zinc-800/80 text-[11px]">
+          <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
+            <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Porte do evento</span>
+            <span class="text-zinc-200 font-medium">Todos</span>
+          </div>
+          <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
+            <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Público</span>
+            <span class="text-zinc-200 font-medium">Familiar</span>
+          </div>
+          <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
+            <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Duração</span>
+            <span class="text-amber-300 font-medium">A partir de 1 hora</span>
+          </div>
+        </div>
+
         <div class="pt-2">
           <button type="button" onclick="selecionarShow('Show Las Vegas é Aqui', document.getElementById('preco_vegas').innerText, 'card_vegas')" class="btn-escolher-show w-full py-3.5 bg-zinc-800 hover:bg-zinc-700 text-amber-400 border border-amber-400/30 rounded-xl text-xs font-bold uppercase tracking-wider transition flex items-center justify-center gap-2">
             <i class="fa-solid fa-check"></i> ESCOLHER ESTA OPÇÃO
@@ -247,48 +243,41 @@
         </div>
       </div>
 
-      <!-- SHOW 2: UMA HORA DE ENGANAÇÃO -->
+      <!-- MODALIDADE 2: UMA HORA DE ENGANAÇÃO -->
       <div id="card_enganacao" class="card-dark gold-border p-6 sm:p-7 rounded-3xl space-y-4 shadow-xl transition card-show-item">
-        <div class="flex flex-col sm:flex-row gap-5 items-center sm:items-start">
-          <div class="w-full sm:w-44 h-44 sm:h-56 rounded-2xl overflow-hidden border border-zinc-800 flex-shrink-0 bg-zinc-900 shadow-xl">
-            <img src="jack-pensativo.PNG" alt="Show Uma Hora de Enganação" class="w-full h-full object-cover object-center">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1 border-b border-zinc-800 pb-3">
+          <div>
+            <span class="text-[10px] uppercase tracking-wider font-bold text-amber-400 bg-amber-400/10 px-2.5 py-0.5 rounded-full inline-block">
+              Show de Palco Adulto
+            </span>
+            <h3 class="font-gold text-xl font-bold text-white mt-1">Show Uma Hora de Enganação</h3>
           </div>
-          <div class="flex-1 space-y-3 text-center sm:text-left w-full">
-            <div class="flex flex-col sm:flex-row justify-between items-center sm:items-center gap-1 border-b border-zinc-800 pb-2">
-              <div>
-                <span class="text-[10px] uppercase tracking-wider font-bold text-amber-400 bg-amber-400/10 px-2.5 py-0.5 rounded-full inline-block">
-                  Show de Palco Adulto
-                </span>
-                <h3 class="font-gold text-lg sm:text-xl font-bold text-white mt-1">Show Uma Hora de Enganação</h3>
-              </div>
-              <div class="sm:text-right mt-1 sm:mt-0">
-                <span class="text-[10px] uppercase text-zinc-400 block font-semibold">Investimento</span>
-                <span id="preco_enganacao" class="text-lg font-black text-amber-300 font-gold">R$ 1.990,00</span>
-              </div>
-            </div>
-
-            <!-- TEXTO INTEGRAL SOLICITADO -->
-            <div class="space-y-2 text-left text-xs text-zinc-300 leading-relaxed">
-              <p>E se a melhor parte da enganação fosse a diversão que ela provoca? O show UMA HORA DE ENGANAÇÃO é um espetáculo que eleva a mágica e a comédia a um novo patamar de cumplicidade com o público.</p>
-              <p>Este não é um show para ser apenas assistido, mas para ser vivido. Através de uma sequência de ilusões repletas de humor, suspense e participação constante, o público é desafiado a decifrar o mistério enquanto ri de si mesmo. É a prova de que ser enganado nunca foi tão divertido.</p>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-zinc-800/80 text-[11px]">
-              <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
-                <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Porte do evento</span>
-                <span class="text-zinc-200 font-medium">Todos</span>
-              </div>
-              <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
-                <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Público</span>
-                <span class="text-zinc-200 font-medium">Familiar</span>
-              </div>
-              <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
-                <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Duração</span>
-                <span class="text-amber-300 font-medium">Aproximadamente 50 minutos</span>
-              </div>
-            </div>
+          <div class="sm:text-right mt-1 sm:mt-0">
+            <span class="text-[10px] uppercase text-zinc-400 block font-semibold">Investimento</span>
+            <span id="preco_enganacao" class="text-xl font-black text-amber-300 font-gold">R$ 1.990,00</span>
           </div>
         </div>
+
+        <div class="space-y-2.5 text-xs text-zinc-300 leading-relaxed">
+          <p>E se a melhor parte da enganação fosse a diversão que ela provoca? O show UMA HORA DE ENGANAÇÃO é um espetáculo que eleva a mágica e a comédia a um novo patamar de cumplicidade com o público.</p>
+          <p>Este não é um show para ser apenas assistido, mas para ser vivido. Através de uma sequência de ilusões repletas de humor, suspense e participação constante, o público é desafiado a decifrar o mistério enquanto ri de si mesmo. É a prova de que ser enganado nunca foi tão divertido.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-zinc-800/80 text-[11px]">
+          <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
+            <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Porte do evento</span>
+            <span class="text-zinc-200 font-medium">Todos</span>
+          </div>
+          <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
+            <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Público</span>
+            <span class="text-zinc-200 font-medium">Familiar</span>
+          </div>
+          <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
+            <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Duração</span>
+            <span class="text-amber-300 font-medium">Aproximadamente 50 minutos</span>
+          </div>
+        </div>
+
         <div class="pt-2">
           <button type="button" onclick="selecionarShow('Show Uma Hora de Enganação', document.getElementById('preco_enganacao').innerText, 'card_enganacao')" class="btn-escolher-show w-full py-3.5 bg-zinc-800 hover:bg-zinc-700 text-amber-400 border border-amber-400/30 rounded-xl text-xs font-bold uppercase tracking-wider transition flex items-center justify-center gap-2">
             <i class="fa-solid fa-check"></i> ESCOLHER ESTA OPÇÃO
@@ -296,50 +285,84 @@
         </div>
       </div>
 
-      <!-- SHOW 3: BRINCANDO COM O IMPOSSÍVEL -->
-      <div id="card_infantil" class="card-dark gold-border p-6 sm:p-7 rounded-3xl space-y-4 shadow-xl transition card-show-item">
-        <div class="flex flex-col sm:flex-row gap-5 items-center sm:items-start">
-          <div class="w-full sm:w-44 h-44 sm:h-56 rounded-2xl overflow-hidden border border-zinc-800 flex-shrink-0 bg-zinc-900 shadow-xl">
-            <img src="jack-cartas-voando.jpeg" alt="Show Brincando com o Impossível" class="w-full h-full object-cover object-center">
+      <!-- MODALIDADE 3: SHOW MISTO -->
+      <div id="card_misto" class="card-dark gold-border p-6 sm:p-7 rounded-3xl space-y-4 shadow-xl transition card-show-item">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1 border-b border-zinc-800 pb-3">
+          <div>
+            <span class="text-[10px] uppercase tracking-wider font-bold text-amber-400 bg-amber-400/10 px-2.5 py-0.5 rounded-full inline-block">
+              O Pacote Completo
+            </span>
+            <h3 class="font-gold text-xl font-bold text-white mt-1">Show Misto</h3>
           </div>
-          <div class="flex-1 space-y-3 text-center sm:text-left w-full">
-            <div class="flex flex-col sm:flex-row justify-between items-center sm:items-center gap-1 border-b border-zinc-800 pb-2">
-              <div>
-                <span class="text-[10px] uppercase tracking-wider font-bold text-amber-400 bg-amber-400/10 px-2.5 py-0.5 rounded-full inline-block">
-                  Espetáculo Infantil e Familiar
-                </span>
-                <h3 class="font-gold text-lg sm:text-xl font-bold text-white mt-1">Show Brincando com o Impossível</h3>
-              </div>
-              <div class="sm:text-right mt-1 sm:mt-0">
-                <span class="text-[10px] uppercase text-zinc-400 block font-semibold">Investimento</span>
-                <span id="preco_infantil" class="text-lg font-black text-amber-300 font-gold">R$ 1.990,00</span>
-              </div>
-            </div>
-
-            <!-- TEXTO INTEGRAL SOLICITADO -->
-            <div class="space-y-2 text-left text-xs text-zinc-300 leading-relaxed">
-              <p class="font-bold text-white text-sm">Mais do que um show de mágica: uma verdadeira experiência divertida e educativa!</p>
-              <p>Pensado especialmente para o público infantil, familiar e o ambiente escolar, este espetáculo une humor, ilusionismo e interatividade para despertar a curiosidade e o raciocínio dos pequenos.</p>
-              <p>Com participação ativa do público, as crianças sobem ao palco, interagem com o artista e vivem momentos inesquecíveis, provando que aprender também pode ser pura diversão!</p>
-              <p>Show de palco ideal para escolas, festas infantis e eventos adolescentes.</p>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-zinc-800/80 text-[11px]">
-              <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
-                <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Ambiente</span>
-                <span class="text-zinc-200 font-medium">Escolas, Festas e Eventos</span>
-              </div>
-              <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
-                <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Público</span>
-                <span class="text-zinc-200 font-medium">Infantil e Familiar</span>
-              </div>
-              <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
-                <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Duração</span>
-                <span class="text-amber-300 font-medium">50 minutos a 1 hora (show de palco)</span>
-              </div>
-            </div>
+          <div class="sm:text-right mt-1 sm:mt-0">
+            <span class="text-[10px] uppercase text-zinc-400 block font-semibold">Investimento</span>
+            <span id="preco_misto" class="text-xl font-black text-amber-300 font-gold">R$ 2.600,00</span>
           </div>
         </div>
+
+        <div class="space-y-2.5 text-xs text-zinc-300 leading-relaxed">
+          <p>A combinação perfeita dos dois formatos: começo com o show de mesa circulando diretamente entre os convidados e finalizo com o show de palco para todos assistirem juntos, entregando uma experiência completa, marcante e inesquecível para o seu evento.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-zinc-800/80 text-[11px]">
+          <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
+            <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Porte do evento</span>
+            <span class="text-zinc-200 font-medium">Todos</span>
+          </div>
+          <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
+            <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Público</span>
+            <span class="text-zinc-200 font-medium">Familiar / Geral</span>
+          </div>
+          <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
+            <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Duração</span>
+            <span class="text-amber-300 font-medium">1h30min de mesa + 50min a 1h de palco</span>
+          </div>
+        </div>
+
+        <div class="pt-2">
+          <button type="button" onclick="selecionarShow('Show Misto', document.getElementById('preco_misto').innerText, 'card_misto')" class="btn-escolher-show w-full py-3.5 bg-zinc-800 hover:bg-zinc-700 text-amber-400 border border-amber-400/30 rounded-xl text-xs font-bold uppercase tracking-wider transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-check"></i> ESCOLHER ESTA OPÇÃO
+          </button>
+        </div>
+      </div>
+
+      <!-- MODALIDADE 4: BRINCANDO COM O IMPOSSÍVEL -->
+      <div id="card_infantil" class="card-dark gold-border p-6 sm:p-7 rounded-3xl space-y-4 shadow-xl transition card-show-item">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1 border-b border-zinc-800 pb-3">
+          <div>
+            <span class="text-[10px] uppercase tracking-wider font-bold text-amber-400 bg-amber-400/10 px-2.5 py-0.5 rounded-full inline-block">
+              Espetáculo Infantil e Familiar
+            </span>
+            <h3 class="font-gold text-xl font-bold text-white mt-1">Show Brincando com o Impossível</h3>
+          </div>
+          <div class="sm:text-right mt-1 sm:mt-0">
+            <span class="text-[10px] uppercase text-zinc-400 block font-semibold">Investimento</span>
+            <span id="preco_infantil" class="text-xl font-black text-amber-300 font-gold">R$ 1.990,00</span>
+          </div>
+        </div>
+
+        <div class="space-y-2.5 text-xs text-zinc-300 leading-relaxed">
+          <p class="font-bold text-white text-sm">Mais do que um show de mágica: uma verdadeira experiência divertida e educativa!</p>
+          <p>Pensado especialmente para o público infantil, familiar e o ambiente escolar, este espetáculo une humor, ilusionismo e interatividade para despertar a curiosidade e o raciocínio dos pequenos.</p>
+          <p>Com participação ativa do público, as crianças sobem ao palco, interagem com o artista e vivem momentos inesquecíveis, provando que aprender também pode ser pura diversão!</p>
+          <p>Show de palco ideal para escolas, festas infantis e eventos adolescentes.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-zinc-800/80 text-[11px]">
+          <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
+            <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Ambiente</span>
+            <span class="text-zinc-200 font-medium">Escolas e Festas Infantis</span>
+          </div>
+          <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
+            <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Público</span>
+            <span class="text-zinc-200 font-medium">Infantil e Familiar</span>
+          </div>
+          <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
+            <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Duração</span>
+            <span class="text-amber-300 font-medium">50 minutos a 1 hora (show de palco)</span>
+          </div>
+        </div>
+
         <div class="pt-2">
           <button type="button" onclick="selecionarShow('Show Brincando com o Impossível', document.getElementById('preco_infantil').innerText, 'card_infantil')" class="btn-escolher-show w-full py-3.5 bg-zinc-800 hover:bg-zinc-700 text-amber-400 border border-amber-400/30 rounded-xl text-xs font-bold uppercase tracking-wider transition flex items-center justify-center gap-2">
             <i class="fa-solid fa-check"></i> ESCOLHER ESTA OPÇÃO
@@ -347,48 +370,41 @@
         </div>
       </div>
 
-      <!-- SHOW 4: MÁGICA E HUMOR CORPORATIVO -->
+      <!-- MODALIDADE 5: MÁGICA E HUMOR CORPORATIVO -->
       <div id="card_corp" class="card-dark gold-border p-6 sm:p-7 rounded-3xl space-y-4 shadow-xl transition card-show-item">
-        <div class="flex flex-col sm:flex-row gap-5 items-center sm:items-start">
-          <div class="w-full sm:w-44 h-44 sm:h-56 rounded-2xl overflow-hidden border border-zinc-800 flex-shrink-0 bg-zinc-900 shadow-xl">
-            <img src="jack-pensativo.PNG" alt="Mágica e Humor Corporativo" class="w-full h-full object-cover object-center">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1 border-b border-zinc-800 pb-3">
+          <div>
+            <span class="text-[10px] uppercase tracking-wider font-bold text-amber-400 bg-amber-400/10 px-2.5 py-0.5 rounded-full inline-block">
+              Eventos Corporativos
+            </span>
+            <h3 class="font-gold text-xl font-bold text-white mt-1">Mágica e Humor Corporativo</h3>
           </div>
-          <div class="flex-1 space-y-3 text-center sm:text-left w-full">
-            <div class="flex flex-col sm:flex-row justify-between items-center sm:items-center gap-1 border-b border-zinc-800 pb-2">
-              <div>
-                <span class="text-[10px] uppercase tracking-wider font-bold text-amber-400 bg-amber-400/10 px-2.5 py-0.5 rounded-full inline-block">
-                  Eventos Corporativos
-                </span>
-                <h3 class="font-gold text-lg sm:text-xl font-bold text-white mt-1">Mágica e Humor Corporativo</h3>
-              </div>
-              <div class="sm:text-right mt-1 sm:mt-0">
-                <span class="text-[10px] uppercase text-zinc-400 block font-semibold">Investimento</span>
-                <span id="preco_corp" class="text-lg font-black text-amber-300 font-gold">Sob Consulta</span>
-              </div>
-            </div>
-
-            <!-- TEXTO INTEGRAL SOLICITADO -->
-            <div class="space-y-2 text-left text-xs text-zinc-300 leading-relaxed">
-              <p>O show MÁGICA E HUMOR CORPORATIVO é uma intervenção envolvente que mistura ilusionismo, comédia e conteúdo para provocar reflexões profundas de forma leve e surpreendente. Através da mágica, o público é conduzido a enxergar além do óbvio, questionar crenças limitantes e transformar o "impossível" em meta.</p>
-              <p>Mais do que um show, essa apresentação também pode ser adaptada para eventos como “MESTRE SEM CERIMÔNIA”, oferecendo uma condução criativa, bem humorada e interativa, bem diferente do modelo tradicional. Uma maneira original de manter a atenção da plateia, criar conexões e tornar cada momento memorável.</p>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-zinc-800/80 text-[11px]">
-              <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
-                <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Formato</span>
-                <span class="text-zinc-200 font-medium">Show ou Mestre Sem Cerimônias</span>
-              </div>
-              <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
-                <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Público</span>
-                <span class="text-zinc-200 font-medium">Corporativo</span>
-              </div>
-              <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
-                <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Duração</span>
-                <span class="text-amber-300 font-medium">Aprox. 50min (ou até 5 intervenções de 7min)</span>
-              </div>
-            </div>
+          <div class="sm:text-right mt-1 sm:mt-0">
+            <span class="text-[10px] uppercase text-zinc-400 block font-semibold">Investimento</span>
+            <span id="preco_corp" class="text-xl font-black text-amber-300 font-gold">Sob Consulta</span>
           </div>
         </div>
+
+        <div class="space-y-2.5 text-xs text-zinc-300 leading-relaxed">
+          <p>O show MÁGICA E HUMOR CORPORATIVO é uma intervenção envolvente que mistura ilusionismo, comédia e conteúdo para provocar reflexões profundas de forma leve e surpreendente. Através da mágica, o público é conduzido a enxergar além do óbvio, questionar crenças limitantes e transformar o "impossível" em meta.</p>
+          <p>Mais do que um show, essa apresentação também pode ser adaptada para eventos como “MESTRE SEM CERIMÔNIA”, oferecendo uma condução criativa, bem humorada e interativa, bem diferente do modelo tradicional. Uma maneira original de manter a atenção da plateia, criar conexões e tornar cada momento memorável.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-zinc-800/80 text-[11px]">
+          <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
+            <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Formato</span>
+            <span class="text-zinc-200 font-medium">Show ou Mestre Sem Cerimônias</span>
+          </div>
+          <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
+            <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Público</span>
+            <span class="text-zinc-200 font-medium">Corporativo</span>
+          </div>
+          <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800">
+            <span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Duração</span>
+            <span class="text-amber-300 font-medium">Aprox. 50min (ou até 5 intervenções de 7min)</span>
+          </div>
+        </div>
+
         <div class="pt-2">
           <button type="button" onclick="selecionarShow('Mágica e Humor Corporativo', document.getElementById('preco_corp').innerText, 'card_corp')" class="btn-escolher-show w-full py-3.5 bg-zinc-800 hover:bg-zinc-700 text-amber-400 border border-amber-400/30 rounded-xl text-xs font-bold uppercase tracking-wider transition flex items-center justify-center gap-2">
             <i class="fa-solid fa-check"></i> ESCOLHER ESTA OPÇÃO
@@ -397,91 +413,101 @@
       </div>
     </section>
 
-    <!-- VÍDEOS & INSTAGRAM -->
-    <section class="card-dark gold-border rounded-3xl p-6 sm:p-8 space-y-5 shadow-2xl">
+    <!-- ETAPA 5: INTEGRAÇÃO COM INSTAGRAM DINÂMICO -->
+    <section class="card-dark gold-border rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl">
       <div class="flex flex-col sm:flex-row items-center justify-between gap-3 border-b border-zinc-800 pb-4">
         <div>
-          <span class="text-[10px] uppercase tracking-widest text-amber-400 font-bold">Vídeos & Bastidores</span>
-          <h2 class="font-gold text-xl font-bold text-white">Siga no Instagram</h2>
+          <span class="text-[10px] uppercase tracking-widest text-amber-400 font-bold">Publicações & Bastidores</span>
+          <h2 class="font-gold text-xl font-bold text-white">Instagram em Tempo Real</h2>
         </div>
-        <a href="https://www.instagram.com/jackilusionista/" target="_blank" class="px-4 py-2 bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 rounded-xl text-xs font-bold text-white flex items-center gap-2 hover:opacity-90 transition">
+        <a href="https://www.instagram.com/jackilusionista/" target="_blank" class="px-4 py-2 bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 rounded-xl text-xs font-bold text-white flex items-center gap-2 hover:opacity-90 transition shadow-lg">
           <i class="fa-brands fa-instagram text-sm"></i>
-          @jackilusionista
+          Seguir @jackilusionista
         </a>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-        <a href="https://www.instagram.com/jackilusionista/" target="_blank" class="group relative rounded-2xl overflow-hidden aspect-square border border-zinc-800 bg-zinc-900 block">
-          <img src="jack-baralho.PNG" alt="Close-up" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white">
-            <i class="fa-solid fa-play text-2xl text-amber-400"></i>
-          </div>
-          <span class="absolute bottom-2 left-2 text-[10px] font-bold bg-black/70 px-2 py-0.5 rounded text-zinc-200">Close-up</span>
-        </a>
-
-        <a href="https://www.instagram.com/jackilusionista/" target="_blank" class="group relative rounded-2xl overflow-hidden aspect-square border border-zinc-800 bg-zinc-900 block">
-          <img src="jack-pensativo.PNG" alt="Mentalismo" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white">
-            <i class="fa-solid fa-play text-2xl text-amber-400"></i>
-          </div>
-          <span class="absolute bottom-2 left-2 text-[10px] font-bold bg-black/70 px-2 py-0.5 rounded text-zinc-200">Mentalismo</span>
-        </a>
-
-        <a href="https://www.instagram.com/jackilusionista/" target="_blank" class="group relative rounded-2xl overflow-hidden aspect-square border border-zinc-800 bg-zinc-900 block">
-          <img src="jack-cartas-voando.jpeg" alt="Ilusão" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white">
-            <i class="fa-solid fa-play text-2xl text-amber-400"></i>
-          </div>
-          <span class="absolute bottom-2 left-2 text-[10px] font-bold bg-black/70 px-2 py-0.5 rounded text-zinc-200">Ilusão</span>
-        </a>
-
-        <a href="https://www.instagram.com/jackilusionista/" target="_blank" class="group relative rounded-2xl overflow-hidden aspect-square border border-zinc-800 bg-zinc-900 block">
-          <img src="jack-fogo.jpeg" alt="Fogo" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white">
-            <i class="fa-solid fa-play text-2xl text-amber-400"></i>
-          </div>
-          <span class="absolute bottom-2 left-2 text-[10px] font-bold bg-black/70 px-2 py-0.5 rounded text-zinc-200">Fogo</span>
-        </a>
+      <div class="p-6 bg-zinc-900/90 rounded-2xl border border-zinc-800 text-center space-y-4">
+        <i class="fa-brands fa-instagram text-4xl text-amber-400"></i>
+        <div class="space-y-1">
+          <h3 class="font-gold text-lg font-bold text-white">Acompanhe as últimas apresentações</h3>
+          <p class="text-xs text-zinc-400 max-w-md mx-auto">
+            Veja vídeos reais de reações da plateia, números de mentalismo e os bastidores dos eventos postados diariamente.
+          </p>
+        </div>
+        <div class="flex flex-wrap justify-center gap-3 pt-2">
+          <a href="https://www.instagram.com/jackilusionista/reels/" target="_blank" class="px-4 py-2.5 bg-zinc-800 hover:bg-zinc-700 text-amber-300 border border-amber-400/30 rounded-xl text-xs font-bold uppercase tracking-wider transition flex items-center gap-2">
+            <i class="fa-solid fa-play"></i> Ver Reels Recentes
+          </a>
+          <a href="https://www.instagram.com/jackilusionista/" target="_blank" class="px-4 py-2.5 gold-btn rounded-xl text-xs uppercase tracking-wider transition flex items-center gap-2">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Abrir Feed Oficial
+          </a>
+        </div>
       </div>
     </section>
 
-    <!-- FORMAS DE PAGAMENTO -->
-    <section class="card-dark gold-border rounded-3xl p-6 sm:p-8 space-y-4 shadow-2xl">
+    <!-- ETAPA 6: FORMAS DE PAGAMENTO COM BOTÃO DE ESCOLHA -->
+    <section class="card-dark gold-border rounded-3xl p-6 sm:p-8 space-y-5 shadow-2xl">
       <div class="flex items-center gap-3 border-b border-zinc-800 pb-3">
         <div class="w-8 h-8 rounded-lg bg-amber-400/10 flex items-center justify-center text-amber-400">
           <i class="fa-solid fa-credit-card"></i>
         </div>
-        <h2 class="font-gold text-lg font-bold text-white">Formas de Pagamento & Condições</h2>
+        <div>
+          <h2 class="font-gold text-lg font-bold text-white">Formas de Pagamento & Condições</h2>
+          <p class="text-xs text-zinc-400">Escolha a condição que melhor atende você:</p>
+        </div>
+      </div>
+
+      <!-- AVISO DE PAGAMENTO ESCOLHIDO -->
+      <div id="avisoPagamento" class="hidden p-3.5 rounded-xl bg-amber-500/15 border border-amber-400/40 text-center text-xs text-amber-300 font-bold uppercase tracking-wider transition">
+        <i class="fa-solid fa-circle-check text-amber-400"></i> Condição Selecionada: <span id="txtPagamentoEscolhido" class="text-white font-bold"></span>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs pt-1">
-        <div class="p-4 bg-zinc-900 rounded-2xl border border-zinc-800 space-y-1">
-          <span class="text-amber-400 font-bold uppercase text-[10px] block">Opção 01</span>
-          <strong class="text-white block text-sm">50% + 50%</strong>
-          <p class="text-zinc-400 text-[11px] leading-relaxed">
-            50% de sinal para reserva da data e 50% no dia do evento (antes do início do show).
-          </p>
+        <!-- OPÇÃO 1 -->
+        <div id="card_pag_1" class="card-pag-item p-4 bg-zinc-900 rounded-2xl border border-zinc-800 space-y-3 transition flex flex-col justify-between">
+          <div class="space-y-1">
+            <span class="text-amber-400 font-bold uppercase text-[10px] block">Opção 01</span>
+            <strong class="text-white block text-sm">50% + 50%</strong>
+            <p class="text-zinc-400 text-[11px] leading-relaxed">
+              50% de sinal para reserva da data e 50% no dia do evento (antes do início do show).
+            </p>
+          </div>
+          <button type="button" onclick="selecionarPagamento('50% Sinal + 50% no Dia', 'card_pag_1')" class="btn-escolher-pag w-full py-2 bg-zinc-800 hover:bg-zinc-700 text-amber-300 border border-amber-400/30 rounded-xl text-[11px] font-bold uppercase tracking-wider transition">
+            Escolher Opção 1
+          </button>
         </div>
 
-        <div class="p-4 bg-zinc-900 rounded-2xl border border-zinc-800 space-y-1">
-          <span class="text-amber-400 font-bold uppercase text-[10px] block">Opção 02</span>
-          <strong class="text-white block text-sm">Até 10x no Cartão</strong>
-          <p class="text-zinc-400 text-[11px] leading-relaxed">
-            Parcelamento antecipado em até 10 vezes com a taxa administrativa da maquininha.
-          </p>
+        <!-- OPÇÃO 2 -->
+        <div id="card_pag_2" class="card-pag-item p-4 bg-zinc-900 rounded-2xl border border-zinc-800 space-y-3 transition flex flex-col justify-between">
+          <div class="space-y-1">
+            <span class="text-amber-400 font-bold uppercase text-[10px] block">Opção 02</span>
+            <strong class="text-white block text-sm">Até 10x no Cartão</strong>
+            <p class="text-zinc-400 text-[11px] leading-relaxed">
+              Parcelamento antecipado em até 10 vezes com a taxa administrativa da maquininha.
+            </p>
+          </div>
+          <button type="button" onclick="selecionarPagamento('Até 10x no Cartão', 'card_pag_2')" class="btn-escolher-pag w-full py-2 bg-zinc-800 hover:bg-zinc-700 text-amber-300 border border-amber-400/30 rounded-xl text-[11px] font-bold uppercase tracking-wider transition">
+            Escolher Opção 2
+          </button>
         </div>
 
-        <div class="p-4 bg-zinc-900 rounded-2xl border border-zinc-800 space-y-1">
-          <span class="text-amber-400 font-bold uppercase text-[10px] block">Opção 03</span>
-          <strong class="text-white block text-sm">PIX Integral</strong>
-          <p class="text-zinc-400 text-[11px] leading-relaxed">
-            Pagamento à vista do valor total via chave PIX no momento da confirmação.
-          </p>
+        <!-- OPÇÃO 3 -->
+        <div id="card_pag_3" class="card-pag-item p-4 bg-zinc-900 rounded-2xl border border-zinc-800 space-y-3 transition flex flex-col justify-between">
+          <div class="space-y-1">
+            <span class="text-amber-400 font-bold uppercase text-[10px] block">Opção 03</span>
+            <strong class="text-white block text-sm">PIX Integral</strong>
+            <p class="text-zinc-400 text-[11px] leading-relaxed">
+              Pagamento à vista do valor total via chave PIX no momento da confirmação.
+            </p>
+          </div>
+          <button type="button" onclick="selecionarPagamento('PIX Integral à Vista', 'card_pag_3')" class="btn-escolher-pag w-full py-2 bg-zinc-800 hover:bg-zinc-700 text-amber-300 border border-amber-400/30 rounded-xl text-[11px] font-bold uppercase tracking-wider transition">
+            Escolher Opção 3
+          </button>
         </div>
       </div>
     </section>
 
-    <!-- CONTACTOS E MÍDIAS -->
+    <!-- CONTACTOS E MÍDIAS DO BANNER -->
     <section class="card-dark gold-border rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl">
       <div class="text-center sm:text-left border-b border-zinc-800 pb-4">
         <span class="text-[10px] uppercase tracking-widest text-amber-400 font-bold">Canais de Atendimento</span>
@@ -549,13 +575,15 @@
       </ul>
     </section>
 
-    <!-- BOTÃO FIXO DE WHATSAPP -->
+    <!-- ETAPA 7: BOTÃO FIXO DE WHATSAPP COM FRASE ATUALIZADA -->
     <section class="text-center pt-4">
       <a id="btnWhatsFinal" href="https://api.whatsapp.com/send?phone=5531987114131" target="_blank" class="gold-btn w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl text-sm uppercase tracking-wider shadow-2xl hover:brightness-110 active:scale-95 transition">
         <i class="fa-brands fa-whatsapp text-lg"></i>
         <span id="txtBtnAprovar">Aprovar Proposta com Jack</span>
       </a>
-      <p class="text-[11px] text-zinc-500 mt-2">Atendimento imediato para reserva e confirmação</p>
+      <p class="text-[11px] text-zinc-400 mt-2 font-medium">
+        Assim que você enviar, entraremos em contato rapidamente para confirmar todos os detalhes do seu evento.
+      </p>
     </section>
 
     <!-- RODAPÉ -->
@@ -574,8 +602,30 @@
     const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
     let clienteAtual = "Cliente Especial";
+    let showEscolhido = "Não definido";
+    let precoEscolhido = "";
+    let pagamentoEscolhido = "Não definido";
+
+    function atualizarMensagemWhatsApp() {
+      let texto = `Olá Jack! Analisei a minha proposta (${clienteAtual}).\n\n`;
+      if (showEscolhido !== "Não definido") {
+        texto += `*Show Escolhido:* ${showEscolhido} (${precoEscolhido})\n`;
+      }
+      if (pagamentoEscolhido !== "Não definido") {
+        texto += `*Forma de Pagamento:* ${pagamentoEscolhido}\n`;
+      }
+      texto += `\nGostaria de confirmar a reserva da data!`;
+
+      document.getElementById('btnWhatsFinal').href = `https://api.whatsapp.com/send?phone=5531987114131&text=${encodeURIComponent(texto)}`;
+      if (showEscolhido !== "Não definido") {
+        document.getElementById('txtBtnAprovar').innerText = `Fechar: ${showEscolhido}`;
+      }
+    }
 
     function selecionarShow(nome, preco, cardId) {
+      showEscolhido = nome;
+      precoEscolhido = preco;
+
       document.querySelectorAll('.card-show-item').forEach(el => {
         el.classList.remove('card-selecionado');
         const btn = el.querySelector('.btn-escolher-show');
@@ -598,11 +648,34 @@
       document.getElementById('nomeShowSelecionado').innerText = `${nome} (${preco})`;
       document.getElementById('avisoSelecao').classList.remove('hidden');
 
-      const texto = encodeURIComponent(`Olá Jack! Analisei a minha proposta (${clienteAtual}) e escolhi a opção: *${nome}* (${preco}). Como podemos fazer para fechar e reservar a data?`);
-      document.getElementById('btnWhatsFinal').href = `https://api.whatsapp.com/send?phone=5531987114131&text=${texto}`;
-      document.getElementById('txtBtnAprovar').innerText = `Fechar Show: ${nome}`;
-      
+      atualizarMensagemWhatsApp();
       document.getElementById('avisoSelecao').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function selecionarPagamento(opcao, cardId) {
+      pagamentoEscolhido = opcao;
+
+      document.querySelectorAll('.card-pag-item').forEach(el => {
+        el.classList.remove('card-selecionado');
+        const btn = el.querySelector('.btn-escolher-pag');
+        if (btn) {
+          btn.className = "btn-escolher-pag w-full py-2 bg-zinc-800 hover:bg-zinc-700 text-amber-300 border border-amber-400/30 rounded-xl text-[11px] font-bold uppercase tracking-wider transition";
+        }
+      });
+
+      const card = document.getElementById(cardId);
+      if (card) {
+        card.classList.add('card-selecionado');
+        const btn = card.querySelector('.btn-escolher-pag');
+        if (btn) {
+          btn.className = "btn-escolher-pag w-full py-2 gold-btn rounded-xl text-[11px] font-extrabold uppercase tracking-wider shadow-lg transition";
+        }
+      }
+
+      document.getElementById('txtPagamentoEscolhido').innerText = opcao;
+      document.getElementById('avisoPagamento').classList.remove('hidden');
+
+      atualizarMensagemWhatsApp();
     }
 
     async function carregarProposta() {
@@ -633,10 +706,6 @@
           document.getElementById('boxObs').classList.remove('hidden');
         }
 
-        const msgWhats = encodeURIComponent(`Olá Jack! Vi a proposta do meu evento (${data.cliente}) e gostaria de tirar uma dúvida.`);
-        document.getElementById('btnWhatsFinal').href = `https://api.whatsapp.com/send?phone=5531987114131&text=${msgWhats}`;
-
-        // Atualiza apenas os preços sem apagar as descrições
         if (data.shows && Array.isArray(data.shows)) {
           data.shows.forEach(s => {
             if (s.nome === "Las Vegas é Aqui" && document.getElementById('preco_vegas')) {
@@ -644,6 +713,9 @@
             }
             if (s.nome === "Uma Hora de Enganação" && document.getElementById('preco_enganacao')) {
               document.getElementById('preco_enganacao').innerText = s.preco;
+            }
+            if (s.nome === "Show Misto" && document.getElementById('preco_misto')) {
+              document.getElementById('preco_misto').innerText = s.preco;
             }
             if (s.nome === "Brincando com o Impossível" && document.getElementById('preco_infantil')) {
               document.getElementById('preco_infantil').innerText = s.preco;
@@ -653,6 +725,8 @@
             }
           });
         }
+
+        atualizarMensagemWhatsApp();
 
       } catch (e) {
         console.error('Erro na consulta:', e);
