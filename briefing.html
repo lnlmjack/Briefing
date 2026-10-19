@@ -113,10 +113,8 @@
         <span id="nomeShowSelecionado" class="font-gold text-base font-bold text-white"></span>
       </div>
 
-      <!-- TODAS AS MARCADAS APARECEM AQUI -->
       <div id="listaShowsPrincipais" class="space-y-6"></div>
 
-      <!-- AS DESMARCADAS FICAM AQUI SUPRIMIDAS -->
       <div id="blocoOutrosShows" class="hidden pt-4 border-t border-zinc-800">
         <button onclick="document.getElementById('listaShowsOcultos').classList.toggle('hidden')" class="w-full py-4 bg-zinc-900 border border-zinc-700 rounded-2xl text-amber-400 font-bold uppercase text-xs tracking-widest flex items-center justify-center gap-2 hover:bg-zinc-800 transition">
           <i class="fa-solid fa-plus"></i> Conheça outras modalidades
@@ -287,7 +285,7 @@
         detalhes: [
           "<strong class='text-white text-sm block mb-1'>Mais do que um show de mágica: uma verdadeira experiência divertida e educativa!</strong>",
           "Pensado especialmente para o público infantil, familiar e o ambiente escolar, este espetáculo une humor, ilusionismo e interatividade para despertar a curiosidade e o raciocínio dos pequenos.",
-          "Com participação ativa do público, as crianças sobem ao palco, interagem com o artista e vivem momentos inesquecíveis, provando que aprender também pode ser pura diversão!",
+          "Com participação ativa do público, das crianças sobem ao palco, interagem com o artista e vivem momentos inesquecíveis, provando que aprender também pode ser pura diversão!",
           "Show de palco ideal para escolas, festas infantis e eventos adolescentes."
         ],
         ficha: { porte: "Escolas e Festas", publico: "Infantil / Familiar", duracao: "50 minutos a 1 hora" },
@@ -317,8 +315,10 @@
 
     function criarCard(show, idUnico) {
       let info = {
-        tag: "Espetáculo Exclusivo", detalhes: ["Espetáculo de ilusionismo."],
-        ficha: { porte: "Geral", publico: "Todos", duracao: "A combinar" }, preco: "Sob Consulta"
+        tag: "Espetáculo Exclusivo", 
+        detalhes: ["Espetáculo de ilusionismo."],
+        ficha: { porte: "Geral", publico: "Todos", duracao: "A combinar" }, 
+        preco: show.preco && show.preco.trim() !== "" ? show.preco : "Sob Consulta"
       };
 
       if(show.isCustom) {
@@ -328,10 +328,14 @@
           info.detalhes.unshift(`<strong class='text-white text-sm block mb-1'>${show.destaque}</strong>`);
         }
         info.ficha = { porte: show.porte || "Personalizado", publico: show.publico || "Geral", duracao: show.duracao || "A combinar" };
-        info.preco = show.preco || "Sob Consulta";
       } else if (SHOWS_DB[show.nome]) {
-        info = JSON.parse(JSON.stringify(SHOWS_DB[show.nome]));
-        info.preco = show.preco || info.precoPadrao;
+        info.tag = SHOWS_DB[show.nome].tag;
+        info.detalhes = SHOWS_DB[show.nome].detalhes;
+        info.ficha = SHOWS_DB[show.nome].ficha;
+        // Pega o preço enviado do painel ou usa o padrão do banco de dados
+        if (!show.preco || show.preco.trim() === "") {
+          info.preco = SHOWS_DB[show.nome].precoPadrao;
+        }
       }
 
       const pHTML = info.detalhes.map(p => `<p class="text-xs text-zinc-300 leading-relaxed">${p}</p>`).join('');
@@ -357,7 +361,7 @@
       return div;
     }
 
-    // RENDERIZAÇÃO BLINDADA: TODAS AS MARCADAS APARECEM, AS DESMARCADAS VÃO PARA OS OUTROS SHOWS
+    // LEITURA CORRETA DE PREÇOS E MODALIDADES NO BRIEFING
     function renderizarShowsDinamicamente(showsData) {
       const containerPrincipais = document.getElementById('listaShowsPrincipais');
       const containerOcultos = document.getElementById('listaShowsOcultos');
@@ -379,20 +383,18 @@
         selecionados = [{nome: "Las Vegas é Aqui", preco: "R$ 1.200,00", isCustom: false}];
       }
       
-      // Renderiza na lista principal CADA UM dos shows que vierem marcados na base de dados
+      // Renderiza as modalidades marcadas puxando o preço exato preenchido
       selecionados.forEach((show, index) => {
         containerPrincipais.appendChild(criarCard(show, 'card_prin_' + index));
       });
 
-      // Pega todos os nomes selecionados (em letras minúsculas para comparar sem erro)
+      // Põe as restantes no botão oculto
       const nomesSelecionados = selecionados.map(s => (s.nome || "").trim().toLowerCase());
-      
-      // Filtra apenas os oficiais que NÃO estão na lista de selecionados
       const naoSelecionados = OFICIAIS.filter(n => !nomesSelecionados.includes(n.trim().toLowerCase()));
 
       if(naoSelecionados.length > 0) {
         naoSelecionados.forEach((nome, index) => {
-           containerOcultos.appendChild(criarCard({nome: nome, isCustom: false}, 'card_oculto_' + index));
+           containerOcultos.appendChild(criarCard({nome: nome, preco: SHOWS_DB[nome]?.precoPadrao || "Sob Consulta", isCustom: false}, 'card_oculto_' + index));
         });
         blocoOutros.classList.remove('hidden');
       } else {
