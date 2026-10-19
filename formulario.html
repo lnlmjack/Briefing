@@ -3,87 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dados para sua Proposta - Jack Ilusionista</title>
+  <title>Solicitar Proposta - Jack Ilusionista</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .font-serif-gold { font-family: 'Cinzel', serif; }
-    .gold-gradient { background: linear-gradient(135deg, #fce082 0%, #d4af37 50%, #996515 100%); }
-    .gold-border { border: 1px solid rgba(212, 175, 55, 0.25); }
-    /* Força visualmente todas as entradas a ficarem em letras maiúsculas */
-    input, textarea { text-transform: uppercase; }
-    input::placeholder, textarea::placeholder { text-transform: none; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #050507; color: #f4f4f5; }
+    .font-gold { font-family: 'Cinzel', serif; }
+    .gold-btn { background: linear-gradient(135deg, #fce082 0%, #d4af37 50%, #996515 100%); color: #000; }
   </style>
 </head>
-<body class="bg-[#09090b] text-zinc-100 p-4 min-h-screen flex items-center justify-center">
-  <div class="max-w-lg w-full py-8 space-y-6">
+<body class="flex items-center justify-center min-h-screen p-4">
 
-    <header class="text-center space-y-2">
-      <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold">Jack Ilusionista</span>
-      <h1 class="font-serif-gold text-2xl md:text-3xl font-bold text-white tracking-wide">DADOS PARA SUA PROPOSTA</h1>
-      <p class="text-xs text-zinc-400 max-w-sm mx-auto leading-relaxed">
-        Preencha os detalhes do seu evento abaixo para que eu possa montar uma apresentação sob medida para você.
-      </p>
-    </header>
+  <div class="w-full max-w-lg bg-zinc-900 border border-zinc-800 p-8 rounded-3xl shadow-2xl relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-600 via-amber-400 to-amber-600"></div>
+    
+    <div class="text-center space-y-2 mb-8">
+      <div class="w-16 h-16 mx-auto bg-amber-500/10 border border-amber-500/30 rounded-full flex items-center justify-center text-amber-400 text-2xl mb-4">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+      </div>
+      <h1 class="font-gold text-2xl font-bold text-white uppercase tracking-wider">Jack Ilusionista</h1>
+      <p class="text-xs text-zinc-400">Preencha os detalhes do seu evento para receber uma proposta exclusiva.</p>
+    </div>
 
-    <div id="cardForm" class="bg-zinc-900/80 gold-border p-6 rounded-3xl space-y-4 shadow-2xl backdrop-blur-sm">
-      <div>
-        <label class="block text-xs font-semibold text-zinc-300">Seu Nome Completo *</label>
-        <input type="text" id="cli_nome" placeholder="Ex: Maria Clara Ferreira" class="w-full mt-1.5 p-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition uppercase">
+    <form id="formLead" class="space-y-4" onsubmit="enviarPedido(event)">
+      <div><label class="text-[10px] text-zinc-500 uppercase font-bold block mb-1">Nome</label>
+      <input type="text" id="cliente" required class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm focus:border-amber-400 outline-none transition" placeholder="O seu nome ou da empresa"></div>
+      
+      <div class="grid grid-cols-2 gap-4">
+        <div><label class="text-[10px] text-zinc-500 uppercase font-bold block mb-1">Data</label>
+        <input type="text" id="data" required oninput="mascaraData(event)" maxlength="10" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm focus:border-amber-400 outline-none transition" placeholder="DD/MM/AAAA"></div>
+        <div><label class="text-[10px] text-zinc-500 uppercase font-bold block mb-1">Horário</label>
+        <input type="text" id="horario" required oninput="mascaraHora(event)" maxlength="5" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm focus:border-amber-400 outline-none transition" placeholder="XX:XX"></div>
       </div>
 
-      <div class="grid grid-cols-2 gap-3">
-        <div>
-          <label class="block text-xs font-semibold text-zinc-300">Data do Evento *</label>
-          <input type="text" id="cli_data" placeholder="Ex: 15/11/2026" class="w-full mt-1.5 p-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition uppercase">
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-zinc-300">Horário Previsto</label>
-          <input type="text" id="cli_horario" placeholder="Ex: 20:00" class="w-full mt-1.5 p-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition uppercase">
-        </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div><label class="text-[10px] text-zinc-500 uppercase font-bold block mb-1">Convidados</label>
+        <input type="text" id="convidados" required class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm focus:border-amber-400 outline-none transition" placeholder="Quantas pessoas?"></div>
+        <div><label class="text-[10px] text-zinc-500 uppercase font-bold block mb-1">Tipo de Festa</label>
+        <input type="text" id="tipo" required class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm focus:border-amber-400 outline-none transition" placeholder="Ex: Casamento"></div>
       </div>
 
-      <div class="grid grid-cols-2 gap-3">
-        <div>
-          <label class="block text-xs font-semibold text-zinc-300">Nº Estimado de Pessoas</label>
-          <input type="text" id="cli_convidados" placeholder="Ex: 80 convidados" class="w-full mt-1.5 p-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition uppercase">
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-zinc-300">Tipo de Evento</label>
-          <input type="text" id="cli_tipo" placeholder="Ex: Casamento / Aniversário" class="w-full mt-1.5 p-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition uppercase">
-        </div>
-      </div>
+      <div><label class="text-[10px] text-zinc-500 uppercase font-bold block mb-1">Local / Bairro / Cidade</label>
+      <input type="text" id="local" required class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm focus:border-amber-400 outline-none transition" placeholder="Onde será o evento?"></div>
+      
+      <div><label class="text-[10px] text-zinc-500 uppercase font-bold block mb-1">Detalhes (Opcional)</label>
+      <textarea id="obs" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm focus:border-amber-400 outline-none transition" rows="2" placeholder="Alguma observação importante?"></textarea></div>
 
-      <div>
-        <label class="block text-xs font-semibold text-zinc-300">Local ou Bairro / Cidade</label>
-        <input type="text" id="cli_local" placeholder="Ex: Bairro Lourdes, BH" class="w-full mt-1.5 p-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition uppercase">
-      </div>
-
-      <div>
-        <label class="block text-xs font-semibold text-zinc-300">Seu WhatsApp / Telefone</label>
-        <input type="text" id="cli_telefone" placeholder="Ex: (31) 99999-9999" class="w-full mt-1.5 p-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition uppercase">
-      </div>
-
-      <div>
-        <label class="block text-xs font-semibold text-zinc-300">Observações que achar importante colocar</label>
-        <textarea id="cli_obs" rows="3" placeholder="Ex: É surpresa para o noivo, espaço pequeno, presença de muitas crianças, etc." class="w-full mt-1.5 p-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 resize-none transition uppercase"></textarea>
-      </div>
-
-      <button type="button" id="btnEnviar" onclick="enviarDados()" class="w-full mt-2 py-4 gold-gradient text-black font-extrabold text-sm uppercase tracking-wider rounded-xl shadow-lg hover:brightness-110 active:scale-95 transition">
-        ENVIAR DETALHES DO EVENTO
+      <button type="submit" id="btnEnviar" class="w-full py-4 mt-2 gold-btn rounded-xl font-bold uppercase tracking-widest hover:brightness-110 transition shadow-[0_0_15px_rgba(212,175,55,0.3)]">
+        Solicitar Proposta
       </button>
+    </form>
+
+    <div id="msgSucesso" class="hidden text-center py-10 space-y-4">
+      <div class="w-20 h-20 mx-auto bg-green-500/20 text-green-400 rounded-full flex items-center justify-center text-4xl mb-4 border border-green-500/40">
+        <i class="fa-solid fa-check"></i>
+      </div>
+      <h2 class="font-gold text-2xl font-bold text-white">Pedido Enviado!</h2>
+      <p class="text-sm text-zinc-400">Estamos preparando a sua proposta com as melhores opções para seu evento</p>
     </div>
 
-    <div id="sucesso" class="hidden text-center p-8 bg-zinc-900/90 gold-border rounded-3xl space-y-4 shadow-2xl">
-      <i class="fa-solid fa-circle-check text-5xl text-amber-400"></i>
-      <h3 class="font-serif-gold text-xl font-bold text-white">Dados enviados com sucesso!</h3>
-      <p class="text-xs text-zinc-400 max-w-xs mx-auto leading-relaxed">
-        Já estou a preparar a sua proposta com as melhores opções para o seu evento. Em breve receberá o seu link exclusivo!
-      </p>
-    </div>
   </div>
 
   <script>
@@ -91,49 +71,47 @@
     const SUPABASE_ANON = "sb_publishable_KIGYo0gheSoB6DqG_o6IxQ_ceB2xcww";
     const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
-    async function enviarDados() {
-      const nome = document.getElementById('cli_nome').value.trim().toUpperCase();
-      const dataEv = document.getElementById('cli_data').value.trim().toUpperCase();
+    function mascaraData(e) {
+      let v = e.target.value.replace(/\D/g, '');
+      if (v.length > 8) v = v.substring(0, 8);
+      if (v.length >= 5) v = v.replace(/(\d{2})(\d{2})(\d{1,4})/, '$1/$2/$3');
+      else if (v.length >= 3) v = v.replace(/(\d{2})(\d{1,2})/, '$1/$2');
+      e.target.value = v;
+    }
 
-      if (!nome) {
-        alert('Por favor, indique o seu nome completo.');
-        return;
-      }
+    function mascaraHora(e) {
+      let v = e.target.value.replace(/\D/g, '');
+      if (v.length > 4) v = v.substring(0, 4);
+      if (v.length >= 3) v = v.replace(/(\d{2})(\d{1,2})/, '$1:$2');
+      e.target.value = v;
+    }
 
+    async function enviarPedido(e) {
+      e.preventDefault();
       const btn = document.getElementById('btnEnviar');
-      btn.innerText = 'A ENVIAR DADOS...';
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> A enviar...';
       btn.disabled = true;
 
+      const payload = {
+        cliente: document.getElementById('cliente').value,
+        data_evento: document.getElementById('data').value,
+        horario: document.getElementById('horario').value,
+        convidados: document.getElementById('convidados').value,
+        tipo_festa: document.getElementById('tipo').value,
+        local: document.getElementById('local').value,
+        observacoes: document.getElementById('obs').value,
+        shows: []
+      };
+
       try {
-        const payload = {
-          cliente: nome,
-          data_evento: dataEv,
-          horario: document.getElementById('cli_horario').value.trim().toUpperCase(),
-          convidados: document.getElementById('cli_convidados').value.trim().toUpperCase(),
-          tipo_festa: document.getElementById('cli_tipo').value.trim().toUpperCase(),
-          local: document.getElementById('cli_local').value.trim().toUpperCase(),
-          observacoes: document.getElementById('cli_obs').value.trim().toUpperCase(),
-          telefone: document.getElementById('cli_telefone').value.trim().toUpperCase(),
-          status: 'pendente',
-          shows: [],
-          secoes: { bio: true, motivos: true, midias: true, pagamento: true }
-        };
-
         const { error } = await supabaseClient.from('propostas').insert([payload]);
-
-        if (error) {
-          alert('Erro ao enviar: ' + error.message);
-          btn.innerText = 'ENVIAR DETALHES DO EVENTO';
-          btn.disabled = false;
-          return;
-        }
-
-        document.getElementById('cardForm').classList.add('hidden');
-        document.getElementById('sucesso').classList.remove('hidden');
-
+        if (error) throw error;
+        
+        document.getElementById('formLead').classList.add('hidden');
+        document.getElementById('msgSucesso').classList.remove('hidden');
       } catch (err) {
-        alert('Erro ao processar: ' + err.message);
-        btn.innerText = 'ENVIAR DETALHES DO EVENTO';
+        alert("Erro ao enviar: " + err.message);
+        btn.innerHTML = 'Solicitar Proposta';
         btn.disabled = false;
       }
     }
