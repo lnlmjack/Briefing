@@ -83,6 +83,23 @@
           </div>
         </div>
 
+        <!-- CRIAR MODALIDADE PERSONALIZADA -->
+        <div class="pt-6 border-t border-zinc-800 bg-amber-500/5 p-5 rounded-2xl border border-amber-500/20 mt-6 relative overflow-hidden">
+          <div class="absolute top-0 right-0 bg-amber-500 text-black text-[9px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-widest">Opcional</div>
+          <h2 class="text-sm font-bold text-amber-400 mb-1 uppercase tracking-wider"><i class="fa-solid fa-pen-nib mr-2"></i>2. Criar Modalidade Exclusiva</h2>
+          <p class="text-[10px] text-zinc-400 mb-4">Preencha se quiser adicionar um show extra na hora.</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Nome do Show</label><input type="text" id="cust_nome" class="w-full p-2.5 bg-black border border-zinc-700 rounded-lg text-xs text-white uppercase" placeholder="EX: INTERVENÇÃO VIP"></div>
+            <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Preço Cobrado</label><input type="text" id="cust_preco" class="w-full p-2.5 bg-black border border-amber-500/40 rounded-lg text-xs text-amber-300 font-bold" placeholder="R$ 3.500,00"></div>
+            <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Etiqueta Dourada</label><input type="text" id="cust_tag" class="w-full p-2.5 bg-black border border-zinc-700 rounded-lg text-xs text-white uppercase" placeholder="EX: EXCLUSIVO"></div>
+            <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Frase de Destaque (Negrito)</label><input type="text" id="cust_destaque" class="w-full p-2.5 bg-black border border-zinc-700 rounded-lg text-xs text-white uppercase" placeholder="EX: IMPOSSÍVEL ACONTECER!"></div>
+            <div class="sm:col-span-2"><label class="text-[10px] text-zinc-500 uppercase block mb-1">Descrição Completa</label><textarea id="cust_desc" class="w-full p-3 bg-black border border-zinc-700 rounded-lg text-xs text-white uppercase" rows="3" placeholder="DESCRIÇÃO DO SHOW..."></textarea></div>
+            <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Porte / Ambiente</label><input type="text" id="cust_porte" class="w-full p-2.5 bg-black border border-zinc-700 rounded-lg text-xs text-white uppercase" placeholder="EX: LUXO"></div>
+            <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Público Alvo</label><input type="text" id="cust_publico" class="w-full p-2.5 bg-black border border-zinc-700 rounded-lg text-xs text-white uppercase" placeholder="EX: ADULTOS"></div>
+            <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Duração</label><input type="text" id="cust_duracao" class="w-full p-2.5 bg-black border border-zinc-700 rounded-lg text-xs text-white uppercase" placeholder="EX: 40 MINUTOS"></div>
+          </div>
+        </div>
+
         <button id="btnGerar" onclick="gerarProposta()" class="w-full py-4 gold-btn rounded-xl font-bold uppercase tracking-widest mt-6 shadow-xl hover:scale-[1.01] active:scale-95 transition">
           <i class="fa-solid fa-link mr-2"></i> Criar Proposta e Gerar Link
         </button>
@@ -208,7 +225,7 @@
       }
     }
 
-    // CAPTURA BLINDADA DOS PREÇOS DIGITADOS NO PAINEL
+    // CAPTURA COMPLETA: MODALIDADES NORMAIS + SHOW PERSONALIZADO
     async function gerarProposta() {
       const btn = document.getElementById('btnGerar');
       btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> A processar...';
@@ -225,6 +242,21 @@
           });
         }
       });
+
+      const custNome = document.getElementById('cust_nome')?.value || '';
+      if (custNome.trim() !== "") {
+        showsArr.push({
+          isCustom: true,
+          nome: custNome,
+          preco: document.getElementById('cust_preco')?.value || "Sob Consulta",
+          tag: document.getElementById('cust_tag')?.value || "Exclusivo",
+          destaque: document.getElementById('cust_destaque')?.value || "",
+          desc: document.getElementById('cust_desc')?.value || "",
+          porte: document.getElementById('cust_porte')?.value || "Personalizado",
+          publico: document.getElementById('cust_publico')?.value || "Geral",
+          duracao: document.getElementById('cust_duracao')?.value || "A combinar"
+        });
+      }
 
       const payload = {
         cliente: (document.getElementById('cliente')?.value || '').toUpperCase(),
@@ -334,21 +366,38 @@
         document.getElementById('local').value = data.local || ''; 
         document.getElementById('obs').value = data.observacoes || '';
 
-        document.querySelectorAll('.show-cb').forEach(cb => {
-          cb.checked = false;
-        });
+        document.querySelectorAll('.show-cb').forEach(cb => { cb.checked = false; });
+        document.getElementById('cust_nome').value = '';
+        document.getElementById('cust_preco').value = '';
+        document.getElementById('cust_tag').value = '';
+        document.getElementById('cust_destaque').value = '';
+        document.getElementById('cust_desc').value = '';
+        document.getElementById('cust_porte').value = '';
+        document.getElementById('cust_publico').value = '';
+        document.getElementById('cust_duracao').value = '';
 
         if (data.shows && Array.isArray(data.shows)) {
           data.shows.forEach(show => {
-            document.querySelectorAll('.show-cb').forEach(cb => {
-              if (cb.value.trim().toLowerCase() === show.nome.trim().toLowerCase()) {
-                cb.checked = true;
-                let precoId = cb.getAttribute('data-preco-id');
-                if (precoId && document.getElementById(precoId)) {
-                  document.getElementById(precoId).value = show.preco;
+            if (show.isCustom) {
+              document.getElementById('cust_nome').value = show.nome || '';
+              document.getElementById('cust_preco').value = show.preco || '';
+              document.getElementById('cust_tag').value = show.tag || '';
+              document.getElementById('cust_destaque').value = show.destaque || '';
+              document.getElementById('cust_desc').value = show.desc || '';
+              document.getElementById('cust_porte').value = show.porte || '';
+              document.getElementById('cust_publico').value = show.publico || '';
+              document.getElementById('cust_duracao').value = show.duracao || '';
+            } else {
+              document.querySelectorAll('.show-cb').forEach(cb => {
+                if (cb.value.trim().toLowerCase() === show.nome.trim().toLowerCase()) {
+                  cb.checked = true;
+                  let precoId = cb.getAttribute('data-preco-id');
+                  if (precoId && document.getElementById(precoId)) {
+                    document.getElementById(precoId).value = show.preco;
+                  }
                 }
-              }
-            });
+              });
+            }
           });
         }
         window.scrollTo({ top: 0, behavior: 'smooth' });
