@@ -108,7 +108,7 @@
           <p class="text-sm font-bold text-amber-400"><i class="fa-solid fa-circle-check mr-2"></i> Proposta pronta para envio!</p>
           <input type="text" id="linkGerado" class="w-full p-3 bg-black text-white font-mono text-[10px] sm:text-xs rounded-xl border border-zinc-800 text-center" readonly>
           <div class="flex flex-col sm:flex-row justify-center gap-3">
-            <button onclick="copiarLink()" class="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold rounded-xl uppercase transition shadow-lg"><i class="fa-regular fa-copy mr-2"></i> Copiar Link</button>
+            <button onclick="copiarLink()" class="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold rounded-xl uppercase transition shadow-lg"><i class="fa-regular fa-copy mr-2"></i> <span id="txtCopiar">Copiar Link</span></button>
             <a id="btnAbrir" href="#" target="_blank" class="px-6 py-3 bg-amber-500 hover:bg-amber-400 text-black text-xs font-bold rounded-xl uppercase transition shadow-lg"><i class="fa-solid fa-eye mr-2"></i> Ver Briefing</a>
           </div>
         </div>
@@ -225,7 +225,7 @@
       }
     }
 
-    // CAPTURA INFALÍVEL DE MODALIDADES MARCADAS
+    // GERAÇÃO BLINDADA DE PROPOSTAS
     async function gerarProposta() {
       const btn = document.getElementById('btnGerar');
       btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> A processar...';
@@ -291,6 +291,21 @@
         alert("Erro ao salvar: " + err.message); 
         btn.innerHTML = '<i class="fa-solid fa-link mr-2"></i> Tentar Novamente'; 
       }
+    }
+
+    // MÉTODO MODERNO E INFALÍVEL PARA COPIAR O LINK
+    function copiarLink() {
+      const input = document.getElementById('linkGerado');
+      input.select();
+      input.setSelectionRange(0, 99999); // Para dispositivos móveis
+      
+      navigator.clipboard.writeText(input.value).then(() => {
+        const txt = document.getElementById('txtCopiar');
+        txt.innerText = "Copiado!";
+        setTimeout(() => { txt.innerText = "Copiar Link"; }, 2000);
+      }).catch(err => {
+        alert("Erro ao copiar link automaticamente. Selecione e copie manualmente.");
+      });
     }
 
     async function excluirPedido(id) {
