@@ -12,6 +12,9 @@
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #050507; color: #f4f4f5; }
     .font-gold { font-family: 'Cinzel', serif; }
     .gold-btn { background: linear-gradient(135deg, #fce082 0%, #d4af37 50%, #996515 100%); color: #000; }
+    
+    /* Força o placeholder a ficar normal, mas o texto digitado a ficar em maiúsculas */
+    input::placeholder, textarea::placeholder { text-transform: none; }
   </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4">
@@ -29,27 +32,27 @@
 
     <form id="formLead" class="space-y-4" onsubmit="enviarPedido(event)">
       <div><label class="text-[10px] text-zinc-500 uppercase font-bold block mb-1">Nome</label>
-      <input type="text" id="cliente" required class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm focus:border-amber-400 outline-none transition" placeholder="O seu nome ou da empresa"></div>
+      <input type="text" id="cliente" required class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm uppercase focus:border-amber-400 outline-none transition" placeholder="O seu nome ou da empresa"></div>
       
       <div class="grid grid-cols-2 gap-4">
         <div><label class="text-[10px] text-zinc-500 uppercase font-bold block mb-1">Data</label>
-        <input type="text" id="data" required oninput="mascaraData(event)" maxlength="10" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm focus:border-amber-400 outline-none transition" placeholder="DD/MM/AAAA"></div>
+        <input type="text" id="data" required oninput="mascaraData(event)" maxlength="10" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm uppercase focus:border-amber-400 outline-none transition" placeholder="DD/MM/AAAA"></div>
         <div><label class="text-[10px] text-zinc-500 uppercase font-bold block mb-1">Horário</label>
-        <input type="text" id="horario" required oninput="mascaraHora(event)" maxlength="5" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm focus:border-amber-400 outline-none transition" placeholder="XX:XX"></div>
+        <input type="text" id="horario" required oninput="mascaraHora(event)" maxlength="5" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm uppercase focus:border-amber-400 outline-none transition" placeholder="XX:XX"></div>
       </div>
 
       <div class="grid grid-cols-2 gap-4">
         <div><label class="text-[10px] text-zinc-500 uppercase font-bold block mb-1">Convidados</label>
-        <input type="text" id="convidados" required class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm focus:border-amber-400 outline-none transition" placeholder="Quantas pessoas?"></div>
+        <input type="text" id="convidados" required class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm uppercase focus:border-amber-400 outline-none transition" placeholder="Quantas pessoas?"></div>
         <div><label class="text-[10px] text-zinc-500 uppercase font-bold block mb-1">Tipo de Festa</label>
-        <input type="text" id="tipo" required class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm focus:border-amber-400 outline-none transition" placeholder="Ex: Casamento"></div>
+        <input type="text" id="tipo" required class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm uppercase focus:border-amber-400 outline-none transition" placeholder="Ex: Casamento"></div>
       </div>
 
       <div><label class="text-[10px] text-zinc-500 uppercase font-bold block mb-1">Local / Bairro / Cidade</label>
-      <input type="text" id="local" required class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm focus:border-amber-400 outline-none transition" placeholder="Onde será o evento?"></div>
+      <input type="text" id="local" required class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm uppercase focus:border-amber-400 outline-none transition" placeholder="Onde será o evento?"></div>
       
       <div><label class="text-[10px] text-zinc-500 uppercase font-bold block mb-1">Detalhes (Opcional)</label>
-      <textarea id="obs" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm focus:border-amber-400 outline-none transition" rows="2" placeholder="Alguma observação importante?"></textarea></div>
+      <textarea id="obs" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm uppercase focus:border-amber-400 outline-none transition" rows="2" placeholder="Alguma observação importante?"></textarea></div>
 
       <button type="submit" id="btnEnviar" class="w-full py-4 mt-2 gold-btn rounded-xl font-bold uppercase tracking-widest hover:brightness-110 transition shadow-[0_0_15px_rgba(212,175,55,0.3)]">
         Solicitar Proposta
@@ -93,13 +96,14 @@
       btn.disabled = true;
 
       const payload = {
-        cliente: document.getElementById('cliente').value,
-        data_evento: document.getElementById('data').value,
-        horario: document.getElementById('horario').value,
-        convidados: document.getElementById('convidados').value,
-        tipo_festa: document.getElementById('tipo').value,
-        local: document.getElementById('local').value,
-        observacoes: document.getElementById('obs').value,
+        // O .toUpperCase() garante que vai gravado no banco de dados em CAIXA ALTA
+        cliente: document.getElementById('cliente').value.toUpperCase(),
+        data_evento: document.getElementById('data').value.toUpperCase(),
+        horario: document.getElementById('horario').value.toUpperCase(),
+        convidados: document.getElementById('convidados').value.toUpperCase(),
+        tipo_festa: document.getElementById('tipo').value.toUpperCase(),
+        local: document.getElementById('local').value.toUpperCase(),
+        observacoes: document.getElementById('obs').value.toUpperCase(),
         shows: []
       };
 
