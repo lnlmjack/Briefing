@@ -185,7 +185,7 @@
 
     function getSelectedIds() {
       const containerId = abaAtual === 'ativos' ? 'listaPedidosAtivos' : 'listaPedidosArquivados';
-      return Array.from(document.getElementById(containerId).querySelectorAll('.cb-pedido:checked')).map(c => String(c.value));
+      return Array.from(document.getElementById(containerId).querySelectorAll('.cb-pedido:checked')).map(c => c.value);
     }
 
     function arquivarSelecionados() {
@@ -198,15 +198,16 @@
       document.getElementById('cb_selectAll').checked = false; renderizarListas();
     }
 
-    // EXCLUSÃO CORRIGIDA QUE CONverte o ID CORRETAMENTE PARA NÚMERO OU UUID
+    // EXCLUSÃO CORRIGIDA QUE APAGA DIRETAMENTE USANDO O VALOR BRUTO DO ID
     async function excluirSelecionados() {
       const rawIds = getSelectedIds();
       if (rawIds.length === 0) return alert("Selecione pelo menos um pedido.");
       if(!confirm(`Apagar PERMANENTEMENTE ${rawIds.length} pedido(s)?`)) return;
       try {
         for (let id of rawIds) {
-          let idFormatado = isNaN(id) ? id : Number(id);
-          await supabaseClient.from('propostas').delete().eq('id', idFormatado);
+          // Tenta apagar como número e como string
+          await supabaseClient.from('propostas').delete().eq('id', Number(id));
+          await supabaseClient.from('propostas').delete().eq('id', id);
         }
         let arr = getArquivados(); 
         localStorage.setItem('arquivados_jack', JSON.stringify(arr.filter(a => !rawIds.includes(a))));
@@ -218,9 +219,8 @@
     async function excluirPedido(id) {
       if(confirm("Apagar permanentemente este pedido?")){
         try {
-          let idFormatado = isNaN(id) ? id : Number(id);
-          const { error } = await supabaseClient.from('propostas').delete().eq('id', idFormatado);
-          if (error) throw error;
+          await supabaseClient.from('propostas').delete().eq('id', Number(id));
+          await supabaseClient.from('propostas').delete().eq('id', id);
 
           let arr = getArquivados(); 
           localStorage.setItem('arquivados_jack', JSON.stringify(arr.filter(a => a !== String(id)))); 
@@ -295,8 +295,10 @@
       try {
         let result;
         if (pedidoEditandoId) {
-          let idFormatado = isNaN(pedidoEditandoId) ? pedidoEditandoId : Number(pedidoEditandoId);
-          result = await supabaseClient.from('propostas').update(payload).eq('id', idFormatado).select();
+          result = await supabaseClient.from('propostas').update(payload).eq('id', Number(pedidoEditandoId));
+          if (result.error) {
+            await supabaseClient.from('propostas').update(payload).eq('id', pedidoEditandoId);
+          }
         } else {
           result = await supabaseClient.from('propostas').insert([payload]).select();
         }
@@ -374,9 +376,11 @@
 
     async function carregarParaEdicao(id) {
       try {
-        let idFormatado = isNaN(id) ? id : Number(id);
-        const { data, error } = await supabaseClient.from('propostas').select('*').eq('id', idFormatado).single();
-        if (error) throw error;
+        let { data, error } = await supabaseClient.from('propostas').select('*').eq('id', Number(id)).single();
+        if (error || !data) {
+          let res2 = await supabaseClient.from('propostas').select('*').eq('id', id).single();
+          data = res2.data;
+        }
         pedidoEditandoId = data.id;
         
         document.getElementById('cliente').value = data.cliente || ''; 
