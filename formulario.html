@@ -93,14 +93,15 @@
       btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> A enviar...';
       btn.disabled = true;
 
+      // Código blindado para evitar erros com campos vazios (null)
       const payload = {
-        cliente: document.getElementById('cliente').value.toUpperCase(),
-        data_evento: document.getElementById('data').value.toUpperCase(),
-        horario: document.getElementById('horario').value.toUpperCase(),
-        convidados: document.getElementById('convidados').value.toUpperCase(),
-        tipo_festa: document.getElementById('tipo').value.toUpperCase(),
-        local: document.getElementById('local').value.toUpperCase(),
-        observacoes: document.getElementById('obs').value.toUpperCase(),
+        cliente: (document.getElementById('cliente')?.value || '').toUpperCase(),
+        data_evento: (document.getElementById('data')?.value || '').toUpperCase(),
+        horario: (document.getElementById('horario')?.value || '').toUpperCase(),
+        convidados: (document.getElementById('convidados')?.value || '').toUpperCase(),
+        tipo_festa: (document.getElementById('tipo')?.value || '').toUpperCase(),
+        local: (document.getElementById('local')?.value || '').toUpperCase(),
+        observacoes: (document.getElementById('obs')?.value || '').toUpperCase(),
         shows: []
       };
 
