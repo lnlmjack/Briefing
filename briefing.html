@@ -136,17 +136,6 @@ const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
 let cliente='Cliente',showEscolhido='',precoEscolhido='',pagamentoEscolhido='';
 const escapeHtml=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&','<':'<','>':'>','"':'&quot;',"'":'&#39;'}[c]));
 
-function formatarPreco(v){
-  const valor=String(v||'').trim();
-  if(!valor) return 'Sob Consulta';
-  if(/r\$/i.test(valor)) return valor;
-  if(/sob\s*consulta/i.test(valor)) return valor;
-  const limpo=valor.replace(/\s/g,'').replace(/\./g,'').replace(',', '.');
-  const n=parseFloat(limpo);
-  if(isNaN(n)) return valor;
-  return 'R$ '+n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
-}
-
 const oficiais={
 'Las Vegas é Aqui':{tag:'Show de Mesa / Close-up',preco:'R$ 1.200,00',porte:'Todos',publico:'Familiar',duracao:'A partir de 1 hora',
 desc:"O SHOW LAS VEGAS É AQUI é um ataque direto à sua percepção da realidade.\n\nUm espetáculo de mágica de proximidade, humor e interação, onde não existe palco para se esconder, a mágica acontece a poucos centímetros de você.\n\nA magia de Las Vegas vem para o seu evento: um baralho, uma moeda, uma caneta, um celular... e, principalmente, você.\n\nObjetos desaparecem, pensamentos são antecipados e lidos, impossibilidades acontecem diante dos seus olhos e, no meio de tudo isso, boas doses de humor tornam cada momento ainda mais imprevisível.\n\nAs regras da física são colocadas à prova. A lógica é desafiada. E seus próprios olhos podem se tornar o seu pior inimigo.\n\nA única aposta da noite é descobrir até onde você está disposto a acreditar no impossível."},
@@ -171,11 +160,10 @@ document.getElementById('aprovar').href='https://api.whatsapp.com/send?phone=553
 function renderShow(show){
 const nome=String(show.nome||'Modalidade'),base=oficiais[nome]||{tag:'Espetáculo Exclusivo',preco:'Sob Consulta',porte:'A combinar',publico:'A combinar',duracao:'A combinar',desc:'Uma experiência personalizada para o seu evento.'};
 let detalhes=show.isCustom?(show.desc||base.desc):base.desc;
-const precoFormatado=formatarPreco(show.preco||base.preco);
 const card=document.createElement('article');
 card.className='card p-5 sm:p-6 space-y-4';
 const titulo=document.createElement('div');
-titulo.innerHTML=`<span class="text-[10px] uppercase tracking-wider text-amber-400">${escapeHtml(show.tag||base.tag)}</span><div class="flex flex-wrap justify-between gap-2 items-center"><h3 class="font-gold text-xl font-bold">${escapeHtml(nome)}</h3><div class="text-right"><span class="block text-[9px] text-zinc-500 uppercase">Investimento</span><strong class="text-amber-300">${escapeHtml(precoFormatado)}</strong></div></div>`;
+titulo.innerHTML=`<span class="text-[10px] uppercase tracking-wider text-amber-400">${escapeHtml(show.tag||base.tag)}</span><h3 class="font-gold text-xl font-bold mt-1">${escapeHtml(nome)}</h3><div class="mt-2"><span class="block text-[9px] text-zinc-500 uppercase">Investimento</span><strong class="text-amber-300 text-xl">${escapeHtml(show.preco||base.preco)}</strong></div>`;
 const desc=document.createElement('p');
 desc.className='text-sm text-zinc-300 leading-relaxed whitespace-pre-line';
 desc.textContent=(show.destaque?show.destaque+'\n\n':'')+detalhes;
@@ -187,7 +175,7 @@ button.type='button';
 button.className='w-full bg-zinc-800 hover:bg-zinc-700 border border-amber-400/30 rounded-xl py-3 text-xs font-bold text-amber-300';
 button.textContent='✓ ESCOLHER ESTA OPÇÃO';
 button.addEventListener('click',()=>{
-showEscolhido=nome;precoEscolhido=precoFormatado;
+showEscolhido=nome;precoEscolhido=show.preco||base.preco;
 document.getElementById('escolhaShow').textContent=`Show selecionado: ${nome} (${precoEscolhido})`;
 document.getElementById('escolhaShow').classList.remove('hidden');
 setWhats();
