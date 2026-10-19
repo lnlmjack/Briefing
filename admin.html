@@ -11,10 +11,7 @@
 <div id="painel" class="space-y-6"><section class="bg-zinc-900 border border-zinc-800 p-6 sm:p-8 rounded-3xl"><div class="flex justify-between items-start gap-3 border-b border-zinc-800 pb-4 mb-5"><div><h1 class="text-2xl font-bold">Painel Administrativo</h1></div></div>
 <form id="propostaForm" class="space-y-4"><input type="hidden" id="pedidoId"><div class="grid sm:grid-cols-2 gap-3"><input id="cliente" required maxlength="180" class="field" placeholder="Nome do cliente"><input id="data" maxlength="10" class="field" placeholder="Data DD/MM/AAAA"><input id="horario" maxlength="5" class="field" placeholder="Horário"><input id="convidados" class="field" placeholder="Convidados"><input id="tipo" class="field" placeholder="Tipo de festa"><input id="local" class="field" placeholder="Local / cidade"></div><textarea id="obs" rows="2" class="field" placeholder="Observações"></textarea>
 <div class="border-t border-zinc-800 pt-4"><h2 class="font-bold mb-3">Shows oferecidos</h2><p class="text-[11px] text-zinc-500 mb-3">Marque os shows que farão parte desta proposta. Use o lápis para editar a descrição de um show — a alteração vale para todas as propostas, atuais e futuras.</p><div id="checks" class="grid sm:grid-cols-2 gap-2"></div></div>
-<details class="bg-zinc-950 border border-zinc-800 rounded-xl p-4" open><summary class="cursor-pointer text-amber-400 text-sm font-bold">Adicionar modalidade personalizada</summary>
-<div id="customShowsContainer" class="space-y-4 mt-4"></div>
-<button type="button" id="addCustomShow" class="mt-3 bg-zinc-800 px-3 py-2 rounded-lg text-xs text-amber-300"><i class="fa-solid fa-plus mr-1"></i>Adicionar outra modalidade</button>
-</details>
+<details class="bg-zinc-950 border border-zinc-800 rounded-xl p-4" open><summary class="cursor-pointer text-amber-400 text-sm font-bold">Modalidades personalizadas</summary><div id="customList" class="space-y-4 mt-4"></div><button type="button" id="addCustomBtn" class="mt-3 bg-zinc-800 px-3 py-2 rounded-lg text-xs text-amber-300"><i class="fa-solid fa-plus"></i> Adicionar outra modalidade</button></details>
 <div class="flex flex-wrap gap-2"><button id="salvarBtn" class="gold-btn flex-1 py-3 rounded-xl font-bold">Criar proposta e gerar link</button><button id="cancelarEdicao" type="button" class="hidden bg-zinc-700 px-4 rounded-xl">Cancelar edição</button></div><p id="formError" class="hidden text-sm text-red-400" role="alert"></p></form>
 <div id="linkBox" class="hidden mt-4 bg-zinc-950 border border-amber-400/40 rounded-xl p-4 space-y-3"><p class="text-sm text-amber-400 font-bold">Link do briefing</p><input id="linkGerado" readonly class="field"><div class="flex gap-2"><button id="copiar" class="bg-zinc-800 px-4 py-2 rounded-lg text-sm">Copiar</button><a id="abrir" target="_blank" rel="noopener" class="bg-amber-500 text-black px-4 py-2 rounded-lg text-sm font-bold">Abrir</a></div></div></section>
 <section class="bg-zinc-900 border border-zinc-800 p-6 sm:p-8 rounded-3xl"><div class="flex justify-between items-center border-b border-zinc-800 pb-4 mb-4"><div><h2 class="text-xl font-bold">Gestor de Pedidos</h2><p class="text-xs text-zinc-400">Pedidos recebidos pelo formulário</p></div><button id="atualizar" title="Atualizar" class="bg-zinc-800 w-10 h-10 rounded-lg"><i class="fa-solid fa-rotate-right"></i></button></div><p id="listaError" class="hidden text-sm text-red-400 mb-3" role="alert"></p>
@@ -43,6 +40,20 @@ let showsCatalog=[];
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&','<':'<','>':'>','"':'&quot;',"'":'&#39;'}[c]));
 let arquivados=new Set(JSON.parse(localStorage.getItem('arquivados_jack')||'[]').map(String));
 function setError(id,msg){const el=document.getElementById(id);el.textContent=msg;el.classList.toggle('hidden',!msg)}
+
+function paraNumero(v){
+  const limpo=String(v||'').trim().replace(/\s/g,'').replace(/\./g,'').replace(',', '.');
+  const n=parseFloat(limpo);
+  return isNaN(n)?null:n;
+}
+function formatarPreco(v){
+  const valor=String(v||'').trim();
+  if(!valor) return 'Sob Consulta';
+  if(/r\$/i.test(valor)) return valor;
+  const n=paraNumero(valor);
+  if(n===null) return valor;
+  return 'R$ '+n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+}
 
 async function carregarCatalogo(){
   try{
@@ -81,47 +92,40 @@ function montarChecks(){
   });
 }
 
-function maskMoney(input){
-  input.addEventListener('input',()=>{
-    let v=input.value.replace(/\D/g,'');
-    if(!v){input.value='';return;}
-    v=(parseInt(v,10)/100).toFixed(2);
-    let [intPart,decPart]=v.split('.');
-    intPart=intPart.replace(/\B(?=(\d{3})+(?!\d))/g,'.');
-    input.value='R$ '+intPart+','+decPart;
-  });
-}
-
-let customIdx=0;
-function criarBlocoPersonalizado(dados={}){
-  const idx=customIdx++;
+function criarBlocoCustom(data){
+  data=data||{};
   const div=document.createElement('div');
-  div.className='customShowBlock border border-zinc-800 rounded-xl p-3 space-y-3';
-  div.dataset.idx=idx;
-  div.innerHTML=`<div class="flex justify-between items-center"><span class="text-[11px] text-zinc-500">Modalidade personalizada</span><button type="button" class="removeCustomShow text-red-400 text-xs"><i class="fa-solid fa-trash mr-1"></i>Remover</button></div>
-  <div class="grid sm:grid-cols-2 gap-3">
-    <input id="cust_nome_${idx}" class="field" placeholder="Nome do show" value="${esc(dados.nome||'')}">
-    <input id="cust_preco_${idx}" class="field" placeholder="Preço (ex: R$ 1.500,00)" value="${esc(dados.preco||'')}">
-    <input id="cust_tag_${idx}" class="field" placeholder="Etiqueta" value="${esc(dados.tag||'')}">
-    <input id="cust_destaque_${idx}" class="field" placeholder="Frase em destaque" value="${esc(dados.destaque||'')}">
-    <textarea id="cust_desc_${idx}" class="field sm:col-span-2" placeholder="Descrição">${esc(dados.desc||'')}</textarea>
-    <input id="cust_porte_${idx}" class="field" placeholder="Porte / ambiente" value="${esc(dados.porte||'')}">
-    <input id="cust_publico_${idx}" class="field" placeholder="Público alvo" value="${esc(dados.publico||'')}">
-    <input id="cust_duracao_${idx}" class="field" placeholder="Duração" value="${esc(dados.duracao||'')}">
-  </div>`;
-  document.getElementById('customShowsContainer').appendChild(div);
-  maskMoney(document.getElementById('cust_preco_'+idx));
-  div.querySelector('.removeCustomShow').onclick=()=>div.remove();
+  div.className='customBlock grid sm:grid-cols-2 gap-3 border border-zinc-800 rounded-lg p-3 relative';
+  div.innerHTML=`<button type="button" class="removeCustomBtn absolute top-2 right-2 text-red-400 text-xs" title="Remover modalidade"><i class="fa-solid fa-trash"></i></button>
+  <input class="field cust_nome" placeholder="Nome do show" value="${esc(data.nome||'')}">
+  <input class="field cust_preco" placeholder="Preço" value="${esc(data.preco||'')}">
+  <input class="field cust_tag" placeholder="Etiqueta" value="${esc(data.tag||'')}">
+  <input class="field cust_destaque" placeholder="Frase em destaque" value="${esc(data.destaque||'')}">
+  <textarea class="field cust_desc sm:col-span-2" placeholder="Descrição">${esc(data.desc||'')}</textarea>
+  <input class="field cust_porte" placeholder="Porte / ambiente" value="${esc(data.porte||'')}">
+  <input class="field cust_publico" placeholder="Público alvo" value="${esc(data.publico||'')}">
+  <input class="field cust_duracao" placeholder="Duração" value="${esc(data.duracao||'')}">`;
+  div.querySelector('.removeCustomBtn').onclick=()=>{
+    if(document.querySelectorAll('.customBlock').length>1){div.remove();}
+    else{div.querySelectorAll('input,textarea').forEach(el=>el.value='');}
+  };
+  return div;
 }
-document.getElementById('addCustomShow').onclick=()=>criarBlocoPersonalizado();
+function resetCustomList(dataArr){
+  const list=document.getElementById('customList');
+  list.innerHTML='';
+  if(dataArr&&dataArr.length){dataArr.forEach(d=>list.appendChild(criarBlocoCustom(d)));}
+  else{list.appendChild(criarBlocoCustom());}
+}
+document.getElementById('addCustomBtn').onclick=()=>{document.getElementById('customList').appendChild(criarBlocoCustom());};
 
 carregarCatalogo();
 carregarPedidos();
-criarBlocoPersonalizado();
+resetCustomList();
 
-function resetForm(){document.getElementById('propostaForm').reset();document.getElementById('pedidoId').value='';document.getElementById('salvarBtn').textContent='Criar proposta e gerar link';document.getElementById('cancelarEdicao').classList.add('hidden');document.getElementById('linkBox').classList.add('hidden');document.getElementById('customShowsContainer').innerHTML='';criarBlocoPersonalizado();}
+function resetForm(){document.getElementById('propostaForm').reset();document.getElementById('pedidoId').value='';resetCustomList();document.getElementById('salvarBtn').textContent='Criar proposta e gerar link';document.getElementById('cancelarEdicao').classList.add('hidden');document.getElementById('linkBox').classList.add('hidden');}
 document.getElementById('cancelarEdicao').onclick=resetForm;
-document.getElementById('propostaForm').addEventListener('submit',async e=>{e.preventDefault();setError('formError','');const btn=document.getElementById('salvarBtn');btn.disabled=true;btn.textContent='Salvando...';const val=id=>document.getElementById(id).value.trim();const shows=[];showsCatalog.forEach((show,i)=>{const cb=document.getElementById('show'+i);if(cb&&cb.checked)shows.push({nome:show.nome,preco:val('preco'+i)||'Sob Consulta',isCustom:false});});document.querySelectorAll('#customShowsContainer .customShowBlock').forEach(div=>{const idx=div.dataset.idx;const nome=document.getElementById('cust_nome_'+idx)?.value.trim();if(!nome)return;shows.push({isCustom:true,nome,preco:document.getElementById('cust_preco_'+idx).value.trim()||'Sob Consulta',tag:document.getElementById('cust_tag_'+idx).value.trim()||'Exclusivo',destaque:document.getElementById('cust_destaque_'+idx).value.trim(),desc:document.getElementById('cust_desc_'+idx).value.trim(),porte:document.getElementById('cust_porte_'+idx).value.trim()||'Personalizado',publico:document.getElementById('cust_publico_'+idx).value.trim()||'Geral',duracao:document.getElementById('cust_duracao_'+idx).value.trim()||'A combinar'});});const payload={cliente:val('cliente').toUpperCase(),data_evento:val('data'),horario:val('horario'),convidados:val('convidados').toUpperCase(),tipo_festa:val('tipo').toUpperCase(),local:val('local').toUpperCase(),observacoes:val('obs').toUpperCase(),shows};try{let result;const id=val('pedidoId');if(id)result=await db.from('propostas').update(payload).eq('id',id).select('id,public_token').single();else result=await db.from('propostas').insert(payload).select('id,public_token').single();if(result.error)throw result.error;if(!result.data?.public_token)throw new Error('O pedido foi salvo, mas não retornou o identificador público. Confira se o SQL de configuração foi aplicado.');const link=new URL('briefing.html',location.href);link.searchParams.set('token',result.data.public_token);document.getElementById('linkGerado').value=link.href;document.getElementById('abrir').href=link.href;document.getElementById('linkBox').classList.remove('hidden');await carregarPedidos();}catch(err){setError('formError','Falha ao salvar a proposta: '+err.message);}finally{btn.disabled=false;btn.textContent=val('pedidoId')?'Atualizar proposta e gerar link':'Criar proposta e gerar link';}});
+document.getElementById('propostaForm').addEventListener('submit',async e=>{e.preventDefault();setError('formError','');const btn=document.getElementById('salvarBtn');btn.disabled=true;btn.textContent='Salvando...';const val=id=>document.getElementById(id).value.trim();const shows=[];showsCatalog.forEach((show,i)=>{const cb=document.getElementById('show'+i);if(cb&&cb.checked)shows.push({nome:show.nome,preco:formatarPreco(val('preco'+i)),isCustom:false});});document.querySelectorAll('.customBlock').forEach(div=>{const g=cls=>div.querySelector('.'+cls)?.value.trim()||'';const nome=g('cust_nome');if(nome)shows.push({isCustom:true,nome,preco:formatarPreco(g('cust_preco')),tag:g('cust_tag')||'Exclusivo',destaque:g('cust_destaque'),desc:g('cust_desc'),porte:g('cust_porte')||'Personalizado',publico:g('cust_publico')||'Geral',duracao:g('cust_duracao')||'A combinar'});});const payload={cliente:val('cliente').toUpperCase(),data_evento:val('data'),horario:val('horario'),convidados:val('convidados').toUpperCase(),tipo_festa:val('tipo').toUpperCase(),local:val('local').toUpperCase(),observacoes:val('obs').toUpperCase(),shows};try{let result;const id=val('pedidoId');if(id)result=await db.from('propostas').update(payload).eq('id',id).select('id,public_token').single();else result=await db.from('propostas').insert(payload).select('id,public_token').single();if(result.error)throw result.error;if(!result.data?.public_token)throw new Error('O pedido foi salvo, mas não retornou o identificador público. Confira se o SQL de configuração foi aplicado.');const link=new URL('briefing.html',location.href);link.searchParams.set('token',result.data.public_token);document.getElementById('linkGerado').value=link.href;document.getElementById('abrir').href=link.href;document.getElementById('linkBox').classList.remove('hidden');await carregarPedidos();}catch(err){setError('formError','Falha ao salvar a proposta: '+err.message);}finally{btn.disabled=false;btn.textContent=val('pedidoId')?'Atualizar proposta e gerar link':'Criar proposta e gerar link';}});
 document.getElementById('copiar').onclick=async()=>{try{await navigator.clipboard.writeText(document.getElementById('linkGerado').value);document.getElementById('copiar').textContent='Copiado!';setTimeout(()=>document.getElementById('copiar').textContent='Copiar',1500)}catch{document.getElementById('linkGerado').select();document.execCommand('copy')}};
 let pedidosCache=[];
 let abaPedidos='ativos';
@@ -137,6 +141,6 @@ document.getElementById('tabArquivados').onclick=()=>definirAbaPedidos('arquivad
 document.getElementById('selecionarVisiveis').onchange=e=>{document.querySelectorAll('#lista [data-select-id]').forEach(c=>{c.checked=e.target.checked;if(e.target.checked)pedidosSelecionados.add(c.dataset.selectId);else pedidosSelecionados.delete(c.dataset.selectId);});atualizarSelecao();};
 document.getElementById('arquivarSelecionados').onclick=async()=>{const ids=[...pedidosSelecionados];if(!ids.length)return;ids.forEach(id=>{if(abaPedidos==='ativos')arquivados.add(id);else arquivados.delete(id);});salvarArquivados();pedidosSelecionados.clear();render(pedidosCache);};
 document.getElementById('excluirSelecionados').onclick=async()=>{const ids=[...pedidosSelecionados];if(!ids.length)return;if(!confirm(`Excluir permanentemente ${ids.length} pedido(s) selecionado(s)?`))return;const b=document.getElementById('excluirSelecionados');b.disabled=true;try{await excluirPedidos(ids);}catch(err){alert('Não foi possível excluir: '+err.message);}finally{b.disabled=false;}};
-async function acao(d,p){if(d.action==='archive'){const id=String(p.id);if(arquivados.has(id))arquivados.delete(id);else arquivados.add(id);salvarArquivados();pedidosSelecionados.delete(id);render(pedidosCache);return;}if(d.action==='open'){if(!d.token)return alert('Este pedido ainda não tem link. Edite e salve a proposta para gerar.');const u=new URL('briefing.html',location.href);u.searchParams.set('token',d.token);window.open(u.href,'_blank','noopener');return;}if(d.action==='delete'){if(!confirm('Excluir permanentemente este pedido?'))return;try{await excluirPedidos([String(p.id)]);}catch(err){alert('Não foi possível excluir: '+err.message);}return;}if(d.action==='edit'){document.getElementById('pedidoId').value=p.id;for(const [id,key] of [['cliente','cliente'],['data','data_evento'],['horario','horario'],['convidados','convidados'],['tipo','tipo_festa'],['local','local'],['obs','observacoes']])document.getElementById(id).value=p[key]||'';document.querySelectorAll('.showCheck').forEach((cb,i)=>{const item=(p.shows||[]).find(s=>!s.isCustom&&s.nome.toLowerCase()===showsCatalog[i].nome.toLowerCase());cb.checked=!!item;if(item)document.getElementById('preco'+i).value=item.preco||'';});document.getElementById('customShowsContainer').innerHTML='';const customShows=(p.shows||[]).filter(s=>s.isCustom);if(customShows.length){customShows.forEach(c=>criarBlocoPersonalizado(c));}else{criarBlocoPersonalizado();}document.getElementById('salvarBtn').textContent='Atualizar proposta e gerar link';document.getElementById('cancelarEdicao').classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});}}
+async function acao(d,p){if(d.action==='archive'){const id=String(p.id);if(arquivados.has(id))arquivados.delete(id);else arquivados.add(id);salvarArquivados();pedidosSelecionados.delete(id);render(pedidosCache);return;}if(d.action==='open'){if(!d.token)return alert('Este pedido ainda não tem link. Edite e salve a proposta para gerar.');const u=new URL('briefing.html',location.href);u.searchParams.set('token',d.token);window.open(u.href,'_blank','noopener');return;}if(d.action==='delete'){if(!confirm('Excluir permanentemente este pedido?'))return;try{await excluirPedidos([String(p.id)]);}catch(err){alert('Não foi possível excluir: '+err.message);}return;}if(d.action==='edit'){document.getElementById('pedidoId').value=p.id;for(const [id,key] of [['cliente','cliente'],['data','data_evento'],['horario','horario'],['convidados','convidados'],['tipo','tipo_festa'],['local','local'],['obs','observacoes']])document.getElementById(id).value=p[key]||'';document.querySelectorAll('.showCheck').forEach((cb,i)=>{const item=(p.shows||[]).find(s=>!s.isCustom&&s.nome.toLowerCase()===showsCatalog[i].nome.toLowerCase());cb.checked=!!item;if(item)document.getElementById('preco'+i).value=item.preco||'';});const customs=(p.shows||[]).filter(s=>s.isCustom);resetCustomList(customs);document.getElementById('salvarBtn').textContent='Atualizar proposta e gerar link';document.getElementById('cancelarEdicao').classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});}}
 document.getElementById('atualizar').onclick=carregarPedidos;
 </script></body></html>
