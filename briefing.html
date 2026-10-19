@@ -357,7 +357,7 @@
       return div;
     }
 
-    // EXIBE TODAS AS MARCADAS E SUPRIME AS DESMARCADAS NOS OUTROS SHOWS
+    // RENDERIZAÇÃO BLINDADA: TODAS AS MARCADAS APARECEM, AS DESMARCADAS VÃO PARA OS OUTROS SHOWS
     function renderizarShowsDinamicamente(showsData) {
       const containerPrincipais = document.getElementById('listaShowsPrincipais');
       const containerOcultos = document.getElementById('listaShowsOcultos');
@@ -379,13 +379,15 @@
         selecionados = [{nome: "Las Vegas é Aqui", preco: "R$ 1.200,00", isCustom: false}];
       }
       
-      // Renderiza todas as selecionadas na lista principal
+      // Renderiza na lista principal CADA UM dos shows que vierem marcados na base de dados
       selecionados.forEach((show, index) => {
         containerPrincipais.appendChild(criarCard(show, 'card_prin_' + index));
       });
 
-      // Filtra as não selecionadas para irem para o botão de ocultos
+      // Pega todos os nomes selecionados (em letras minúsculas para comparar sem erro)
       const nomesSelecionados = selecionados.map(s => (s.nome || "").trim().toLowerCase());
+      
+      // Filtra apenas os oficiais que NÃO estão na lista de selecionados
       const naoSelecionados = OFICIAIS.filter(n => !nomesSelecionados.includes(n.trim().toLowerCase()));
 
       if(naoSelecionados.length > 0) {
