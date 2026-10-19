@@ -6,7 +6,7 @@
   <title>Apresentação Exclusiva - Jack Ilusionista</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="https://elfsightcdn.com/platform.js" async></script>
+  <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -124,16 +124,32 @@
     </section>
 
     <!-- INTEGRAÇÃO INSTAGRAM -->
-    <section class="card-dark gold-border rounded-3xl p-5 sm:p-6 space-y-4 shadow-xl">
-      <div class="flex items-center justify-between border-b border-zinc-800 pb-3">
-        <div class="flex items-center gap-2.5">
-          <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 flex items-center justify-center text-white text-xs"><i class="fa-brands fa-instagram"></i></div>
-          <h2 class="font-gold text-base font-bold text-white">Instagram @jackilusionista</h2>
+    <section class="card-dark gold-border rounded-3xl p-6 sm:p-8 space-y-5 shadow-2xl">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 border-b border-zinc-800 pb-4">
+        <div>
+          <span class="text-[10px] uppercase tracking-widest text-amber-400 font-bold">Publicações & Bastidores</span>
+          <h2 class="font-gold text-xl font-bold text-white">Instagram Oficial</h2>
         </div>
-        <a href="https://www.instagram.com/jackilusionista/" target="_blank" class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-amber-300 border border-amber-400/30 rounded-xl text-[11px] font-bold uppercase tracking-wider transition">Seguir</a>
+        <a href="https://www.instagram.com/jackilusionista/" target="_blank" class="px-4 py-2 bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 rounded-xl text-xs font-bold text-white flex items-center gap-2 hover:opacity-90 transition shadow-lg">
+          <i class="fa-brands fa-instagram text-sm"></i> Seguir @jackilusionista
+        </a>
       </div>
-      <div class="pt-1 overflow-hidden rounded-xl opacity-90 hover:opacity-100 transition">
-        <div class="elfsight-app-6630be00-6361-43e3-b077-c9a6954bce92" data-elfsight-app-lazy></div>
+      <div class="p-6 bg-zinc-900/90 rounded-2xl border border-zinc-800 text-center space-y-4">
+        <i class="fa-brands fa-instagram text-5xl text-amber-400"></i>
+        <div class="space-y-2">
+          <h3 class="font-gold text-lg font-bold text-white">Acompanhe as apresentações</h3>
+          <p class="text-xs text-zinc-400 max-w-md mx-auto leading-relaxed">
+            Veja vídeos reais das reações da plateia, números de mentalismo e os bastidores dos eventos que são postados diariamente.
+          </p>
+        </div>
+        <div class="flex flex-wrap justify-center gap-3 pt-3">
+          <a href="https://www.instagram.com/jackilusionista/reels/" target="_blank" class="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 text-amber-300 border border-amber-400/30 rounded-xl text-xs font-bold uppercase tracking-wider transition flex items-center gap-2">
+            <i class="fa-solid fa-play text-lg"></i> Assistir Reels
+          </a>
+          <a href="https://www.instagram.com/jackilusionista/" target="_blank" class="px-6 py-3 gold-btn rounded-xl text-xs uppercase tracking-wider transition flex items-center gap-2">
+            <i class="fa-solid fa-arrow-up-right-from-square text-lg"></i> Abrir Feed Oficial
+          </a>
+        </div>
       </div>
     </section>
 
@@ -196,261 +212,4 @@
 
     <!-- OBSERVAÇÕES E PRAZOS -->
     <section class="p-5 bg-zinc-900/60 rounded-2xl border border-zinc-800 text-[11px] text-zinc-400 space-y-2 leading-relaxed">
-      <h3 class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5"><i class="fa-solid fa-circle-info"></i> Observações Importantes & Prazos</h3>
-      <ul class="list-disc list-inside space-y-1">
-        <li>A presente proposta tem validade de <strong>07 (sete) dias corridos</strong> a contar desta data.</li>
-        <li>O contratante disponibilizará água potável ilimitada para o artista e sua equipe.</li>
-        <li>O contratante terá o direito de arrependimento segundo a lei no prazo de 07 (sete) dias, mediante e-mail.</li>
-        <li>Após os 07 dias de direito de arrependimento o evento será considerado fechado e por estar reservado a data e horário só haverá cancelamento por caso fortuito ou força maior.</li>
-      </ul>
-    </section>
-
-    <!-- BOTÃO FIXO DE WHATSAPP -->
-    <section class="text-center pt-4">
-      <a id="btnWhatsFinal" href="https://api.whatsapp.com/send?phone=5531987114131" target="_blank" class="gold-btn w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl text-sm uppercase tracking-wider shadow-2xl hover:brightness-110 active:scale-95 transition">
-        <i class="fa-brands fa-whatsapp text-lg"></i>
-        <span id="txtBtnAprovar">Aprovar Proposta com Jack</span>
-      </a>
-      <p class="text-[11px] text-zinc-400 mt-2 font-medium">Em breve enviaremos a confirmação e entraremos em contato.</p>
-    </section>
-
-    <footer class="text-center pt-8 border-t border-zinc-800/60 text-xs text-zinc-500 space-y-1 pb-10">
-      <p class="font-gold text-amber-400 text-sm">MAGICORDIALMENTE</p>
-      <p class="font-bold text-white">Jack Ilusionista - O Melhor Mágico de Belo Horizonte</p>
-      <p>CNPJ: 66.723.962-0001-87 | Telefone: (31) 98711-4131</p>
-      <p>Belo Horizonte - Minas Gerais</p>
-    </footer>
-
-  </main>
-
-  <script>
-    const SUPABASE_URL = "https://ilvzmuvxloqrpqbuyvrb.supabase.co";
-    const SUPABASE_ANON = "sb_publishable_KIGYo0gheSoB6DqG_o6IxQ_ceB2xcww";
-    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
-
-    let clienteAtual = "Cliente Especial";
-    let showEscolhido = "Não definido";
-    let precoEscolhido = "";
-    let pagamentoEscolhido = "Não definido";
-
-    const SHOWS_DB = {
-      "Las Vegas é Aqui": {
-        tag: "Show de Mesa / Close-up",
-        detalhes: [
-          "<strong class='text-white text-sm block mb-1'>Você confia nos seus olhos?</strong>",
-          "O SHOW LAS VEGAS É AQUI é um ataque direto à sua percepção da realidade. Um espetáculo de mágica de proximidade, humor e interação, onde não existe palco para se esconder, a mágica acontece a poucos centímetros de você.",
-          "A magia de Las Vegas vem para o seu evento: um baralho, uma moeda, uma caneta, um celular... e, principalmente, você.",
-          "Objetos desaparecem, pensamentos são antecipados e lidos, impossibilidades acontecem diante dos seus olhos e, no meio de tudo isso, boas doses de humor tornam cada momento ainda mais imprevisível.",
-          "As regras da física são colocadas à prova. A lógica é desafiada. E seus próprios olhos podem se tornar o seu pior inimigo.",
-          "A única aposta da noite é descobrir até onde você está disposto a acreditar no impossível."
-        ],
-        ficha: { porte: "Todos", publico: "Familiar", duracao: "A partir de 1 hora" },
-        precoPadrao: "R$ 1.200,00"
-      },
-      "Uma Hora de Enganação": {
-        tag: "Show de Palco Adulto",
-        detalhes: [
-          "E se a melhor parte da enganação fosse a diversão que ela provoca? O show UMA HORA DE ENGANAÇÃO é um espetáculo que eleva a mágica e a comédia a um novo patamar de cumplicidade com o público.",
-          "Este não é um show para ser apenas assistido, mas para ser vivido. Através de uma sequência de ilusões repletas de humor, suspense e participação constante, o público é desafiado a decifrar o mistério enquanto ri de si mesmo. É a prova de que ser enganado nunca foi tão divertido."
-        ],
-        ficha: { porte: "Todos", publico: "Familiar", duracao: "Aproximadamente 50 minutos" },
-        precoPadrao: "R$ 1.990,00"
-      },
-      "Show Misto": {
-        tag: "O Pacote Completo",
-        detalhes: [
-          "A combinação perfeita dos dois formatos: abertura dinâmica com show de mesa passando entre os convidados (1h30) e encerramento apoteótico com o show de palco para todos assistirem juntos (50min). A experiência completa e definitiva."
-        ],
-        ficha: { porte: "Todos", publico: "Familiar", duracao: "1h30 de mesa + 50min de palco" },
-        precoPadrao: "R$ 2.600,00"
-      },
-      "Brincando com o Impossível": {
-        tag: "Espetáculo Infantil e Familiar",
-        detalhes: [
-          "<strong class='text-white text-sm block mb-1'>Mais do que um show de mágica: uma verdadeira experiência divertida e educativa!</strong>",
-          "Pensado especialmente para o público infantil, familiar e o ambiente escolar, este espetáculo une humor, ilusionismo e interatividade para despertar a curiosidade e o raciocínio dos pequenos.",
-          "Com participação ativa do público, as crianças sobem ao palco, interagem com o artista e vivem momentos inesquecíveis, provando que aprender também pode ser pura diversão!",
-          "Show de palco ideal para escolas, festas infantis e eventos adolescentes."
-        ],
-        ficha: { porte: "Escolas e Festas", publico: "Infantil / Familiar", duracao: "50 minutos a 1 hora" },
-        precoPadrao: "R$ 1.990,00"
-      },
-      "Mágica e Humor Corporativo": {
-        tag: "Eventos Corporativos",
-        detalhes: [
-          "O show MÁGICA E HUMOR CORPORATIVO é uma intervenção envolvente que mistura ilusionismo, comédia e conteúdo para provocar reflexões profundas de forma leve e surpreendente. Através da mágica, o público é conduzido a enxergar além do óbvio, questionar crenças limitantes e transformar o \"impossível\" em meta.",
-          "Mais do que um show, essa apresentação também pode ser adaptada para eventos como “MESTRE SEM CERIMÔNIA”, oferecendo uma condução criativa, bem humorada e interativa, bem diferente do modelo tradicional. Uma maneira original de manter a atenção da plateia, criar conexões e tornar cada momento memorável."
-        ],
-        ficha: { porte: "Eventos Empresariais", publico: "Corporativo", duracao: "Aprox. 50min (ou intervenções)" },
-        precoPadrao: "Sob Consulta"
-      }
-    };
-
-    const OFICIAIS = Object.keys(SHOWS_DB);
-
-    function atualizarMensagemWhatsApp() {
-      let texto = `Olá Jack! Analisei a minha proposta (${clienteAtual}).\n\n`;
-      if (showEscolhido !== "Não definido") texto += `*Show Escolhido:* ${showEscolhido} (${precoEscolhido})\n`;
-      if (pagamentoEscolhido !== "Não definido") texto += `*Forma de Pagamento:* ${pagamentoEscolhido}\n`;
-      texto += `\nGostaria de confirmar a reserva da data!`;
-      document.getElementById('btnWhatsFinal').href = `https://api.whatsapp.com/send?phone=5531987114131&text=${encodeURIComponent(texto)}`;
-      if (showEscolhido !== "Não definido") document.getElementById('txtBtnAprovar').innerText = `Aprovar: ${showEscolhido}`;
-    }
-
-    function criarCard(show, idUnico) {
-      let info = {
-        tag: "Espetáculo Exclusivo", 
-        detalhes: ["Espetáculo de ilusionismo."],
-        ficha: { porte: "Geral", publico: "Todos", duracao: "A combinar" }, 
-        preco: "Sob Consulta"
-      };
-
-      if (show.isCustom) {
-        info.tag = show.tag || "Exclusivo";
-        info.detalhes = show.desc ? show.desc.split('\n').filter(p=>p.trim()!=='') : ["Espetáculo personalizado."];
-        if (show.destaque && show.destaque.trim() !== '') {
-          info.detalhes.unshift(`<strong class='text-white text-sm block mb-1'>${show.destaque}</strong>`);
-        }
-        info.ficha = { porte: show.porte || "Personalizado", publico: show.publico || "Geral", duracao: show.duracao || "A combinar" };
-        info.preco = show.preco && show.preco.trim() !== "" ? show.preco : "Sob Consulta";
-      } else if (SHOWS_DB[show.nome]) {
-        info.tag = SHOWS_DB[show.nome].tag;
-        info.detalhes = SHOWS_DB[show.nome].detalhes;
-        info.ficha = SHOWS_DB[show.nome].ficha;
-        
-        if (show.preco && show.preco.trim() !== "") {
-          info.preco = show.preco;
-        } else {
-          info.preco = SHOWS_DB[show.nome].precoPadrao;
-        }
-      }
-
-      const pHTML = info.detalhes.map(p => `<p class="text-xs text-zinc-300 leading-relaxed">${p}</p>`).join('');
-
-      const div = document.createElement('div');
-      div.id = idUnico;
-      div.className = "card-dark gold-border p-6 sm:p-7 rounded-3xl space-y-4 shadow-xl transition card-show-item";
-      div.innerHTML = `
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-zinc-800 pb-3">
-          <div><span class="text-[10px] uppercase tracking-wider font-bold text-amber-400 bg-amber-400/10 px-2.5 py-0.5 rounded-full inline-block">${info.tag}</span>
-          <h3 class="font-gold text-xl font-bold text-white mt-1">${show.nome}</h3></div>
-          <div class="sm:text-right w-full sm:w-auto mt-2 sm:mt-0"><span class="text-[10px] uppercase text-zinc-400 block font-semibold">Investimento</span>
-          <span class="text-xl font-black text-amber-300 font-gold">${info.preco}</span></div>
-        </div>
-        <div class="space-y-3 text-left">${pHTML}</div>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-3 border-t border-zinc-800/80 text-[11px]">
-          <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800 text-center sm:text-left"><span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Porte</span><span class="text-zinc-200 font-medium">${info.ficha.porte}</span></div>
-          <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800 text-center sm:text-left"><span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Público</span><span class="text-zinc-200 font-medium">${info.ficha.publico}</span></div>
-          <div class="bg-zinc-950/60 p-2.5 rounded-xl border border-zinc-800 text-center sm:text-left"><span class="text-zinc-500 uppercase tracking-wider block font-semibold text-[9px]">Duração</span><span class="text-amber-300 font-medium">${info.ficha.duracao}</span></div>
-        </div>
-        <div class="pt-2"><button type="button" onclick="selecionarShow('${show.nome}', '${info.preco}', '${idUnico}')" class="btn-escolher-show w-full py-3.5 bg-zinc-800 hover:bg-zinc-700 text-amber-400 border border-amber-400/30 rounded-xl text-xs font-bold uppercase tracking-wider transition flex items-center justify-center gap-2"><i class="fa-solid fa-check"></i> ESCOLHER ESTA OPÇÃO</button></div>
-      `;
-      return div;
-    }
-
-    // RENDERIZAÇÃO BLINDADA PARA LER OS SHOWS CORRETAMENTE
-    function renderizarShowsDinamicamente(showsData) {
-      const containerPrincipais = document.getElementById('listaShowsPrincipais');
-      const containerOcultos = document.getElementById('listaShowsOcultos');
-      const blocoOutros = document.getElementById('blocoOutrosShows');
-      
-      containerPrincipais.innerHTML = '';
-      containerOcultos.innerHTML = '';
-
-      let selecionados = [];
-      if (showsData) {
-        if (typeof showsData === 'string') {
-          try { selecionados = JSON.parse(showsData); } catch(e) { selecionados = []; }
-        } else if (Array.isArray(showsData)) {
-          selecionados = [...showsData];
-        }
-      }
-
-      if (selecionados.length === 0) {
-        selecionados = [{nome: "Las Vegas é Aqui", preco: "R$ 1.200,00", isCustom: false}];
-      }
-      
-      selecionados.forEach((show, index) => {
-        containerPrincipais.appendChild(criarCard(show, 'card_prin_' + index));
-      });
-
-      const nomesSelecionadosOficiais = selecionados.filter(s => !s.isCustom).map(s => (s.nome || "").trim().toLowerCase());
-      const naoSelecionados = OFICIAIS.filter(n => !nomesSelecionadosOficiais.includes(n.trim().toLowerCase()));
-
-      if(naoSelecionados.length > 0) {
-        naoSelecionados.forEach((nome, index) => {
-           containerOcultos.appendChild(criarCard({nome: nome, preco: SHOWS_DB[nome]?.precoPadrao || "Sob Consulta", isCustom: false}, 'card_oculto_' + index));
-        });
-        blocoOutros.classList.remove('hidden');
-      } else {
-        blocoOutros.classList.add('hidden');
-      }
-    }
-
-    function selecionarShow(nome, preco, cardId) {
-      showEscolhido = nome; precoEscolhido = preco;
-      document.querySelectorAll('.card-show-item').forEach(el => {
-        el.classList.remove('card-selecionado');
-        const btn = el.querySelector('.btn-escolher-show');
-        if (btn) { btn.innerHTML = `<i class="fa-solid fa-check"></i> ESCOLHER ESTA OPÇÃO`; btn.className = "btn-escolher-show w-full py-3.5 bg-zinc-800 hover:bg-zinc-700 text-amber-400 border border-amber-400/30 rounded-xl text-xs font-bold uppercase tracking-wider transition flex items-center justify-center gap-2"; }
-      });
-      const card = document.getElementById(cardId);
-      if (card) {
-        card.classList.add('card-selecionado');
-        const btn = card.querySelector('.btn-escolher-show');
-        if (btn) { btn.innerHTML = `<i class="fa-solid fa-circle-check"></i> OPÇÃO ESCOLHIDA`; btn.className = "btn-escolher-show w-full py-3.5 gold-btn rounded-xl text-xs font-extrabold uppercase tracking-wider shadow-lg transition flex items-center justify-center gap-2"; }
-      }
-      document.getElementById('nomeShowSelecionado').innerText = `${nome} (${preco})`;
-      document.getElementById('avisoSelecao').classList.remove('hidden');
-      atualizarMensagemWhatsApp();
-      document.getElementById('avisoSelecao').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-
-    function selecionarPagamento(opcao, cardId) {
-      pagamentoEscolhido = opcao;
-      document.querySelectorAll('.card-pag-item').forEach(el => { el.classList.remove('card-selecionado'); const btn = el.querySelector('.btn-escolher-pag'); if (btn) btn.className = "btn-escolher-pag w-full py-2 bg-zinc-800 hover:bg-zinc-700 text-amber-300 border border-amber-400/30 rounded-xl text-[11px] font-bold uppercase tracking-wider transition"; });
-      const card = document.getElementById(cardId);
-      if (card) { card.classList.add('card-selecionado'); const btn = card.querySelector('.btn-escolher-pag'); if (btn) btn.className = "btn-escolher-pag w-full py-2 gold-btn rounded-xl text-[11px] font-extrabold uppercase tracking-wider shadow-lg transition"; }
-      document.getElementById('txtPagamentoEscolhido').innerText = opcao;
-      document.getElementById('avisoPagamento').classList.remove('hidden');
-      atualizarMensagemWhatsApp();
-    }
-
-    async function carregarProposta() {
-      const params = new URLSearchParams(window.location.search);
-      const clienteParam = params.get('cliente');
-
-      if (!clienteParam) { renderizarShowsDinamicamente([]); return; }
-
-      try {
-        const nomePesquisa = decodeURIComponent(clienteParam).trim();
-        const { data, error } = await supabaseClient.from('propostas').select('*').ilike('cliente', nomePesquisa).maybeSingle();
-        
-        if (error || !data) { renderizarShowsDinamicamente([]); return; }
-
-        clienteAtual = data.cliente || "Cliente";
-        document.getElementById('txtCliente').innerText = data.cliente || "Cliente Especial";
-        document.getElementById('txtData').innerText = data.data_evento || "A Confirmar";
-        document.getElementById('txtHorario').innerText = data.horario || "A Combinar";
-        document.getElementById('txtConvidados').innerText = data.convidados || "Não informado";
-        document.getElementById('txtTipo').innerText = data.tipo_festa || "Evento";
-        document.getElementById('txtLocal').innerText = data.local || "Belo Horizonte / MG";
-
-        if (data.observacoes && data.observacoes.trim() !== '') {
-          document.getElementById('txtObs').innerText = data.observacoes;
-          document.getElementById('boxObs').classList.remove('hidden');
-        }
-
-        renderizarShowsDinamicamente(data.shows);
-        atualizarMensagemWhatsApp();
-
-      } catch (e) {
-        console.error('Erro:', e);
-        renderizarShowsDinamicamente([]);
-      }
-    }
-
-    carregarProposta();
-  </script>
-</body>
-</html>
+      <h3 class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5"><i class="fa-solid
