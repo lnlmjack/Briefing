@@ -198,7 +198,6 @@
       document.getElementById('cb_selectAll').checked = false; renderizarListas();
     }
 
-    // EXCLUSÃO ROBUSTA CORRIGIDA PARA SUPABASE
     async function excluirSelecionados() {
       const rawIds = getSelectedIds();
       if (rawIds.length === 0) return alert("Selecione pelo menos um pedido.");
@@ -342,7 +341,7 @@
       let countAtivos = 0; let countArquivados = 0;
       listaGlobalPedidos.forEach(pedido => {
         const strId = String(pedido.id); const isArquivado = arquivadosIds.includes(strId);
-        const statusHTML = (pedido.shows && Array.isArray(pedido.shows) && pedido.shows.length > 0) ? '<span class="text-[9px] bg-green-500/20 text-green-400 border border-green-500/30 px-2 py-1 rounded uppercase tracking-wider font-bold">Proposta Pronta</span>' : '<span class="text-[9px] bg-blue-500/20 text-blue-400 border border-blue-500/30 px-2 py-1 rounded uppercase tracking-wider font-bold">Novo Pedido</span>';
+        const statusHTML = (pedido.shows && (Array.isArray(pedido.shows) || typeof pedido.shows === 'string')) ? '<span class="text-[9px] bg-green-500/20 text-green-400 border border-green-500/30 px-2 py-1 rounded uppercase tracking-wider font-bold">Proposta Pronta</span>' : '<span class="text-[9px] bg-blue-500/20 text-blue-400 border border-blue-500/30 px-2 py-1 rounded uppercase tracking-wider font-bold">Novo Pedido</span>';
         
         const slugCliente = encodeURIComponent(pedido.cliente || '');
         const link = window.location.origin + '/briefing.html?cliente=' + slugCliente;
@@ -397,8 +396,13 @@
         document.getElementById('cust_publico').value = '';
         document.getElementById('cust_duracao').value = '';
 
-        if (data.shows && Array.isArray(data.shows)) {
-          data.shows.forEach(show => {
+        let showsParsed = data.shows;
+        if (typeof showsParsed === 'string') {
+          try { showsParsed = JSON.parse(showsParsed); } catch(e) { showsParsed = []; }
+        }
+
+        if (showsParsed && Array.isArray(showsParsed)) {
+          showsParsed.forEach(show => {
             if (show.isCustom) {
               document.getElementById('cust_nome').value = show.nome || '';
               document.getElementById('cust_preco').value = show.preco || '';
