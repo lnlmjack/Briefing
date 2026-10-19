@@ -225,7 +225,7 @@
       }
     }
 
-    // GERADOR COM LINK LIMPO NO FORMATO /briefing/nome-do-cliente
+    // GERADOR COM LINK PADRÃO briefing.html?cliente=NOME
     async function gerarProposta() {
       const btn = document.getElementById('btnGerar');
       const nomeClienteInput = document.getElementById('cliente')?.value || '';
@@ -283,9 +283,8 @@
         
         if (result.error) throw result.error;
         
-        // Transforma o nome para formato limpo de URL (ex: "LEONARD LIMA" -> "leonard-lima")
-        const slugNome = clienteClean.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-        const linkOficial = `https://jackilusionista.com.br/briefing/${slugNome}`;
+        const slugCliente = encodeURIComponent(clienteClean);
+        const linkOficial = window.location.origin + '/briefing.html?cliente=' + slugCliente;
 
         document.getElementById('linkGerado').value = linkOficial; 
         document.getElementById('btnAbrir').href = linkOficial;
@@ -334,8 +333,8 @@
         const strId = String(pedido.id); const isArquivado = arquivadosIds.includes(strId);
         const statusHTML = (pedido.shows && Array.isArray(pedido.shows) && pedido.shows.length > 0) ? '<span class="text-[9px] bg-green-500/20 text-green-400 border border-green-500/30 px-2 py-1 rounded uppercase tracking-wider font-bold">Proposta Pronta</span>' : '<span class="text-[9px] bg-blue-500/20 text-blue-400 border border-blue-500/30 px-2 py-1 rounded uppercase tracking-wider font-bold">Novo Pedido</span>';
         
-        const slugNome = (pedido.cliente || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-        const link = `https://jackilusionista.com.br/briefing/${slugNome}`;
+        const slugCliente = encodeURIComponent(pedido.cliente || '');
+        const link = window.location.origin + '/briefing.html?cliente=' + slugCliente;
 
         const btnArquivar = isArquivado ? `<button onclick="setArquivado('${strId}', false)" class="flex-1 px-3 py-2 bg-zinc-800 hover:bg-zinc-600 text-white text-xs font-bold rounded-xl transition flex justify-center"><i class="fa-solid fa-box-open"></i></button>` : `<button onclick="setArquivado('${strId}', true)" class="flex-1 px-3 py-2 bg-zinc-800 hover:bg-zinc-600 text-white text-xs font-bold rounded-xl transition flex justify-center"><i class="fa-solid fa-box"></i></button>`;
         
