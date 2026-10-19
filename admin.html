@@ -198,15 +198,13 @@
       document.getElementById('cb_selectAll').checked = false; renderizarListas();
     }
 
-    // FUNÇÃO DE EXCLUSÃO CORRIGIDA PARA TRATAR IDs NUMÉRICOS OU TEXTO
+    // EXCLUSÃO ROBUSTA CORRIGIDA PARA SUPABASE
     async function excluirSelecionados() {
       const rawIds = getSelectedIds();
       if (rawIds.length === 0) return alert("Selecione pelo menos um pedido.");
       if(!confirm(`Apagar PERMANENTEMENTE ${rawIds.length} pedido(s)?`)) return;
       try {
-        // Converte os IDs para o formato correto (número se for numérico, string se for UUID)
         const idsFormatados = rawIds.map(id => isNaN(id) ? id : Number(id));
-
         const { error } = await supabaseClient.from('propostas').delete().in('id', idsFormatados);
         if (error) throw error;
 
