@@ -11,10 +11,40 @@
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #050507; color: #f4f4f5; }
     .gold-btn { background: linear-gradient(135deg, #fce082 0%, #d4af37 50%, #996515 100%); color: #000; }
-    input[type="checkbox"].cb-massa { appearance: none; background-color: #18181b; margin: 0; font: inherit; color: currentColor; width: 1.25em; height: 1.25em; border: 2px solid #52525b; border-radius: 0.35em; display: grid; place-content: center; transition: all 0.2s; }
-    input[type="checkbox"].cb-massa::before { content: ""; width: 0.65em; height: 0.65em; transform: scale(0); transition: 120ms transform ease-in-out; box-shadow: inset 1em 1em #000; background-color: #000; transform-origin: center; clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%); }
-    input[type="checkbox"].cb-massa:checked { background-color: #f59e0b; border-color: #f59e0b; }
-    input[type="checkbox"].cb-massa:checked::before { transform: scale(1); }
+    
+    /* Personaliza o aspeto das caixas de seleção */
+    input[type="checkbox"].cb-massa {
+      appearance: none;
+      background-color: #18181b;
+      margin: 0;
+      font: inherit;
+      color: currentColor;
+      width: 1.25em;
+      height: 1.25em;
+      border: 2px solid #52525b;
+      border-radius: 0.35em;
+      display: grid;
+      place-content: center;
+      transition: all 0.2s;
+    }
+    input[type="checkbox"].cb-massa::before {
+      content: "";
+      width: 0.65em;
+      height: 0.65em;
+      transform: scale(0);
+      transition: 120ms transform ease-in-out;
+      box-shadow: inset 1em 1em #000;
+      background-color: #000;
+      transform-origin: center;
+      clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    }
+    input[type="checkbox"].cb-massa:checked {
+      background-color: #f59e0b;
+      border-color: #f59e0b;
+    }
+    input[type="checkbox"].cb-massa:checked::before {
+      transform: scale(1);
+    }
   </style>
 </head>
 <body class="p-4 sm:p-6 pb-20">
@@ -36,8 +66,8 @@
       <div class="space-y-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div><label class="text-xs text-zinc-400 block mb-1">Nome do Cliente</label><input type="text" id="cliente" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm" placeholder="Ex: João e Maria"></div>
-          <div><label class="text-xs text-zinc-400 block mb-1">Data do Evento (DD/MM/AAAA)</label><input type="text" id="data" oninput="mascaraData(event)" maxlength="10" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm" placeholder="Ex: 25/11/2026"></div>
-          <div><label class="text-xs text-zinc-400 block mb-1">Horário (XX:XX)</label><input type="text" id="horario" oninput="mascaraHora(event)" maxlength="5" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm" placeholder="Ex: 20:00"></div>
+          <div><label class="text-xs text-zinc-400 block mb-1">Data do Evento</label><input type="text" id="data" oninput="mascaraData(event)" maxlength="10" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm" placeholder="DD/MM/AAAA"></div>
+          <div><label class="text-xs text-zinc-400 block mb-1">Horário</label><input type="text" id="horario" oninput="mascaraHora(event)" maxlength="5" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm" placeholder="XX:XX"></div>
           <div><label class="text-xs text-zinc-400 block mb-1">Convidados</label><input type="text" id="convidados" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm" placeholder="Ex: 150 pessoas"></div>
           <div><label class="text-xs text-zinc-400 block mb-1">Tipo de Festa</label><input type="text" id="tipo" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm" placeholder="Ex: Casamento"></div>
           <div><label class="text-xs text-zinc-400 block mb-1">Local / Cidade</label><input type="text" id="local" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm" placeholder="Ex: Espaço Meet - BH"></div>
@@ -51,11 +81,11 @@
         <div class="pt-6 border-t border-zinc-800">
           <h2 class="text-base font-bold text-white mb-4"><i class="fa-solid fa-list-check text-amber-400 mr-2"></i> 1. Quais shows oferecer? (Marque as caixas)</h2>
           <div class="space-y-3">
-            <div class="flex items-center gap-3 bg-zinc-950/50 p-2 rounded-xl border border-zinc-800/50 hover:border-amber-500/30 transition"><input type="checkbox" id="cb_vegas" value="Las Vegas é Aqui" class="w-5 h-5 show-cb accent-amber-500 cursor-pointer"><label for="cb_vegas" class="text-sm font-semibold flex-1 cursor-pointer">Las Vegas é Aqui</label><input type="text" id="preco_vegas" placeholder="R$ 1.200,00" class="w-32 p-2 bg-black border border-zinc-700 rounded-lg text-xs text-amber-300 font-bold text-center"></div>
-            <div class="flex items-center gap-3 bg-zinc-950/50 p-2 rounded-xl border border-zinc-800/50 hover:border-amber-500/30 transition"><input type="checkbox" id="cb_enganacao" value="Uma Hora de Enganação" class="w-5 h-5 show-cb accent-amber-500 cursor-pointer"><label for="cb_enganacao" class="text-sm font-semibold flex-1 cursor-pointer">Uma Hora de Enganação</label><input type="text" id="preco_enganacao" placeholder="R$ 1.990,00" class="w-32 p-2 bg-black border border-zinc-700 rounded-lg text-xs text-amber-300 font-bold text-center"></div>
-            <div class="flex items-center gap-3 bg-zinc-950/50 p-2 rounded-xl border border-zinc-800/50 hover:border-amber-500/30 transition"><input type="checkbox" id="cb_misto" value="Show Misto" class="w-5 h-5 show-cb accent-amber-500 cursor-pointer"><label for="cb_misto" class="text-sm font-semibold flex-1 cursor-pointer">Show Misto</label><input type="text" id="preco_misto" placeholder="R$ 2.600,00" class="w-32 p-2 bg-black border border-zinc-700 rounded-lg text-xs text-amber-300 font-bold text-center"></div>
-            <div class="flex items-center gap-3 bg-zinc-950/50 p-2 rounded-xl border border-zinc-800/50 hover:border-amber-500/30 transition"><input type="checkbox" id="cb_infantil" value="Brincando com o Impossível" class="w-5 h-5 show-cb accent-amber-500 cursor-pointer"><label for="cb_infantil" class="text-sm font-semibold flex-1 cursor-pointer">Brincando com o Impossível</label><input type="text" id="preco_infantil" placeholder="R$ 1.990,00" class="w-32 p-2 bg-black border border-zinc-700 rounded-lg text-xs text-amber-300 font-bold text-center"></div>
-            <div class="flex items-center gap-3 bg-zinc-950/50 p-2 rounded-xl border border-zinc-800/50 hover:border-amber-500/30 transition"><input type="checkbox" id="cb_corp" value="Mágica e Humor Corporativo" class="w-5 h-5 show-cb accent-amber-500 cursor-pointer"><label for="cb_corp" class="text-sm font-semibold flex-1 cursor-pointer">Mágica e Humor Corporativo</label><input type="text" id="preco_corp" placeholder="Sob Consulta" class="w-32 p-2 bg-black border border-zinc-700 rounded-lg text-xs text-amber-300 font-bold text-center"></div>
+            <div class="flex items-center gap-3 bg-zinc-950/50 p-2 rounded-xl border border-zinc-800/50 hover:border-amber-500/30 transition"><input type="checkbox" id="cb_vegas" value="Las Vegas é Aqui" class="w-5 h-5 show-cb accent-amber-500 cursor-pointer"><label class="text-sm font-semibold flex-1 cursor-pointer" onclick="document.getElementById('cb_vegas').click()">Las Vegas é Aqui</label><input type="text" id="preco_vegas" placeholder="R$ 1.200,00" class="w-32 p-2 bg-black border border-zinc-700 rounded-lg text-xs text-amber-300 font-bold text-center"></div>
+            <div class="flex items-center gap-3 bg-zinc-950/50 p-2 rounded-xl border border-zinc-800/50 hover:border-amber-500/30 transition"><input type="checkbox" id="cb_enganacao" value="Uma Hora de Enganação" class="w-5 h-5 show-cb accent-amber-500 cursor-pointer"><label class="text-sm font-semibold flex-1 cursor-pointer" onclick="document.getElementById('cb_enganacao').click()">Uma Hora de Enganação</label><input type="text" id="preco_enganacao" placeholder="R$ 1.990,00" class="w-32 p-2 bg-black border border-zinc-700 rounded-lg text-xs text-amber-300 font-bold text-center"></div>
+            <div class="flex items-center gap-3 bg-zinc-950/50 p-2 rounded-xl border border-zinc-800/50 hover:border-amber-500/30 transition"><input type="checkbox" id="cb_misto" value="Show Misto" class="w-5 h-5 show-cb accent-amber-500 cursor-pointer"><label class="text-sm font-semibold flex-1 cursor-pointer" onclick="document.getElementById('cb_misto').click()">Show Misto</label><input type="text" id="preco_misto" placeholder="R$ 2.600,00" class="w-32 p-2 bg-black border border-zinc-700 rounded-lg text-xs text-amber-300 font-bold text-center"></div>
+            <div class="flex items-center gap-3 bg-zinc-950/50 p-2 rounded-xl border border-zinc-800/50 hover:border-amber-500/30 transition"><input type="checkbox" id="cb_infantil" value="Brincando com o Impossível" class="w-5 h-5 show-cb accent-amber-500 cursor-pointer"><label class="text-sm font-semibold flex-1 cursor-pointer" onclick="document.getElementById('cb_infantil').click()">Brincando com o Impossível</label><input type="text" id="preco_infantil" placeholder="R$ 1.990,00" class="w-32 p-2 bg-black border border-zinc-700 rounded-lg text-xs text-amber-300 font-bold text-center"></div>
+            <div class="flex items-center gap-3 bg-zinc-950/50 p-2 rounded-xl border border-zinc-800/50 hover:border-amber-500/30 transition"><input type="checkbox" id="cb_corp" value="Mágica e Humor Corporativo" class="w-5 h-5 show-cb accent-amber-500 cursor-pointer"><label class="text-sm font-semibold flex-1 cursor-pointer" onclick="document.getElementById('cb_corp').click()">Mágica e Humor Corporativo</label><input type="text" id="preco_corp" placeholder="Sob Consulta" class="w-32 p-2 bg-black border border-zinc-700 rounded-lg text-xs text-amber-300 font-bold text-center"></div>
           </div>
         </div>
 
@@ -67,18 +97,20 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Nome do Show</label><input type="text" id="cust_nome" class="w-full p-2.5 bg-black border border-zinc-700 rounded-lg text-xs text-white" placeholder="Ex: Intervenção VIP"></div>
             <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Preço Cobrado</label><input type="text" id="cust_preco" class="w-full p-2.5 bg-black border border-amber-500/40 rounded-lg text-xs text-amber-300 font-bold" placeholder="Ex: R$ 3.500,00"></div>
-            <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Etiqueta Dourada</label><input type="text" id="cust_tag" class="w-full p-2.5 bg-black border border-zinc-700 rounded-lg text-xs text-white" placeholder="Ex: Exclusivo"></div>
+            <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Etiqueta Dourada do Cartão</label><input type="text" id="cust_tag" class="w-full p-2.5 bg-black border border-zinc-700 rounded-lg text-xs text-white" placeholder="Ex: Exclusivo / Premium"></div>
             <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Duração</label><input type="text" id="cust_duracao" class="w-full p-2.5 bg-black border border-zinc-700 rounded-lg text-xs text-white" placeholder="Ex: 40 minutos"></div>
-            <div class="sm:col-span-2"><label class="text-[10px] text-zinc-500 uppercase block mb-1">Descrição Completa</label><textarea id="cust_desc" class="w-full p-3 bg-black border border-zinc-700 rounded-lg text-xs text-white leading-relaxed" rows="3" placeholder="Digite o texto de apresentação deste show..."></textarea></div>
+            <div class="sm:col-span-2"><label class="text-[10px] text-zinc-500 uppercase block mb-1">Descrição Completa do Show (pode usar 'Enter' para parágrafos)</label><textarea id="cust_desc" class="w-full p-3 bg-black border border-zinc-700 rounded-lg text-xs text-white leading-relaxed" rows="3" placeholder="Digite o texto de apresentação deste show..."></textarea></div>
             <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Porte / Ambiente</label><input type="text" id="cust_porte" class="w-full p-2.5 bg-black border border-zinc-700 rounded-lg text-xs text-white" placeholder="Ex: Evento de Luxo"></div>
             <div><label class="text-[10px] text-zinc-500 uppercase block mb-1">Público Alvo</label><input type="text" id="cust_publico" class="w-full p-2.5 bg-black border border-zinc-700 rounded-lg text-xs text-white" placeholder="Ex: Adultos"></div>
           </div>
         </div>
 
+        <!-- BOTÃO GERAR -->
         <button id="btnGerar" onclick="gerarProposta()" class="w-full py-4 gold-btn rounded-xl font-bold uppercase tracking-widest mt-6 shadow-xl hover:scale-[1.01] active:scale-95 transition">
           <i class="fa-solid fa-link mr-2"></i> Criar Proposta e Gerar Link
         </button>
 
+        <!-- CAIXA DE RESULTADO -->
         <div id="resultado" class="hidden mt-6 p-5 bg-zinc-950 border border-amber-400/50 rounded-2xl text-center space-y-4 shadow-[0_0_20px_rgba(212,175,55,0.15)]">
           <p class="text-sm font-bold text-amber-400"><i class="fa-solid fa-circle-check mr-2"></i> Proposta pronta para envio!</p>
           <input type="text" id="linkGerado" class="w-full p-3 bg-black text-white font-mono text-[10px] sm:text-xs rounded-xl border border-zinc-800 text-center" readonly>
@@ -90,7 +122,7 @@
       </div>
     </div>
 
-    <!-- GESTOR DE PEDIDOS -->
+    <!-- SEÇÃO: PEDIDOS RECEBIDOS E HISTÓRICO -->
     <div class="bg-zinc-900 border border-zinc-800 p-6 sm:p-8 rounded-3xl shadow-2xl">
       <div class="flex items-center justify-between border-b border-zinc-800 pb-4 mb-6">
         <div class="flex items-center gap-3">
@@ -102,14 +134,18 @@
             <p class="text-[10px] text-zinc-400 uppercase tracking-wider">Acompanhe e organize seus formulários</p>
           </div>
         </div>
-        <button onclick="carregarPedidos()" class="w-8 h-8 flex items-center justify-center rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-400 transition" title="Atualizar Lista"><i class="fa-solid fa-rotate-right"></i></button>
+        <button onclick="carregarPedidos()" class="w-8 h-8 flex items-center justify-center rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-400 transition" title="Atualizar Lista">
+          <i class="fa-solid fa-rotate-right"></i>
+        </button>
       </div>
 
+      <!-- ABAS: ATIVOS / ARQUIVADOS -->
       <div class="flex gap-4 mb-4 border-b border-zinc-800 pb-2">
         <button id="tabAtivos" onclick="mudarAba('ativos')" class="text-amber-400 border-b-2 border-amber-400 pb-2 font-bold text-xs uppercase tracking-wider transition">Pedidos Ativos</button>
         <button id="tabArquivados" onclick="mudarAba('arquivados')" class="text-zinc-600 pb-2 font-bold text-xs uppercase tracking-wider hover:text-zinc-400 transition">Arquivados</button>
       </div>
 
+      <!-- BARRA DE AÇÕES EM MASSA -->
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-zinc-950 p-3.5 rounded-xl border border-zinc-800 mb-6 shadow-inner">
         <div class="flex items-center gap-3 pl-1">
           <input type="checkbox" id="cb_selectAll" onchange="toggleSelectAll(this)" class="cb-massa cursor-pointer">
@@ -125,9 +161,16 @@
         </div>
       </div>
 
-      <div id="listaPedidosAtivos" class="space-y-3.5"></div>
-      <div id="listaPedidosArquivados" class="space-y-3.5 hidden"></div>
+      <!-- LISTAS -->
+      <div id="listaPedidosAtivos" class="space-y-3.5">
+        <p class="text-zinc-500 text-sm text-center py-4"><i class="fa-solid fa-spinner fa-spin mr-2"></i> A carregar os pedidos...</p>
+      </div>
+
+      <div id="listaPedidosArquivados" class="space-y-3.5 hidden">
+      </div>
+
     </div>
+
   </div>
 
   <script>
@@ -184,15 +227,20 @@
 
     function arquivarSelecionados() {
       const ids = getSelectedIds();
-      if (ids.length === 0) { alert("Selecione pelo menos um pedido."); return; }
+      if (ids.length === 0) {
+        alert("Selecione pelo menos um pedido marcando as caixas ao lado.");
+        return;
+      }
+      
       let arr = getArquivados();
       if (abaAtual === 'ativos') {
         ids.forEach(id => { if (!arr.includes(id)) arr.push(id); });
-        alert(`${ids.length} pedido(s) arquivado(s).`);
+        alert(`${ids.length} pedido(s) movido(s) para os Arquivados.`);
       } else {
         arr = arr.filter(a => !ids.includes(a));
-        alert(`${ids.length} pedido(s) restaurado(s).`);
+        alert(`${ids.length} pedido(s) restaurado(s) para os Ativos.`);
       }
+      
       localStorage.setItem('arquivados_jack', JSON.stringify(arr));
       document.getElementById('cb_selectAll').checked = false;
       renderizarListas();
@@ -200,19 +248,26 @@
 
     async function excluirSelecionados() {
       const ids = getSelectedIds();
-      if (ids.length === 0) { alert("Selecione pelo menos um pedido."); return; }
-      if(!confirm(`Tem certeza que deseja APAGAR PERMANENTEMENTE ${ids.length} pedido(s)?`)) return;
+      if (ids.length === 0) {
+        alert("Selecione pelo menos um pedido marcando as caixas ao lado.");
+        return;
+      }
+      if(!confirm(`Tem certeza que deseja APAGAR PERMANENTEMENTE ${ids.length} pedido(s)? Esta ação não tem volta.`)) return;
 
       try {
         const { error } = await supabaseClient.from('propostas').delete().in('id', ids);
         if (error) throw error;
+        
         let arr = getArquivados();
         arr = arr.filter(a => !ids.includes(a));
         localStorage.setItem('arquivados_jack', JSON.stringify(arr));
-        alert("Pedidos excluídos!");
+
+        alert("Pedidos excluídos com sucesso!");
         document.getElementById('cb_selectAll').checked = false;
         carregarPedidos();
-      } catch (err) { alert("Erro ao excluir: " + err.message); }
+      } catch (err) {
+        alert("Erro ao excluir: " + err.message);
+      }
     }
 
     function mudarAba(aba) {
@@ -294,36 +349,47 @@
         
         if (result.error) throw result.error;
         
-        let finalId = pedidoEditandoId;
+        let finalId = pedidoEditandoId; 
+        
         if (result.data && result.data.length > 0) {
           finalId = result.data[0].id;
         } else if (!pedidoEditandoId) {
-          throw new Error("O banco de dados não devolveu o ID. Tente novamente.");
+          throw new Error("O banco de dados não devolveu o link. Tente atualizar a página e tente novamente.");
         }
         
         const linkOficial = window.location.origin + '/briefing.html?id=' + finalId;
+        
         document.getElementById('linkGerado').value = linkOficial;
         document.getElementById('btnAbrir').href = linkOficial;
         document.getElementById('resultado').classList.remove('hidden');
         
         carregarPedidos();
+        
         btn.innerHTML = '<i class="fa-solid fa-link mr-2"></i> Criar Proposta e Gerar Link';
+        
       } catch (err) {
         alert("Erro ao salvar: " + err.message);
         btn.innerHTML = '<i class="fa-solid fa-link mr-2"></i> Tentar Novamente';
       }
     }
 
+    function copiarLink() {
+      const input = document.getElementById('linkGerado');
+      input.select();
+      document.execCommand('copy');
+      alert('Link copiado e pronto a colar no WhatsApp!');
+    }
+
     async function excluirPedido(id) {
-      if(confirm("Tem certeza que deseja apagar permanentemente este pedido da base de dados?")){
+      if(confirm("Tem certeza que deseja apagar permanentemente este pedido da base de dados? Esta ação não tem volta.")){
         try {
           const { error } = await supabaseClient.from('propostas').delete().eq('id', id);
           if (error) throw error;
-          let arr = getArquivados();
-          arr = arr.filter(a => a !== String(id));
-          localStorage.setItem('arquivados_jack', JSON.stringify(arr));
+          alert("Pedido excluído com sucesso!");
           carregarPedidos();
-        } catch (err) { alert("Erro ao excluir: " + err.message); }
+        } catch (err) {
+          alert("Erro ao excluir: " + err.message);
+        }
       }
     }
 
@@ -341,7 +407,8 @@
         return;
       }
 
-      let countAtivos = 0; let countArquivados = 0;
+      let countAtivos = 0;
+      let countArquivados = 0;
 
       listaGlobalPedidos.forEach(pedido => {
         const strId = String(pedido.id);
@@ -351,9 +418,10 @@
           '<span class="text-[9px] bg-blue-500/20 text-blue-400 border border-blue-500/30 px-2 py-1 rounded uppercase tracking-wider font-bold">Novo Pedido</span>';
 
         const link = window.location.origin + '/briefing.html?id=' + pedido.id;
+        
         const btnArquivar = isArquivado ? 
-          `<button onclick="setArquivado('${strId}', false)" class="flex-1 px-3 py-2 bg-zinc-800 hover:bg-zinc-600 text-white text-xs font-bold rounded-xl transition flex items-center justify-center gap-1" title="Desarquivar"><i class="fa-solid fa-box-open"></i></button>` : 
-          `<button onclick="setArquivado('${strId}', true)" class="flex-1 px-3 py-2 bg-zinc-800 hover:bg-zinc-600 text-white text-xs font-bold rounded-xl transition flex items-center justify-center gap-1" title="Arquivar"><i class="fa-solid fa-box"></i></button>`;
+          `<button onclick="setArquivado('${strId}', false)" class="flex-1 px-3 py-2 bg-zinc-800 hover:bg-zinc-600 text-white text-xs font-bold rounded-xl transition flex items-center justify-center gap-1" title="Desarquivar (Voltar para Ativos)"><i class="fa-solid fa-box-open"></i></button>` : 
+          `<button onclick="setArquivado('${strId}', true)" class="flex-1 px-3 py-2 bg-zinc-800 hover:bg-zinc-600 text-white text-xs font-bold rounded-xl transition flex items-center justify-center gap-1" title="Arquivar Pedido"><i class="fa-solid fa-box"></i></button>`;
 
         const card = document.createElement('div');
         card.className = "bg-black border border-zinc-800 p-4 sm:p-5 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:border-amber-500/30 transition shadow-lg opacity-100";
@@ -363,7 +431,10 @@
           <div class="flex items-start gap-4 flex-1 w-full">
             <input type="checkbox" value="${strId}" class="cb-pedido cb-massa mt-1 cursor-pointer flex-shrink-0">
             <div class="flex-1 w-full">
-              <div class="flex items-center gap-3 mb-2"><h3 class="text-amber-400 font-black text-sm uppercase tracking-wider line-clamp-1">${pedido.cliente || 'Sem Nome Registado'}</h3>${statusHTML}</div>
+              <div class="flex items-center gap-3 mb-2">
+                <h3 class="text-amber-400 font-black text-sm uppercase tracking-wider line-clamp-1">${pedido.cliente || 'Sem Nome Registado'}</h3>
+                ${statusHTML}
+              </div>
               <div class="grid grid-cols-2 gap-x-4 gap-y-1.5 text-xs text-zinc-400 mt-2">
                 <p><i class="fa-regular fa-calendar text-zinc-500 mr-1.5 w-3 text-center"></i> ${pedido.data_evento || 'N/A'}</p>
                 <p><i class="fa-regular fa-clock text-zinc-500 mr-1.5 w-3 text-center"></i> ${pedido.horario || 'N/A'}</p>
@@ -374,31 +445,44 @@
           </div>
           <div class="flex flex-col gap-2 w-full sm:w-auto mt-4 sm:mt-0 flex-shrink-0 sm:pl-0">
             <div class="flex gap-2">
-              <button onclick="carregarParaEdicao('${strId}')" class="flex-1 sm:w-24 px-3 py-2 bg-zinc-800 hover:bg-amber-500 hover:text-black text-white text-xs font-bold rounded-xl transition flex items-center justify-center gap-2"><i class="fa-solid fa-pen"></i> Editar</button>
-              <a href="${link}" target="_blank" class="flex-1 px-3 py-2 bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold rounded-xl transition flex items-center justify-center gap-2"><i class="fa-solid fa-eye"></i> Abrir</a>
+              <button onclick="carregarParaEdicao('${strId}')" class="flex-1 sm:w-24 px-3 py-2 bg-zinc-800 hover:bg-amber-500 hover:text-black text-white text-xs font-bold rounded-xl transition flex items-center justify-center gap-2" title="Carregar para Editar"><i class="fa-solid fa-pen"></i> Editar</button>
+              <a href="${link}" target="_blank" class="flex-1 px-3 py-2 bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold rounded-xl transition flex items-center justify-center gap-2" title="Abrir Briefing"><i class="fa-solid fa-eye"></i> Abrir</a>
             </div>
             <div class="flex gap-2">
               ${btnArquivar}
-              <button onclick="excluirPedido('${strId}')" class="flex-1 px-3 py-2 bg-zinc-800 hover:bg-red-500 hover:text-white text-red-400 text-xs font-bold rounded-xl transition flex items-center justify-center gap-1"><i class="fa-solid fa-trash"></i></button>
+              <button onclick="excluirPedido('${strId}')" class="flex-1 px-3 py-2 bg-zinc-800 hover:bg-red-500 hover:text-white text-red-400 text-xs font-bold rounded-xl transition flex items-center justify-center gap-1" title="Excluir Permanentemente"><i class="fa-solid fa-trash"></i></button>
             </div>
           </div>
         `;
         
-        if (isArquivado) { containerArquivados.appendChild(card); countArquivados++; } 
-        else { containerAtivos.appendChild(card); countAtivos++; }
+        if (isArquivado) {
+          containerArquivados.appendChild(card);
+          countArquivados++;
+        } else {
+          containerAtivos.appendChild(card);
+          countAtivos++;
+        }
       });
 
       if(countAtivos === 0) containerAtivos.innerHTML = '<p class="text-zinc-500 text-sm text-center py-4">Nenhum pedido ativo no momento.</p>';
       if(countArquivados === 0) containerArquivados.innerHTML = '<p class="text-zinc-500 text-sm text-center py-4">A sua gaveta de arquivos está vazia.</p>';
     }
 
+    // A ORDENAÇÃO CRONOLÓGICA INFALÍVEL AQUI
     async function carregarPedidos() {
       try {
-        const { data, error } = await supabaseClient.from('propostas').select('*').order('id', { ascending: false });
+        const { data, error } = await supabaseClient
+          .from('propostas')
+          .select('*')
+          .order('created_at', { ascending: false });
+
         if (error) throw error;
         listaGlobalPedidos = data;
         renderizarListas();
-      } catch (err) { document.getElementById('listaPedidosAtivos').innerHTML = '<p class="text-red-400 text-sm text-center py-4">Erro ao carregar a lista de pedidos.</p>'; }
+      } catch (err) {
+        console.error(err);
+        document.getElementById('listaPedidosAtivos').innerHTML = '<p class="text-red-400 text-sm text-center py-4">Erro ao carregar a lista de pedidos.</p>';
+      }
     }
 
     async function carregarParaEdicao(id) {
@@ -407,6 +491,7 @@
         if (error) throw error;
 
         pedidoEditandoId = data.id;
+        
         document.getElementById('cliente').value = data.cliente || '';
         document.getElementById('data').value = data.data_evento || '';
         document.getElementById('horario').value = data.horario || '';
@@ -416,7 +501,13 @@
         document.getElementById('obs').value = data.observacoes || '';
 
         document.querySelectorAll('.show-cb').forEach(cb => cb.checked = false);
-        document.getElementById('cust_nome').value = ''; document.getElementById('cust_preco').value = ''; document.getElementById('cust_tag').value = ''; document.getElementById('cust_desc').value = ''; document.getElementById('cust_porte').value = ''; document.getElementById('cust_publico').value = ''; document.getElementById('cust_duracao').value = '';
+        document.getElementById('cust_nome').value = '';
+        document.getElementById('cust_preco').value = '';
+        document.getElementById('cust_tag').value = '';
+        document.getElementById('cust_desc').value = '';
+        document.getElementById('cust_porte').value = '';
+        document.getElementById('cust_publico').value = '';
+        document.getElementById('cust_duracao').value = '';
 
         if (data.shows && Array.isArray(data.shows)) {
           data.shows.forEach(show => {
@@ -426,14 +517,24 @@
             else if (show.nome === "Brincando com o Impossível") { document.getElementById('cb_infantil').checked = true; document.getElementById('preco_infantil').value = show.preco; }
             else if (show.nome === "Mágica e Humor Corporativo") { document.getElementById('cb_corp').checked = true; document.getElementById('preco_corp').value = show.preco; }
             else if (show.isCustom) {
-               document.getElementById('cust_nome').value = show.nome; document.getElementById('cust_preco').value = show.preco; document.getElementById('cust_tag').value = show.tag; document.getElementById('cust_desc').value = show.desc; document.getElementById('cust_porte').value = show.porte; document.getElementById('cust_publico').value = show.publico; document.getElementById('cust_duracao').value = show.duracao;
+               document.getElementById('cust_nome').value = show.nome;
+               document.getElementById('cust_preco').value = show.preco;
+               document.getElementById('cust_tag').value = show.tag;
+               document.getElementById('cust_desc').value = show.desc;
+               document.getElementById('cust_porte').value = show.porte;
+               document.getElementById('cust_publico').value = show.publico;
+               document.getElementById('cust_duracao').value = show.duracao;
             }
           });
         }
+        
         window.scrollTo({ top: 0, behavior: 'smooth' });
         document.getElementById('btnGerar').innerHTML = '<i class="fa-solid fa-arrows-rotate mr-2"></i> Atualizar Proposta e Gerar Link';
         document.getElementById('resultado').classList.add('hidden');
-      } catch (err) { alert("Erro ao abrir pedido: " + err.message); }
+
+      } catch (err) {
+        alert("Erro ao abrir pedido: " + err.message);
+      }
     }
 
     window.onload = carregarPedidos;
