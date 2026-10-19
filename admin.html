@@ -56,27 +56,27 @@
           <h2 class="text-base font-bold text-white mb-4"><i class="fa-solid fa-list-check text-amber-400 mr-2"></i> 1. Quais shows oferecer? (Marque as caixas)</h2>
           <div class="space-y-3">
             <div class="flex items-center gap-4 bg-zinc-950 p-3 rounded-xl border border-zinc-800 hover:border-amber-500/50 transition">
-              <input type="checkbox" id="cb_vegas" value="Las Vegas é Aqui" data-preco="preco_vegas" class="cb-massa cursor-pointer show-cb">
+              <input type="checkbox" id="cb_vegas" value="Las Vegas é Aqui" data-preco-id="preco_vegas" class="cb-massa cursor-pointer show-cb">
               <label for="cb_vegas" class="text-sm font-bold flex-1 cursor-pointer text-white select-none">Las Vegas é Aqui</label>
               <input type="text" id="preco_vegas" value="R$ 1.200,00" class="w-32 p-2 bg-black border border-zinc-700 rounded-lg text-xs text-amber-300 font-bold text-center">
             </div>
             <div class="flex items-center gap-4 bg-zinc-950 p-3 rounded-xl border border-zinc-800 hover:border-amber-500/50 transition">
-              <input type="checkbox" id="cb_enganacao" value="Uma Hora de Enganação" data-preco="preco_enganacao" class="cb-massa cursor-pointer show-cb">
+              <input type="checkbox" id="cb_enganacao" value="Uma Hora de Enganação" data-preco-id="preco_enganacao" class="cb-massa cursor-pointer show-cb">
               <label for="cb_enganacao" class="text-sm font-bold flex-1 cursor-pointer text-white select-none">Uma Hora de Enganação</label>
               <input type="text" id="preco_enganacao" value="R$ 1.990,00" class="w-32 p-2 bg-black border border-zinc-700 rounded-lg text-xs text-amber-300 font-bold text-center">
             </div>
             <div class="flex items-center gap-4 bg-zinc-950 p-3 rounded-xl border border-zinc-800 hover:border-amber-500/50 transition">
-              <input type="checkbox" id="cb_misto" value="Show Misto" data-preco="preco_misto" class="cb-massa cursor-pointer show-cb">
+              <input type="checkbox" id="cb_misto" value="Show Misto" data-preco-id="preco_misto" class="cb-massa cursor-pointer show-cb">
               <label for="cb_misto" class="text-sm font-bold flex-1 cursor-pointer text-white select-none">Show Misto</label>
               <input type="text" id="preco_misto" value="R$ 2.600,00" class="w-32 p-2 bg-black border border-zinc-700 rounded-lg text-xs text-amber-300 font-bold text-center">
             </div>
             <div class="flex items-center gap-4 bg-zinc-950 p-3 rounded-xl border border-zinc-800 hover:border-amber-500/50 transition">
-              <input type="checkbox" id="cb_infantil" value="Brincando com o Impossível" data-preco="preco_infantil" class="cb-massa cursor-pointer show-cb">
+              <input type="checkbox" id="cb_infantil" value="Brincando com o Impossível" data-preco-id="preco_infantil" class="cb-massa cursor-pointer show-cb">
               <label for="cb_infantil" class="text-sm font-bold flex-1 cursor-pointer text-white select-none">Brincando com o Impossível</label>
               <input type="text" id="preco_infantil" value="R$ 1.990,00" class="w-32 p-2 bg-black border border-zinc-700 rounded-lg text-xs text-amber-300 font-bold text-center">
             </div>
             <div class="flex items-center gap-4 bg-zinc-950 p-3 rounded-xl border border-zinc-800 hover:border-amber-500/50 transition">
-              <input type="checkbox" id="cb_corp" value="Mágica e Humor Corporativo" data-preco="preco_corp" class="cb-massa cursor-pointer show-cb">
+              <input type="checkbox" id="cb_corp" value="Mágica e Humor Corporativo" data-preco-id="preco_corp" class="cb-massa cursor-pointer show-cb">
               <label for="cb_corp" class="text-sm font-bold flex-1 cursor-pointer text-white select-none">Mágica e Humor Corporativo</label>
               <input type="text" id="preco_corp" value="Sob Consulta" class="w-32 p-2 bg-black border border-zinc-700 rounded-lg text-xs text-amber-300 font-bold text-center">
             </div>
@@ -208,6 +208,7 @@
       }
     }
 
+    // CAPTURA BLINDADA DOS PREÇOS DIGITADOS NO PAINEL
     async function gerarProposta() {
       const btn = document.getElementById('btnGerar');
       btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> A processar...';
@@ -215,8 +216,13 @@
       const showsArr = [];
       document.querySelectorAll('.show-cb').forEach(cb => {
         if (cb.checked) {
-          let precoVal = document.getElementById(cb.getAttribute('data-preco'))?.value || "Sob Consulta";
-          showsArr.push({ nome: cb.value, preco: precoVal, isCustom: false });
+          let precoInputId = cb.getAttribute('data-preco-id');
+          let precoVal = document.getElementById(precoInputId)?.value || "Sob Consulta";
+          showsArr.push({ 
+            nome: cb.value, 
+            preco: precoVal, 
+            isCustom: false 
+          });
         }
       });
 
@@ -337,8 +343,10 @@
             document.querySelectorAll('.show-cb').forEach(cb => {
               if (cb.value.trim().toLowerCase() === show.nome.trim().toLowerCase()) {
                 cb.checked = true;
-                let precoId = cb.getAttribute('data-preco');
-                if (precoId && document.getElementById(precoId)) document.getElementById(precoId).value = show.preco;
+                let precoId = cb.getAttribute('data-preco-id');
+                if (precoId && document.getElementById(precoId)) {
+                  document.getElementById(precoId).value = show.preco;
+                }
               }
             });
           });
