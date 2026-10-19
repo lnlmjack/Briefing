@@ -198,15 +198,16 @@
       document.getElementById('cb_selectAll').checked = false; renderizarListas();
     }
 
+    // EXCLUSÃO SEGURA PARA ID NUMÉRICO OU UUID
     async function excluirSelecionados() {
       const rawIds = getSelectedIds();
       if (rawIds.length === 0) return alert("Selecione pelo menos um pedido.");
       if(!confirm(`Apagar PERMANENTEMENTE ${rawIds.length} pedido(s)?`)) return;
       try {
-        const idsFormatados = rawIds.map(id => isNaN(id) ? id : Number(id));
-        const { error } = await supabaseClient.from('propostas').delete().in('id', idsFormatados);
-        if (error) throw error;
-
+        for (let id of rawIds) {
+          const idFormatado = isNaN(id) ? id : Number(id);
+          await supabaseClient.from('propostas').delete().eq('id', idFormatado);
+        }
         let arr = getArquivados(); 
         localStorage.setItem('arquivados_jack', JSON.stringify(arr.filter(a => !rawIds.includes(a))));
         document.getElementById('cb_selectAll').checked = false; 
