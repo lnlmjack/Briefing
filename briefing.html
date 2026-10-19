@@ -6,7 +6,7 @@
   <title>Apresentação Exclusiva - Jack Ilusionista</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="https://elfsightcdn.com/platform.js" async></script>
+  <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -124,16 +124,32 @@
     </section>
 
     <!-- INTEGRAÇÃO INSTAGRAM -->
-    <section class="card-dark gold-border rounded-3xl p-5 sm:p-6 space-y-4 shadow-xl">
-      <div class="flex items-center justify-between border-b border-zinc-800 pb-3">
-        <div class="flex items-center gap-2.5">
-          <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 flex items-center justify-center text-white text-xs"><i class="fa-brands fa-instagram"></i></div>
-          <h2 class="font-gold text-base font-bold text-white">Instagram @jackilusionista</h2>
+    <section class="card-dark gold-border rounded-3xl p-6 sm:p-8 space-y-5 shadow-2xl">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 border-b border-zinc-800 pb-4">
+        <div>
+          <span class="text-[10px] uppercase tracking-widest text-amber-400 font-bold">Publicações & Bastidores</span>
+          <h2 class="font-gold text-xl font-bold text-white">Instagram Oficial</h2>
         </div>
-        <a href="https://www.instagram.com/jackilusionista/" target="_blank" class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-amber-300 border border-amber-400/30 rounded-xl text-[11px] font-bold uppercase tracking-wider transition">Seguir</a>
+        <a href="https://www.instagram.com/jackilusionista/" target="_blank" class="px-4 py-2 bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 rounded-xl text-xs font-bold text-white flex items-center gap-2 hover:opacity-90 transition shadow-lg">
+          <i class="fa-brands fa-instagram text-sm"></i> Seguir @jackilusionista
+        </a>
       </div>
-      <div class="pt-1 overflow-hidden rounded-xl opacity-90 hover:opacity-100 transition">
-        <div class="elfsight-app-6630be00-6361-43e3-b077-c9a6954bce92" data-elfsight-app-lazy></div>
+      <div class="p-6 bg-zinc-900/90 rounded-2xl border border-zinc-800 text-center space-y-4">
+        <i class="fa-brands fa-instagram text-5xl text-amber-400"></i>
+        <div class="space-y-2">
+          <h3 class="font-gold text-lg font-bold text-white">Acompanhe as apresentações</h3>
+          <p class="text-xs text-zinc-400 max-w-md mx-auto leading-relaxed">
+            Veja vídeos reais das reações da plateia, números de mentalismo e os bastidores dos eventos que são postados diariamente.
+          </p>
+        </div>
+        <div class="flex flex-wrap justify-center gap-3 pt-3">
+          <a href="https://www.instagram.com/jackilusionista/reels/" target="_blank" class="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 text-amber-300 border border-amber-400/30 rounded-xl text-xs font-bold uppercase tracking-wider transition flex items-center gap-2">
+            <i class="fa-solid fa-play text-lg"></i> Assistir Reels
+          </a>
+          <a href="https://www.instagram.com/jackilusionista/" target="_blank" class="px-6 py-3 gold-btn rounded-xl text-xs uppercase tracking-wider transition flex items-center gap-2">
+            <i class="fa-solid fa-arrow-up-right-from-square text-lg"></i> Abrir Feed Oficial
+          </a>
+        </div>
       </div>
     </section>
 
@@ -348,6 +364,7 @@
       return div;
     }
 
+    // RENDERIZAÇÃO BLINDADA PARA LER MÚLTIPLOS SHOWS (ARRAY OU JSON)
     function renderizarShowsDinamicamente(showsData) {
       const containerPrincipais = document.getElementById('listaShowsPrincipais');
       const containerOcultos = document.getElementById('listaShowsOcultos');
@@ -369,6 +386,7 @@
         selecionados = [{nome: "Las Vegas é Aqui", preco: "R$ 1.200,00", isCustom: false}];
       }
       
+      // Renderiza todos os shows selecionados no painel principal
       selecionados.forEach((show, index) => {
         containerPrincipais.appendChild(criarCard(show, 'card_prin_' + index));
       });
