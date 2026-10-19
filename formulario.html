@@ -3,66 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Solicitar Proposta - Jack Ilusionista</title>
+  <title>Formulário de Pedido - Jack Ilusionista</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #050507; color: #f4f4f5; }
-    .font-gold { font-family: 'Cinzel', serif; }
-    .gold-btn { background: linear-gradient(135deg, #fce082 0%, #d4af37 50%, #996515 100%); color: #000; }
-    input::placeholder, textarea::placeholder { text-transform: none; }
+    .gold-btn { background: linear-gradient(135deg, #fce082 0%, #d4af37 50%, #996515 100%); color: #000; font-weight: 800; }
   </style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-4">
+<body class="p-4 sm:p-6 pb-20">
+  <div class="max-w-2xl mx-auto space-y-8">
 
-  <div class="w-full max-w-lg bg-zinc-900 border border-zinc-800 p-8 rounded-3xl shadow-2xl relative overflow-hidden">
-    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-600 via-amber-400 to-amber-600"></div>
-    
-    <div class="text-center space-y-2 mb-8">
-      <div class="w-16 h-16 mx-auto bg-amber-500/10 border border-amber-500/30 rounded-full flex items-center justify-center text-amber-400 text-2xl mb-4">
-        <i class="fa-solid fa-wand-magic-sparkles"></i>
+    <div class="bg-zinc-900 border border-zinc-800 p-6 sm:p-8 rounded-3xl shadow-2xl">
+      <div class="flex items-center gap-4 border-b border-zinc-800 pb-4 mb-6">
+        <div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-xl">
+          <i class="fa-solid fa-file-pen"></i>
+        </div>
+        <div>
+          <h1 class="text-xl sm:text-2xl font-bold text-white">Solicitar Proposta</h1>
+          <p class="text-xs text-zinc-400">Preencha os dados do seu evento</p>
+        </div>
       </div>
-      <h1 class="font-gold text-2xl font-bold text-white uppercase tracking-wider">Jack Ilusionista</h1>
-      <p class="text-xs text-zinc-400">Preencha os detalhes do seu evento para receber uma proposta exclusiva.</p>
-    </div>
-
-    <form id="formLead" class="space-y-4" onsubmit="enviarPedido(event)">
-      <div><label class="text-[10px] text-zinc-500 uppercase font-bold block mb-1">Nome</label>
-      <input type="text" id="cliente" required class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm uppercase focus:border-amber-400 outline-none transition" placeholder="O seu nome ou da empresa"></div>
       
-      <div class="grid grid-cols-2 gap-4">
-        <div><label class="text-[10px] text-zinc-500 uppercase font-bold block mb-1">Data (DD/MM/AAAA)</label>
-        <input type="text" id="data" required oninput="mascaraData(event)" maxlength="10" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm uppercase focus:border-amber-400 outline-none transition" placeholder="Ex: 25/11/2026"></div>
-        <div><label class="text-[10px] text-zinc-500 uppercase font-bold block mb-1">Horário (XX:XX)</label>
-        <input type="text" id="horario" required oninput="mascaraHora(event)" maxlength="5" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm uppercase focus:border-amber-400 outline-none transition" placeholder="Ex: 20:00"></div>
+      <div class="space-y-4">
+        <div>
+          <label class="text-xs text-zinc-400 block mb-1">Nome do Cliente / Contratante</label>
+          <input type="text" id="form_cliente" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm uppercase" placeholder="EX: JOÃO E MARIA">
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="text-xs text-zinc-400 block mb-1">Data (DD/MM/AAAA)</label>
+            <input type="text" id="form_data" oninput="mascaraData(event)" maxlength="10" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm" placeholder="EX: 25/11/2026">
+          </div>
+          <div>
+            <label class="text-xs text-zinc-400 block mb-1">Horário (XX:XX)</label>
+            <input type="text" id="form_horario" oninput="mascaraHora(event)" maxlength="5" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm" placeholder="EX: 20:00">
+          </div>
+          <div>
+            <label class="text-xs text-zinc-400 block mb-1">Convidados</label>
+            <input type="text" id="form_convidados" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm uppercase" placeholder="EX: 150 PESSOAS">
+          </div>
+          <div>
+            <label class="text-xs text-zinc-400 block mb-1">Tipo de Festa</label>
+            <input type="text" id="form_tipo" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm uppercase" placeholder="EX: CASAMENTO">
+          </div>
+        </div>
+        <div>
+          <label class="text-xs text-zinc-400 block mb-1">Local / Cidade</label>
+          <input type="text" id="form_local" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm uppercase" placeholder="EX: ESPAÇO MEET - BH">
+        </div>
+        <div>
+          <label class="text-xs text-zinc-400 block mb-1">Observações do Evento</label>
+          <textarea id="form_obs" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm uppercase" rows="3" placeholder="EX: CLIENTE PEDIU FOCO EM MÁGICA..."></textarea>
+        </div>
+
+        <button id="btnEnviar" onclick="enviarFormulario()" class="w-full py-4 gold-btn rounded-xl uppercase tracking-widest mt-4 shadow-xl hover:scale-[1.01] active:scale-95 transition text-sm">
+          <i class="fa-solid fa-paper-plane mr-2"></i> Enviar Pedido de Proposta
+        </button>
+
+        <div id="formResultado" class="hidden mt-4 p-4 bg-green-500/10 border border-green-500/30 rounded-xl text-center text-green-400 text-xs font-bold uppercase tracking-wider">
+          <i class="fa-solid fa-circle-check mr-2"></i> Pedido enviado com sucesso! Entraremos em contato em breve.
+        </div>
       </div>
-
-      <div class="grid grid-cols-2 gap-4">
-        <div><label class="text-[10px] text-zinc-500 uppercase font-bold block mb-1">Convidados</label>
-        <input type="text" id="convidados" required class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm uppercase focus:border-amber-400 outline-none transition" placeholder="Quantas pessoas?"></div>
-        <div><label class="text-[10px] text-zinc-500 uppercase font-bold block mb-1">Tipo de Festa</label>
-        <input type="text" id="tipo" required class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm uppercase focus:border-amber-400 outline-none transition" placeholder="Ex: Casamento"></div>
-      </div>
-
-      <div><label class="text-[10px] text-zinc-500 uppercase font-bold block mb-1">Local / Bairro / Cidade</label>
-      <input type="text" id="local" required class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm uppercase focus:border-amber-400 outline-none transition" placeholder="Onde será o evento?"></div>
-      
-      <div><label class="text-[10px] text-zinc-500 uppercase font-bold block mb-1">Detalhes (Opcional)</label>
-      <textarea id="obs" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm uppercase focus:border-amber-400 outline-none transition" rows="2" placeholder="Alguma observação importante?"></textarea></div>
-
-      <button type="submit" id="btnEnviar" class="w-full py-4 mt-2 gold-btn rounded-xl font-bold uppercase tracking-widest hover:brightness-110 transition shadow-[0_0_15px_rgba(212,175,55,0.3)]">
-        Solicitar Proposta
-      </button>
-    </form>
-
-    <div id="msgSucesso" class="hidden text-center py-10 space-y-4">
-      <div class="w-20 h-20 mx-auto bg-green-500/20 text-green-400 rounded-full flex items-center justify-center text-4xl mb-4 border border-green-500/40">
-        <i class="fa-solid fa-check"></i>
-      </div>
-      <h2 class="font-gold text-2xl font-bold text-white">Pedido Enviado!</h2>
-      <p class="text-sm text-zinc-400">Estamos preparando a sua proposta com as melhores opções para seu evento.</p>
     </div>
 
   </div>
@@ -87,33 +91,43 @@
       e.target.value = v;
     }
 
-    async function enviarPedido(e) {
-      e.preventDefault();
+    async function enviarFormulario() {
       const btn = document.getElementById('btnEnviar');
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> A enviar...';
-      btn.disabled = true;
+      const nomeInput = document.getElementById('form_cliente').value.trim();
 
-      // Código blindado para evitar erros com campos vazios (null)
+      if (!nomeInput) {
+        alert("Por favor, preencha o nome do cliente/contratante.");
+        return;
+      }
+
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> A enviar...';
+
       const payload = {
-        cliente: (document.getElementById('cliente')?.value || '').toUpperCase(),
-        data_evento: (document.getElementById('data')?.value || '').toUpperCase(),
-        horario: (document.getElementById('horario')?.value || '').toUpperCase(),
-        convidados: (document.getElementById('convidados')?.value || '').toUpperCase(),
-        tipo_festa: (document.getElementById('tipo')?.value || '').toUpperCase(),
-        local: (document.getElementById('local')?.value || '').toUpperCase(),
-        observacoes: (document.getElementById('obs')?.value || '').toUpperCase(),
-        shows: []
+        cliente: nomeInput.toUpperCase(),
+        data_evento: document.getElementById('form_data').value.trim().toUpperCase(),
+        horario: document.getElementById('form_horario').value.trim().toUpperCase(),
+        convidados: document.getElementById('form_convidados').value.trim().toUpperCase(),
+        tipo_festa: document.getElementById('form_tipo').value.trim().toUpperCase(),
+        local: document.getElementById('form_local').value.trim().toUpperCase(),
+        observacoes: document.getElementById('form_obs').value.trim().toUpperCase(),
+        shows: [] // Inicializa vazio para que o gestor saiba que é um novo pedido via formulário
       };
 
       try {
         const { error } = await supabaseClient.from('propostas').insert([payload]);
         if (error) throw error;
-        document.getElementById('formLead').classList.add('hidden');
-        document.getElementById('msgSucesso').classList.remove('hidden');
+
+        document.getElementById('formResultado').classList.remove('hidden');
+        btn.innerHTML = '<i class="fa-solid fa-check mr-2"></i> Enviado com Sucesso!';
+        
+        // Limpa os campos após o envio
+        setTimeout(() => {
+          location.reload();
+        }, 3000);
+
       } catch (err) {
-        alert("Erro ao enviar: " + err.message);
-        btn.innerHTML = 'Solicitar Proposta';
-        btn.disabled = false;
+        alert("Erro ao enviar o pedido: " + err.message);
+        btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i> Enviar Pedido de Proposta';
       }
     }
   </script>
