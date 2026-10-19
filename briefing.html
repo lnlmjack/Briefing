@@ -100,7 +100,7 @@
       </div>
     </section>
 
-    <!-- ZONA DINÂMICA DE SHOWS -->
+    <!-- ZONA DINÂMICA DE SHOWS (O QUE ESTIVER MARCADO APARECE AQUI) -->
     <section class="space-y-6">
       <div class="text-center space-y-1">
         <span class="text-[10px] uppercase tracking-widest text-amber-400 font-bold">Investimento & Formatos</span>
@@ -113,8 +113,10 @@
         <span id="nomeShowSelecionado" class="font-gold text-base font-bold text-white"></span>
       </div>
 
+      <!-- AQUI APARECEM APENAS OS SHOWS SELECIONADOS NO ADMIN -->
       <div id="listaShowsPrincipais" class="space-y-6"></div>
 
+      <!-- BOTÃO E ÁREA DE OUTROS SHOWS (NÃO MARCADOS) -->
       <div id="blocoOutrosShows" class="hidden pt-4 border-t border-zinc-800">
         <button onclick="document.getElementById('listaShowsOcultos').classList.toggle('hidden')" class="w-full py-4 bg-zinc-900 border border-zinc-700 rounded-2xl text-amber-400 font-bold uppercase text-xs tracking-widest flex items-center justify-center gap-2 hover:bg-zinc-800 transition">
           <i class="fa-solid fa-plus"></i> Conheça outras modalidades
@@ -249,7 +251,6 @@
     let precoEscolhido = "";
     let pagamentoEscolhido = "Não definido";
 
-    // Base de dados das modalidades padrão
     const SHOWS_DB = {
       "Las Vegas é Aqui": {
         tag: "Show de Mesa / Close-up",
@@ -323,16 +324,12 @@
       if(show.isCustom) {
         info.tag = show.tag || "Exclusivo";
         info.detalhes = show.desc ? show.desc.split('\n').filter(p=>p.trim()!=='') : ["Espetáculo personalizado."];
-        
-        // Coloca a "Frase de Destaque" no formato idêntico ao original (negrito em cima)
         if (show.destaque && show.destaque.trim() !== '') {
           info.detalhes.unshift(`<strong class='text-white text-sm block mb-1'>${show.destaque}</strong>`);
         }
-
         info.ficha = { porte: show.porte || "Personalizado", publico: show.publico || "Geral", duracao: show.duracao || "A combinar" };
         info.preco = show.preco || "Sob Consulta";
       } else if (SHOWS_DB[show.nome]) {
-        // Copia os dados do padrão sem afetar outros
         info = JSON.parse(JSON.stringify(SHOWS_DB[show.nome]));
         info.preco = show.preco || info.precoPadrao;
       }
@@ -368,14 +365,14 @@
       containerPrincipais.innerHTML = '';
       containerOcultos.innerHTML = '';
 
-      let selecionados = (showsData && showsData.length > 0) ? showsData : [];
+      let selecionados = (showsData && Array.isArray(showsData) && showsData.length > 0) ? showsData : [];
       
       // Renderiza na área Principal APENAS os shows que você selecionou no painel admin
       selecionados.forEach((show, index) => {
         containerPrincipais.appendChild(criarCard(show, 'card_prin_' + index));
       });
 
-      // Filtra os shows Oficiais que NÃO foram selecionados e coloca no bloco "Conheça outras modalidades"
+      // Filtra os shows Oficiais que NÃO foram selecionados e coloca no botão "Conheça outras modalidades"
       const nomesSelecionados = selecionados.map(s => s.nome);
       const naoSelecionados = OFICIAIS.filter(n => !nomesSelecionados.includes(n));
 
@@ -385,10 +382,72 @@
         });
         blocoOutros.classList.remove('hidden');
       } else {
-        blocoOutros.classList.add('hidden'); // Oculta o botão se todos tiverem sido marcados
+        blocoOutros.classList.add('hidden');
       }
     }
 
     function selecionarShow(nome, preco, cardId) {
       showEscolhido = nome; precoEscolhido = preco;
-      document.
+      document.querySelectorAll('.card-show-item').forEach(el => {
+        el.classList.remove('card-selecionado');
+        const btn = el.querySelector('.btn-escolher-show');
+        if (btn) { btn.innerHTML = `<i class="fa-solid fa-check"></i> ESCOLHER ESTA OPÇÃO`; btn.className = "btn-escolher-show w-full py-3.5 bg-zinc-800 hover:bg-zinc-700 text-amber-400 border border-amber-400/30 rounded-xl text-xs font-bold uppercase tracking-wider transition flex items-center justify-center gap-2"; }
+      });
+      const card = document.getElementById(cardId);
+      if (card) {
+        card.classList.add('card-selecionado');
+        const btn = card.querySelector('.btn-escolher-show');
+        if (btn) { btn.innerHTML = `<i class="fa-solid fa-circle-check"></i> OPÇÃO ESCOLHIDA`; btn.className = "btn-escolher-show w-full py-3.5 gold-btn rounded-xl text-xs font-extrabold uppercase tracking-wider shadow-lg transition flex items-center justify-center gap-2"; }
+      }
+      document.getElementById('nomeShowSelecionado').innerText = `${nome} (${preco})`;
+      document.getElementById('avisoSelecao').classList.remove('hidden');
+      atualizarMensagemWhatsApp();
+      document.getElementById('avisoSelecao').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function selecionarPagamento(opcao, cardId) {
+      pagamentoEscolhido = opcao;
+      document.querySelectorAll('.card-pag-item').forEach(el => { el.classList.remove('card-selecionado'); const btn = el.querySelector('.btn-escolher-pag'); if (btn) btn.className = "btn-escolher-pag w-full py-2 bg-zinc-800 hover:bg-zinc-700 text-amber-300 border border-amber-400/30 rounded-xl text-[11px] font-bold uppercase tracking-wider transition"; });
+      const card = document.getElementById(cardId);
+      if (card) { card.classList.add('card-selecionado'); const btn = card.querySelector('.btn-escolher-pag'); if (btn) btn.className = "btn-escolher-pag w-full py-2 gold-btn rounded-xl text-[11px] font-extrabold uppercase tracking-wider shadow-lg transition"; }
+      document.getElementById('txtPagamentoEscolhido').innerText = opcao;
+      document.getElementById('avisoPagamento').classList.remove('hidden');
+      atualizarMensagemWhatsApp();
+    }
+
+    async function carregarProposta() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+
+      if (!id) { renderizarShowsDinamicamente([]); return; }
+
+      try {
+        const { data, error } = await supabaseClient.from('propostas').select('*').eq('id', id).single();
+        if (error || !data) { renderizarShowsDinamicamente([]); return; }
+
+        clienteAtual = data.cliente || "Cliente";
+        document.getElementById('txtCliente').innerText = data.cliente || "Cliente Especial";
+        document.getElementById('txtData').innerText = data.data_evento || "A Confirmar";
+        document.getElementById('txtHorario').innerText = data.horario || "A Combinar";
+        document.getElementById('txtConvidados').innerText = data.convidados || "Não informado";
+        document.getElementById('txtTipo').innerText = data.tipo_festa || "Evento";
+        document.getElementById('txtLocal').innerText = data.local || "Belo Horizonte / MG";
+
+        if (data.observacoes && data.observacoes.trim() !== '') {
+          document.getElementById('txtObs').innerText = data.observacoes;
+          document.getElementById('boxObs').classList.remove('hidden');
+        }
+
+        renderizarShowsDinamicamente(data.shows);
+        atualizarMensagemWhatsApp();
+
+      } catch (e) {
+        console.error('Erro:', e);
+        renderizarShowsDinamicamente([]);
+      }
+    }
+
+    carregarProposta();
+  </script>
+</body>
+</html>
