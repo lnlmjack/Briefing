@@ -417,16 +417,15 @@
       atualizarMensagemWhatsApp();
     }
 
-    // BRIEFING LEU O PARÂMETRO 'cliente' DA URL
+    // BRIEFING BUSCA PELO ID SEGURO DO SUPABASE
     async function carregarProposta() {
       const params = new URLSearchParams(window.location.search);
-      const clienteParam = params.get('cliente');
+      const idParam = params.get('id');
 
-      if (!clienteParam) { renderizarShowsDinamicamente([]); return; }
+      if (!idParam) { renderizarShowsDinamicamente([]); return; }
 
       try {
-        const nomeDecodificado = decodeURIComponent(clienteParam).trim();
-        const { data, error } = await supabaseClient.from('propostas').select('*').ilike('cliente', nomeDecodificado).maybeSingle();
+        const { data, error } = await supabaseClient.from('propostas').select('*').eq('id', idParam).single();
         
         if (error || !data) { renderizarShowsDinamicamente([]); return; }
 
