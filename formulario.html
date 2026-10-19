@@ -64,7 +64,7 @@
         </button>
       </div>
 
-      <!-- TELA DE AGRADECIMENTO E CONFIRMAÇÃO -->
+      <!-- TELA DE AGRADECIMENTO -->
       <div id="formResultado" class="hidden py-8 text-center space-y-4">
         <div class="w-16 h-16 bg-amber-500/20 border border-amber-500/40 rounded-full flex items-center justify-center mx-auto text-amber-400 text-2xl">
           <i class="fa-solid fa-check"></i>
@@ -124,7 +124,6 @@
         const { error } = await supabaseClient.from('propostas').insert([payload]);
         if (error) throw error;
 
-        // Esconde o formulário e exibe a tela de agradecimento
         document.getElementById('formContainer').classList.add('hidden');
         document.getElementById('formResultado').classList.remove('hidden');
 
