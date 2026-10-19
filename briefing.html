@@ -123,7 +123,7 @@
       </div>
     </section>
 
-    <!-- INTEGRAÇÃO INSTAGRAM (CLEAN E COMPACTO) -->
+    <!-- INTEGRAÇÃO INSTAGRAM -->
     <section class="card-dark gold-border rounded-3xl p-5 sm:p-6 space-y-4 shadow-xl">
       <div class="flex items-center justify-between border-b border-zinc-800 pb-3">
         <div class="flex items-center gap-2.5">
@@ -132,8 +132,6 @@
         </div>
         <a href="https://www.instagram.com/jackilusionista/" target="_blank" class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-amber-300 border border-amber-400/30 rounded-xl text-[11px] font-bold uppercase tracking-wider transition">Seguir</a>
       </div>
-      
-      <!-- WIDGET CLEAN E REDUZIDO -->
       <div class="pt-1 overflow-hidden rounded-xl opacity-90 hover:opacity-100 transition">
         <div class="elfsight-app-6630be00-6361-43e3-b077-c9a6954bce92" data-elfsight-app-lazy></div>
       </div>
@@ -350,6 +348,7 @@
       return div;
     }
 
+    // RENDERIZAÇÃO BLINDADA PARA LER OS SHOWS CORRETAMENTE
     function renderizarShowsDinamicamente(showsData) {
       const containerPrincipais = document.getElementById('listaShowsPrincipais');
       const containerOcultos = document.getElementById('listaShowsOcultos');
@@ -417,15 +416,15 @@
       atualizarMensagemWhatsApp();
     }
 
-    // BRIEFING BUSCA PELO ID SEGURO DO SUPABASE
     async function carregarProposta() {
       const params = new URLSearchParams(window.location.search);
-      const idParam = params.get('id');
+      const clienteParam = params.get('cliente');
 
-      if (!idParam) { renderizarShowsDinamicamente([]); return; }
+      if (!clienteParam) { renderizarShowsDinamicamente([]); return; }
 
       try {
-        const { data, error } = await supabaseClient.from('propostas').select('*').eq('id', idParam).single();
+        const nomePesquisa = decodeURIComponent(clienteParam).trim();
+        const { data, error } = await supabaseClient.from('propostas').select('*').ilike('cliente', nomePesquisa).maybeSingle();
         
         if (error || !data) { renderizarShowsDinamicamente([]); return; }
 
