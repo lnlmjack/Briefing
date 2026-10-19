@@ -6,7 +6,7 @@
   <title>Apresentação Exclusiva - Jack Ilusionista</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+  <script src="https://elfsightcdn.com/platform.js" async></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -123,7 +123,7 @@
       </div>
     </section>
 
-    <!-- INTEGRAÇÃO INSTAGRAM -->
+    <!-- INTEGRAÇÃO INSTAGRAM (WIDGET ELFSIGHT) -->
     <section class="card-dark gold-border rounded-3xl p-6 sm:p-8 space-y-5 shadow-2xl">
       <div class="flex flex-col sm:flex-row items-center justify-between gap-3 border-b border-zinc-800 pb-4">
         <div>
@@ -134,22 +134,10 @@
           <i class="fa-brands fa-instagram text-sm"></i> Seguir @jackilusionista
         </a>
       </div>
-      <div class="p-6 bg-zinc-900/90 rounded-2xl border border-zinc-800 text-center space-y-4">
-        <i class="fa-brands fa-instagram text-5xl text-amber-400"></i>
-        <div class="space-y-2">
-          <h3 class="font-gold text-lg font-bold text-white">Acompanhe as apresentações</h3>
-          <p class="text-xs text-zinc-400 max-w-md mx-auto leading-relaxed">
-            Veja vídeos reais das reações da plateia, números de mentalismo e os bastidores dos eventos que são postados diariamente.
-          </p>
-        </div>
-        <div class="flex flex-wrap justify-center gap-3 pt-3">
-          <a href="https://www.instagram.com/jackilusionista/reels/" target="_blank" class="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 text-amber-300 border border-amber-400/30 rounded-xl text-xs font-bold uppercase tracking-wider transition flex items-center gap-2">
-            <i class="fa-solid fa-play text-lg"></i> Assistir Reels
-          </a>
-          <a href="https://www.instagram.com/jackilusionista/" target="_blank" class="px-6 py-3 gold-btn rounded-xl text-xs uppercase tracking-wider transition flex items-center gap-2">
-            <i class="fa-solid fa-arrow-up-right-from-square text-lg"></i> Abrir Feed Oficial
-          </a>
-        </div>
+      
+      <!-- AQUI ENTRA O SEU FEED DO INSTAGRAM -->
+      <div class="pt-2 overflow-hidden rounded-2xl">
+        <div class="elfsight-app-6630be00-6361-43e3-b077-c9a6954bce92" data-elfsight-app-lazy></div>
       </div>
     </section>
 
@@ -364,7 +352,6 @@
       return div;
     }
 
-    // RENDERIZAÇÃO COMPLETA: OFICIAIS + CUSTOMIZADOS
     function renderizarShowsDinamicamente(showsData) {
       const containerPrincipais = document.getElementById('listaShowsPrincipais');
       const containerOcultos = document.getElementById('listaShowsOcultos');
@@ -386,12 +373,10 @@
         selecionados = [{nome: "Las Vegas é Aqui", preco: "R$ 1.200,00", isCustom: false}];
       }
       
-      // Renderiza na lista principal todos os selecionados (incluindo personalizados)
       selecionados.forEach((show, index) => {
         containerPrincipais.appendChild(criarCard(show, 'card_prin_' + index));
       });
 
-      // Pega apenas os nomes dos shows oficiais para o botão de "outros"
       const nomesSelecionadosOficiais = selecionados.filter(s => !s.isCustom).map(s => (s.nome || "").trim().toLowerCase());
       const naoSelecionados = OFICIAIS.filter(n => !nomesSelecionadosOficiais.includes(n.trim().toLowerCase()));
 
