@@ -33,7 +33,6 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#050507;color:#f4f4f5
 </header>
 
 <main class="max-w-3xl mx-auto px-4 py-8 space-y-7">
-
 <section class="text-center py-5">
 <span class="text-amber-400 text-xs uppercase tracking-widest">Apresentação & Orçamento Exclusivo</span>
 <h1 class="font-gold text-3xl sm:text-5xl font-black mt-3">PROPOSTA <span class="gold">PERSONALIZADA</span></h1>
@@ -41,7 +40,6 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#050507;color:#f4f4f5
 </section>
 
 <div id="aviso" class="hidden card p-6 text-center text-amber-300">Não foi possível localizar esta proposta. Peça ao Jack um novo link.</div>
-
 <div id="expirado" class="hidden card p-8 text-center space-y-4">
 <i class="fa-solid fa-hourglass-end text-amber-400 text-4xl"></i>
 <h2 class="font-gold text-2xl">Esta proposta expirou</h2>
@@ -50,7 +48,6 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#050507;color:#f4f4f5
 </div>
 
 <div id="conteudo" class="hidden space-y-7">
-
 <section class="card p-6 sm:p-8 space-y-4">
 <h2 class="font-gold text-xl flex items-center gap-2"><i class="fa-regular fa-calendar text-amber-400"></i>Dados do Seu Evento</h2>
 <div class="grid sm:grid-cols-2 gap-3 text-sm" id="dados"></div>
@@ -64,9 +61,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#050507;color:#f4f4f5
 <span class="text-amber-400 text-xs uppercase tracking-widest">Trajetória & Credibilidade</span>
 <h2 class="font-gold text-2xl">QUEM É JACK ILUSIONISTA</h2>
 <div class="grid sm:grid-cols-3 gap-6 items-start">
-<div class="sm:col-span-1">
-<img src="https://github.com/lnlmjack/Briefing/blob/main/jack-cartas-voando.jpeg?raw=true" alt="Jack Ilusionista" class="w-full h-56 sm:h-full object-cover rounded-xl border border-amber-400/40">
-</div>
+<div class="sm:col-span-1"><img src="https://github.com/lnlmjack/Briefing/blob/main/jack-cartas-voando.jpeg?raw=true" alt="Jack Ilusionista" class="w-full h-56 sm:h-full object-cover rounded-xl border border-amber-400/40"></div>
 <div class="sm:col-span-2 space-y-3">
 <p class="text-sm font-bold text-amber-200 leading-relaxed">Com mais de 29 anos de carreira, Jack Ilusionista transforma o impossível em entretenimento, desafia os limites da percepção e conquista o público com uma combinação única de ilusionismo, humor e interação.</p>
 <p class="text-sm text-zinc-300 leading-relaxed">Reconhecido como uma referência no ilusionismo moderno, acumula mais de 1.500 apresentações, construindo uma trajetória marcada pela criatividade, pelo domínio técnico e pela capacidade de surpreender plateias de diferentes perfis.</p>
@@ -137,8 +132,8 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#050507;color:#f4f4f5
 <a id="aprovar" target="_blank" rel="noopener" class="gold-btn inline-flex items-center gap-2 px-8 py-4 rounded-2xl uppercase text-sm"><i class="fa-brands fa-whatsapp"></i><span>Aprovar Proposta com Jack Ilusionista</span></a>
 <p class="text-xs text-zinc-500 mt-2">Em breve enviaremos a confirmação e entraremos em contato.</p>
 </div>
-
 </div>
+
 <footer class="text-center text-xs text-zinc-500 border-t border-zinc-800 pt-6">
 <p class="font-gold text-amber-400">MAGICORDIALMENTE</p>
 <p class="font-bold text-white">Jack Ilusionista</p>
@@ -153,6 +148,20 @@ const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
 let cliente='Cliente',showEscolhido='',precoEscolhido='',pagamentoEscolhido='';
 
 const escapeHtml=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&','<':'<','>':'>','"':'&quot;',"'":'&#39;'}[c]));
+function formatarData(v){
+  if(!v)return v;
+  const s=String(v);
+  if(/^\d{4}-\d{2}-\d{2}/.test(s)){
+    const [y,m,d]=s.slice(0,10).split('-');
+    return `${d}/${m}/${y}`;
+  }
+  return s;
+}
+function formatarHora(v){
+  if(!v)return v;
+  const m=String(v).match(/^(\d{1,2}):(\d{2})/);
+  return m?m[1].padStart(2,'0')+':'+m[2]:String(v);
+}
 
 const oficiais={
 'Las Vegas é Aqui':{
@@ -178,150 +187,106 @@ desc:"O show MÁGICA E HUMOR CORPORATIVO é uma intervenção envolvente que mis
 };
 
 function setWhats(){
-let msg=`Olá Jack! Analisei a proposta para ${cliente}.`;
-if(showEscolhido)msg+=`\nShow escolhido: ${showEscolhido} (${precoEscolhido})`;
-if(pagamentoEscolhido)msg+=`\nForma de pagamento: ${pagamentoEscolhido}`;
-msg+='\nGostaria de conversar sobre a confirmação da data.';
-document.getElementById('aprovar').href='https://api.whatsapp.com/send?phone=5531987114131&text='+encodeURIComponent(msg);
+  let msg=`Olá Jack! Analisei a proposta para ${cliente}.`;
+  if(showEscolhido)msg+=`\nShow escolhido: ${showEscolhido} (${precoEscolhido})`;
+  if(pagamentoEscolhido)msg+=`\nForma de pagamento: ${pagamentoEscolhido}`;
+  msg+='\nGostaria de conversar sobre a confirmação da data.';
+  document.getElementById('aprovar').href='https://api.whatsapp.com/send?phone=5531987114131&text='+encodeURIComponent(msg);
 }
-
 function renderShow(show){
-const nome=String(show.nome||'Modalidade');
-const base=oficiais[nome]||{tag:'Espetáculo Exclusivo',preco:'Sob Consulta',porte:'A combinar',publico:'A combinar',duracao:'A combinar',desc:'Uma experiência personalizada para o seu evento.'};
-const detalhes=show.isCustom?(show.desc||base.desc):base.desc;
-const card=document.createElement('article');
-card.className='card p-5 sm:p-6 space-y-4';
-
-const titulo=document.createElement('div');
-titulo.innerHTML=`<span class="text-[10px] uppercase tracking-wider text-amber-400">${escapeHtml(show.tag||base.tag)}</span><h3 class="font-gold text-xl font-bold mt-1">${escapeHtml(nome)}</h3><div class="mt-2"><span class="block text-[9px] text-zinc-500 uppercase">Investimento</span><strong class="text-amber-300 text-lg">${escapeHtml(show.preco||base.preco)}</strong></div>`;
-
-const desc=document.createElement('p');
-desc.className='text-sm text-zinc-300 leading-relaxed whitespace-pre-line';
-desc.textContent=(show.destaque?show.destaque+'\n\n':'')+detalhes;
-
-const mini=document.createElement('div');
-mini.className='grid grid-cols-3 gap-2 text-xs';
-mini.innerHTML=`<div class="mini-box"><span class="block text-[9px] text-zinc-500 uppercase">Porte</span><span class="font-semibold">${escapeHtml(show.porte||base.porte)}</span></div><div class="mini-box"><span class="block text-[9px] text-zinc-500 uppercase">Público</span><span class="font-semibold">${escapeHtml(show.publico||base.publico)}</span></div><div class="mini-box"><span class="block text-[9px] text-zinc-500 uppercase">Duração</span><span class="font-semibold">${escapeHtml(show.duracao||base.duracao)}</span></div>`;
-
-const button=document.createElement('button');
-button.type='button';
-button.className='w-full bg-zinc-800 hover:bg-zinc-700 border border-amber-400/30 rounded-xl py-3 text-xs font-bold text-amber-300';
-button.textContent='✓ ESCOLHER ESTA OPÇÃO';
-button.addEventListener('click',()=>{
-showEscolhido=nome;
-precoEscolhido=show.preco||base.preco;
-document.getElementById('escolhaShow').textContent=`Show selecionado: ${nome} (${precoEscolhido})`;
-document.getElementById('escolhaShow').classList.remove('hidden');
-setWhats();
-});
-
-card.append(titulo,desc,mini,button);
-return card;
+  const nome=String(show.nome||'Modalidade');
+  const base=oficiais[nome]||{tag:'Espetáculo Exclusivo',preco:'Sob Consulta',porte:'A combinar',publico:'A combinar',duracao:'A combinar',desc:'Uma experiência personalizada para o seu evento.'};
+  const detalhes=show.isCustom?(show.desc||base.desc):base.desc;
+  const card=document.createElement('article');
+  card.className='card p-5 sm:p-6 space-y-4';
+  const titulo=document.createElement('div');
+  titulo.innerHTML=`<span class="text-[10px] uppercase tracking-wider text-amber-400">${escapeHtml(show.tag||base.tag)}</span><h3 class="font-gold text-xl font-bold mt-1">${escapeHtml(nome)}</h3><div class="mt-2"><span class="block text-[9px] text-zinc-500 uppercase">Investimento</span><strong class="text-amber-300 text-lg">${escapeHtml(show.preco||base.preco)}</strong></div>`;
+  const desc=document.createElement('p');
+  desc.className='text-sm text-zinc-300 leading-relaxed whitespace-pre-line';
+  desc.textContent=(show.destaque?show.destaque+'\n\n':'')+detalhes;
+  const mini=document.createElement('div');
+  mini.className='grid grid-cols-3 gap-2 text-xs';
+  mini.innerHTML=`<div class="mini-box"><span class="block text-[9px] text-zinc-500 uppercase">Porte</span><span class="font-semibold">${escapeHtml(show.porte||base.porte)}</span></div><div class="mini-box"><span class="block text-[9px] text-zinc-500 uppercase">Público</span><span class="font-semibold">${escapeHtml(show.publico||base.publico)}</span></div><div class="mini-box"><span class="block text-[9px] text-zinc-500 uppercase">Duração</span><span class="font-semibold">${escapeHtml(show.duracao||base.duracao)}</span></div>`;
+  const button=document.createElement('button');
+  button.type='button';
+  button.className='w-full bg-zinc-800 hover:bg-zinc-700 border border-amber-400/30 rounded-xl py-3 text-xs font-bold text-amber-300';
+  button.textContent='✓ ESCOLHER ESTA OPÇÃO';
+  button.addEventListener('click',()=>{
+    showEscolhido=nome;precoEscolhido=show.preco||base.preco;
+    document.getElementById('escolhaShow').textContent=`Show selecionado: ${nome} (${precoEscolhido})`;
+    document.getElementById('escolhaShow').classList.remove('hidden');setWhats();
+  });
+  card.append(titulo,desc,mini,button);
+  return card;
 }
-
 function preencherPagina(data){
-const diasValidade=data.validade_dias||7;
-if(data.created_at){
-const criadoEm=new Date(data.created_at);
-const expiraEm=new Date(criadoEm.getTime()+diasValidade*24*60*60*1000);
-if(new Date()>expiraEm){
-document.getElementById('expirado').classList.remove('hidden');
-return;
+  const diasValidade=data.validade_dias||7;
+  if(data.created_at){
+    const criadoEm=new Date(data.created_at);
+    const expiraEm=new Date(criadoEm.getTime()+diasValidade*24*60*60*1000);
+    if(new Date()>expiraEm){document.getElementById('expirado').classList.remove('hidden');return}
+  }
+  document.getElementById('diasValidadeTxt').textContent=diasValidade;
+  cliente=data.cliente||'Cliente';
+  const dados=[
+    ['Contratante',data.cliente],
+    ['Data do evento',formatarData(data.data_evento)||'A confirmar'],
+    ['Horário',formatarHora(data.horario)||'A combinar'],
+    ['Convidados',data.convidados||'Não informado'],
+    ['Tipo de festa',data.tipo_festa||'Evento'],
+    ['Local',data.local||'A combinar']
+  ];
+  document.getElementById('dados').innerHTML=dados.map(([k,v])=>`<div class="bg-zinc-900 p-3 rounded-xl"><span class="block text-[10px] text-zinc-500 uppercase">${escapeHtml(k)}</span><span class="font-semibold">${escapeHtml(v||'Não informado')}</span></div>`).join('');
+  if(data.observacoes){document.getElementById('obs').textContent=data.observacoes;document.getElementById('obsBox').classList.remove('hidden')}
+  let shows=data.shows||[];
+  if(typeof shows==='string'){try{shows=JSON.parse(shows)}catch{shows=[]}}
+  if(!Array.isArray(shows)||!shows.length)shows=[{nome:'Las Vegas é Aqui',preco:oficiais['Las Vegas é Aqui'].preco}];
+  shows.forEach(s=>document.getElementById('shows').appendChild(renderShow(s)));
+  const pagamentos=[
+    {titulo:'Opção 01',label:'50% + 50%',desc:'50% de sinal para reserva da data e 50% no dia do evento (antes do início do show).'},
+    {titulo:'Opção 02',label:'Até 10x no Cartão',desc:'Parcelamento antecipado em até 10 vezes com a taxa administrativa da maquininha.'},
+    {titulo:'Opção 03',label:'PIX Integral',desc:'Pagamento à vista do valor total via chave PIX no momento da confirmação.'}
+  ];
+  const box=document.getElementById('pagamentos');
+  pagamentos.forEach(p=>{
+    const card=document.createElement('div');
+    card.className='bg-zinc-900 border border-zinc-700 rounded-xl p-4 text-center space-y-1 hover:border-amber-400 flex flex-col';
+    card.innerHTML=`<span class="text-[9px] text-amber-400 uppercase tracking-wider">${escapeHtml(p.titulo)}</span><strong class="text-sm">${escapeHtml(p.label)}</strong><p class="text-[11px] text-zinc-400 flex-1">${escapeHtml(p.desc)}</p>`;
+    const btn=document.createElement('button');
+    btn.type='button';btn.className='mt-2 w-full bg-zinc-800 border border-amber-400/30 rounded-lg py-2 text-[11px] font-bold text-amber-300 hover:bg-zinc-700';
+    btn.textContent='ESCOLHER';
+    btn.onclick=()=>{
+      pagamentoEscolhido=p.label;
+      document.getElementById('escolhaPagamento').textContent='Condição selecionada: '+p.label;
+      document.getElementById('escolhaPagamento').classList.remove('hidden');setWhats();
+    };
+    card.appendChild(btn);box.appendChild(card);
+  });
+  setWhats();document.getElementById('conteudo').classList.remove('hidden');
 }
-}
-document.getElementById('diasValidadeTxt').textContent=diasValidade;
-
-cliente=data.cliente||'Cliente';
-const dados=[
-['Contratante',data.cliente],
-['Data do evento',data.data_evento||'A confirmar'],
-['Horário',data.horario||'A combinar'],
-['Convidados',data.convidados||'Não informado'],
-['Tipo de festa',data.tipo_festa||'Evento'],
-['Local',data.local||'A combinar']
-];
-document.getElementById('dados').innerHTML=dados.map(([k,v])=>`<div class="bg-zinc-900 p-3 rounded-xl"><span class="block text-[10px] text-zinc-500 uppercase">${escapeHtml(k)}</span><span class="font-semibold">${escapeHtml(v||'Não informado')}</span></div>`).join('');
-
-if(data.observacoes){
-document.getElementById('obs').textContent=data.observacoes;
-document.getElementById('obsBox').classList.remove('hidden');
-}
-
-let shows=data.shows||[];
-if(typeof shows==='string'){
-try{shows=JSON.parse(shows)}catch{shows=[]}
-}
-if(!Array.isArray(shows)||!shows.length){
-shows=[{nome:'Las Vegas é Aqui',preco:oficiais['Las Vegas é Aqui'].preco}];
-}
-shows.forEach(s=>document.getElementById('shows').appendChild(renderShow(s)));
-
-const pagamentos=[
-{titulo:'Opção 01',label:'50% + 50%',desc:'50% de sinal para reserva da data e 50% no dia do evento (antes do início do show).'},
-{titulo:'Opção 02',label:'Até 10x no Cartão',desc:'Parcelamento antecipado em até 10 vezes com a taxa administrativa da maquininha.'},
-{titulo:'Opção 03',label:'PIX Integral',desc:'Pagamento à vista do valor total via chave PIX no momento da confirmação.'}
-];
-
-const box=document.getElementById('pagamentos');
-pagamentos.forEach(p=>{
-const card=document.createElement('div');
-card.className='bg-zinc-900 border border-zinc-700 rounded-xl p-4 text-center space-y-1 hover:border-amber-400 flex flex-col';
-card.innerHTML=`<span class="text-[9px] text-amber-400 uppercase tracking-wider">${escapeHtml(p.titulo)}</span><strong class="text-sm">${escapeHtml(p.label)}</strong><p class="text-[11px] text-zinc-400 flex-1">${escapeHtml(p.desc)}</p>`;
-
-const btn=document.createElement('button');
-btn.type='button';
-btn.className='mt-2 w-full bg-zinc-800 border border-amber-400/30 rounded-lg py-2 text-[11px] font-bold text-amber-300 hover:bg-zinc-700';
-btn.textContent='ESCOLHER';
-btn.onclick=()=>{
-pagamentoEscolhido=p.label;
-document.getElementById('escolhaPagamento').textContent='Condição selecionada: '+p.label;
-document.getElementById('escolhaPagamento').classList.remove('hidden');
-setWhats();
-};
-card.appendChild(btn);
-box.appendChild(card);
-});
-
-setWhats();
-document.getElementById('conteudo').classList.remove('hidden');
-}
-
 async function carregar(){
-const params=new URLSearchParams(location.search);
-const token=params.get('token');
-let slug=params.get('slug');
-
-if(!slug){
-const path=location.pathname.replace(/^\/+|\/+$/g,'');
-if(path&&path.toLowerCase()!=='briefing.html'){
-slug=decodeURIComponent(path.split('/').pop());
+  const params=new URLSearchParams(location.search);
+  const token=params.get('token');
+  let slug=params.get('slug');
+  if(!slug){
+    const path=location.pathname.replace(/^\/+|\/+$/g,'');
+    if(path&&path.toLowerCase()!=='briefing.html')slug=decodeURIComponent(path.split('/').pop());
+  }
+  try{
+    let data,error;
+    if(slug){
+      const r=await db.rpc('get_public_proposta_by_slug',{p_slug:slug});
+      data=Array.isArray(r.data)?r.data[0]:r.data;error=r.error;
+    }else if(token&&/^[0-9a-f-]{36}$/i.test(token)){
+      const r=await db.rpc('get_public_proposta',{p_token:token});
+      data=r.data;error=r.error;
+    }else{
+      document.getElementById('aviso').classList.remove('hidden');return;
+    }
+    if(error||!data)throw error||new Error('Proposta não encontrada');
+    preencherPagina(data);
+  }catch(err){console.error(err);document.getElementById('aviso').classList.remove('hidden')}
 }
-}
-
-try{
-let data,error;
-
-if(slug){
-const r=await db.rpc('get_public_proposta_by_slug',{p_slug:slug});
-data=Array.isArray(r.data)?r.data[0]:r.data;
-error=r.error;
-}else if(token&&/^[0-9a-f-]{36}$/i.test(token)){
-const r=await db.rpc('get_public_proposta',{p_token:token});
-data=r.data;
-error=r.error;
-}else{
-document.getElementById('aviso').classList.remove('hidden');
-return;
-}
-
-if(error||!data)throw error||new Error('Proposta não encontrada');
-preencherPagina(data);
-}catch(err){
-console.error(err);
-document.getElementById('aviso').classList.remove('hidden');
-}
-}
-
 carregar();
 </script>
 </body>
