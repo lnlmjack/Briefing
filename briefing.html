@@ -244,7 +244,14 @@ document.getElementById('conteudo').classList.remove('hidden');
 async function carregar(){
 const params=new URLSearchParams(location.search);
 const token=params.get('token');
-const slug=params.get('slug');
+let slug=params.get('slug');
+
+if(!slug){
+const path=location.pathname.replace(/^\/+|\/+$/g,'');
+if(path && path.toLowerCase()!=='briefing.html'){
+slug=decodeURIComponent(path.split('/').pop());
+}
+}
 
 try{
 let data,error;
