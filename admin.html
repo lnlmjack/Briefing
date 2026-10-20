@@ -185,5 +185,27 @@ document.getElementById('tabAtivos').onclick=()=>definirAbaPedidos('ativos');
 document.getElementById('tabArquivados').onclick=()=>definirAbaPedidos('arquivados');
 document.getElementById('selecionarVisiveis').onchange=e=>{document.querySelectorAll('#lista [data-select-id]').forEach(c=>{c.checked=e.target.checked;if(e.target.checked)pedidosSelecionados.add(c.dataset.selectId);else pedidosSelecionados.delete(c.dataset.selectId);});atualizarSelecao();};
 document.getElementById('arquivarSelecionados').onclick=async()=>{const ids=[...pedidosSelecionados];if(!ids.length)return;ids.forEach(id=>{if(abaPedidos==='ativos')arquivados.add(id);else arquivados.delete(id);});salvarArquivados();pedidosSelecionados.clear();render(pedidosCache);};
-document.getElementById('excluirSelecionados').onclick=async()=>{const ids=[...pedidosSelecionados];if(!ids.length)return;if(!confirm(`Excluir permanentemente ${ids.length} pedido(s) selecionado(s)?`))return;const b=document.getElementById('excluirSelec
-
+document.getElementById('excluirSelecionados').onclick=async()=>{const ids=[...pedidosSelecionados];if(!ids.length)return;if(!confirm(`Excluir permanentemente ${ids.length} pedido(s) selecionado(s)?`))return;const b=document.getElementById('excluirSelecionados');b.disabled=true;try{await excluirPedidos(ids);}catch(err){alert('Não foi possível excluir: '+err.message);}finally{b.disabled=false;}};
+async function acao(d,p){
+  if(d.action==='archive'){const id=String(p.id);if(arquivados.has(id))arquivados.delete(id);else arquivados.add(id);salvarArquivados();pedidosSelecionados.delete(id);render(pedidosCache);return;}
+  if(d.action==='open'){
+    if(d.slug){const u=new URL(d.slug,SITE_BASE);window.open(u.href,'_blank','noopener');return;}
+    if(d.token){const u=new URL('briefing.html',SITE_BASE);u.searchParams.set('token',d.token);window.open(u.href,'_blank','noopener');return;}
+    return alert('Este pedido ainda não tem link. Edite e salve a proposta para gerar.');
+  }
+  if(d.action==='delete'){if(!confirm('Excluir permanentemente este pedido?'))return;try{await excluirPedidos([String(p.id)]);}catch(err){alert('Não foi possível excluir: '+err.message);}return;}
+  if(d.action==='edit'){
+    document.getElementById('pedidoId').value=p.id;
+    document.getElementById('pedidoSlug').value=p.slug||'';
+    for(const [id,key] of [['cliente','cliente'],['data','data_evento'],['horario','horario'],['convidados','convidados'],['tipo','tipo_festa'],['local','local'],['obs','observacoes']])document.getElementById(id).value=p[key]||'';
+    document.getElementById('validade').value=p.validade_dias||7;
+    document.querySelectorAll('.showCheck').forEach((cb,i)=>{const item=(p.shows||[]).find(s=>!s.isCustom&&s.nome.toLowerCase()===showsCatalog[i].nome.toLowerCase());cb.checked=!!item;if(item)document.getElementById('preco'+i).value=item.preco||'';});
+    const customs=(p.shows||[]).filter(s=>s.isCustom);
+    resetCustomList(customs);
+    document.getElementById('salvarBtn').textContent='Atualizar proposta e gerar link';
+    document.getElementById('cancelarEdicao').classList.remove('hidden');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+}
+document.getElementById('atualizar').onclick=carregarPedidos;
+</script></body></html>
