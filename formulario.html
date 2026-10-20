@@ -18,8 +18,11 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#050507;color:#f4f4f5
 <main class="max-w-2xl mx-auto">
 <section class="bg-zinc-900 border border-zinc-800 p-6 sm:p-8 rounded-3xl shadow-2xl">
 <header class="flex items-center gap-4 border-b border-zinc-800 pb-4 mb-6">
-<div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-xl"><i class="fa-solid fa-file-pen"></i></div>
-<div><h1 class="text-xl sm:text-2xl font-bold">Solicitar Proposta</h1><p class="text-xs text-zinc-400">Preencha os dados do seu evento</p></div>
+<img src="https://raw.githubusercontent.com/lnlmjack/Briefing/main/logo-jack.PNG" alt="Logo Jack Ilusionista" class="w-16 h-16 object-contain flex-shrink-0">
+<div>
+<h1 class="text-xl sm:text-2xl font-bold">Solicitar Orçamento</h1>
+<p class="text-xs text-zinc-400">Preencha os dados do seu evento</p>
+</div>
 </header>
 
 <form id="pedidoForm" class="space-y-4">
@@ -27,6 +30,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#050507;color:#f4f4f5
 <label for="form_cliente" class="text-xs text-zinc-400 block mb-1">Nome do Cliente / Contratante</label>
 <input required maxlength="180" id="form_cliente" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm uppercase" placeholder="EX: JOÃO E MARIA">
 </div>
+
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 <div>
 <label for="form_data" class="text-xs text-zinc-400 block mb-1">Data (DD/MM/AAAA)</label>
@@ -45,14 +49,28 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#050507;color:#f4f4f5
 <input maxlength="120" id="form_tipo" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-sm uppercase" placeholder="EX: CASAMENTO">
 </div>
 </div>
-<div><label for="form_local" class="text-xs text-zinc-400 block mb-1">Local / Cidade</label><input maxlength="200" id="form_local" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-sm uppercase" placeholder="EX: ESPAÇO MEET - BH"></div>
-<div><label for="form_obs" class="text-xs text-zinc-400 block mb-1">Observações do Evento</label><textarea maxlength="2000" id="form_obs" rows="3" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-sm uppercase" placeholder="COLOQUE AQUI MAIS INFORMAÇÕES DO SEU EVENTO"></textarea></div>
+
+<div>
+<label for="form_local" class="text-xs text-zinc-400 block mb-1">Local / Cidade</label>
+<input maxlength="200" id="form_local" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-sm uppercase" placeholder="EX: ESPAÇO MEET - BH">
+</div>
+
+<div>
+<label for="form_obs" class="text-xs text-zinc-400 block mb-1">Observações do Evento</label>
+<textarea maxlength="2000" id="form_obs" rows="3" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-sm uppercase" placeholder="COLOQUE AQUI MAIS INFORMAÇÕES DO SEU EVENTO"></textarea>
+</div>
+
 <p id="formErro" class="hidden text-sm text-red-400" role="alert"></p>
-<button id="btnEnviar" type="submit" class="w-full py-4 gold-btn rounded-xl uppercase tracking-widest shadow-xl transition"><i class="fa-solid fa-paper-plane mr-2"></i>Enviar Pedido de Proposta</button>
+
+<button id="btnEnviar" type="submit" class="w-full py-4 gold-btn rounded-xl uppercase tracking-widest shadow-xl transition">
+<i class="fa-solid fa-paper-plane mr-2"></i>Enviar Pedido de Orçamento
+</button>
 </form>
 
 <div id="formResultado" class="hidden py-8 text-center space-y-4">
-<div class="w-16 h-16 bg-amber-500/20 border border-amber-500/40 rounded-full flex items-center justify-center mx-auto text-amber-400 text-2xl"><i class="fa-solid fa-check"></i></div>
+<div class="w-16 h-16 bg-amber-500/20 border border-amber-500/40 rounded-full flex items-center justify-center mx-auto text-amber-400 text-2xl">
+<i class="fa-solid fa-check"></i>
+</div>
 <h2 class="text-xl font-bold">Obrigado pelo seu pedido!</h2>
 <p class="text-sm text-zinc-300 max-w-md mx-auto">Seus dados foram enviados. Entraremos em contato em breve para apresentar sua proposta personalizada.</p>
 </div>
@@ -71,11 +89,13 @@ document.getElementById('form_data').addEventListener('input',e=>{
   else if(v.length>2)v=v.slice(0,2)+'/'+v.slice(2);
   e.target.value=v;
 });
+
 document.getElementById('form_horario').addEventListener('input',e=>{
   let v=e.target.value.replace(/\D/g,'').slice(0,4);
   if(v.length>2)v=v.slice(0,2)+':'+v.slice(2);
   e.target.value=v;
 });
+
 function dataValida(v){
   if(!v)return true;
   const m=v.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
@@ -84,6 +104,7 @@ function dataValida(v){
   const dt=new Date(y,mo-1,d);
   return dt.getFullYear()===y&&dt.getMonth()===mo-1&&dt.getDate()===d;
 }
+
 function horaValida(v){
   if(!v)return true;
   const m=v.match(/^(\d{2}):(\d{2})$/);
@@ -92,18 +113,23 @@ function horaValida(v){
 
 form.addEventListener('submit',async e=>{
   e.preventDefault();
+
   const button=document.getElementById('btnEnviar');
   const errorBox=document.getElementById('formErro');
   errorBox.classList.add('hidden');
+
   const value=id=>document.getElementById(id).value.trim();
 
   if(!dataValida(value('form_data'))){
     errorBox.textContent='Digite a data no formato DD/MM/AAAA, usando uma data válida.';
-    errorBox.classList.remove('hidden');return;
+    errorBox.classList.remove('hidden');
+    return;
   }
+
   if(!horaValida(value('form_horario'))){
     errorBox.textContent='Digite o horário no formato HH:MM, entre 00:00 e 23:59.';
-    errorBox.classList.remove('hidden');return;
+    errorBox.classList.remove('hidden');
+    return;
   }
 
   button.disabled=true;
@@ -123,6 +149,7 @@ form.addEventListener('submit',async e=>{
   try{
     const {error}=await supabaseClient.from('propostas').insert(payload);
     if(error)throw error;
+
     form.classList.add('hidden');
     document.getElementById('formResultado').classList.remove('hidden');
   }catch(err){
