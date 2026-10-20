@@ -97,7 +97,7 @@ function slugify(str){
   return String(str||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/(^-+|-+$)/g,'')||'cliente';
 }
 function gerarSlug(nome){
-  return slugify(nome)+'-'+Date.now().toString(36).slice(-4);
+  return slugify(nome);
 }
 
 async function carregarCatalogo(){
@@ -170,7 +170,24 @@ resetCustomList();
 
 function resetForm(){document.getElementById('propostaForm').reset();document.getElementById('pedidoId').value='';document.getElementById('pedidoSlug').value='';resetCustomList();document.getElementById('salvarBtn').textContent='Criar proposta e gerar link';document.getElementById('cancelarEdicao').classList.add('hidden');document.getElementById('linkBox').classList.add('hidden');}
 document.getElementById('cancelarEdicao').onclick=resetForm;
-document.getElementById('propostaForm').addEventListener('submit',async e=>{e.preventDefault();setError('formError','');const btn=document.getElementById('salvarBtn');btn.disabled=true;btn.textContent='Salvando...';const val=id=>document.getElementById(id).value.trim();const shows=[];showsCatalog.forEach((show,i)=>{const cb=document.getElementById('show'+i);if(cb&&cb.checked)shows.push({nome:show.nome,preco:val('preco'+i)||'Sob Consulta',isCustom:false});});document.querySelectorAll('.customBlock').forEach(div=>{const g=cls=>div.querySelector('.'+cls)?.value.trim()||'';const nome=g('cust_nome');if(nome)shows.push({isCustom:true,nome,preco:formatarPreco(g('cust_preco')),tag:g('cust_tag')||'Exclusivo',destaque:g('cust_destaque'),desc:g('cust_desc'),porte:g('cust_porte')||'Personalizado',publico:g('cust_publico')||'Geral',duracao:g('cust_duracao')||'A combinar'});});const slugAtual=val('pedidoSlug');const slugFinal=slugAtual||gerarSlug(val('cliente'));const payload={cliente:val('cliente').toUpperCase(),data_evento:val('data'),horario:val('horario'),convidados:val('convidados').toUpperCase(),tipo_festa:val('tipo').toUpperCase(),local:val('local').toUpperCase(),observacoes:val('obs').toUpperCase(),validade_dias:parseInt(val('validade'),10)||7,shows,slug:slugFinal};try{let result;const id=val('pedidoId');if(id)result=await db.from('propostas').update(payload).eq('id',id).select('id,public_token,slug').single();else result=await db.from('propostas').insert(payload).select('id,public_token,slug').single();if(result.error)throw result.error;if(!result.data?.public_token)throw new Error('O pedido foi salvo, mas não retornou o identificador público. Confira se o SQL de configuração foi aplicado.');document.getElementById('pedidoSlug').value=result.data.slug||slugFinal;const link=new URL(result.data.slug||slugFinal,SITE_BASE);document.getElementById('linkGerado').value=link.href;document.getElementById('abrir').href=link.href;document.getElementById('linkBox').classList.remove('hidden');await carregarPedidos();}catch(err){setError('formError','Falha ao salvar a proposta: '+err.message);}finally{btn.disabled=false;btn.textContent=val('pedidoId')?'Atualizar proposta e gerar link':'Criar proposta e gerar link';}});
+
+async function salvarProposta(payloadBase,id,tentativa){
+  tentativa=tentativa||0;
+  const slugTentativa=tentativa===0?payloadBase.slug:(payloadBase.slug+'-'+(tentativa+1));
+  const payload={...payloadBase,slug:slugTentativa};
+  let result;
+  if(id) result=await db.from('propostas').update(payload).eq('id',id).select('id,public_token,slug').single();
+  else result=await db.from('propostas').insert(payload).select('id,public_token,slug').single();
+  if(result.error){
+    const msg=(result.error.message||'').toLowerCase();
+    const isDup=result.error.code==='23505'||msg.includes('duplicate')||msg.includes('unique');
+    if(isDup&&tentativa<30) return salvarProposta(payloadBase,id,tentativa+1);
+    throw result.error;
+  }
+  return result;
+}
+
+document.getElementById('propostaForm').addEventListener('submit',async e=>{e.preventDefault();setError('formError','');const btn=document.getElementById('salvarBtn');btn.disabled=true;btn.textContent='Salvando...';const val=id=>document.getElementById(id).value.trim();const shows=[];showsCatalog.forEach((show,i)=>{const cb=document.getElementById('show'+i);if(cb&&cb.checked)shows.push({nome:show.nome,preco:val('preco'+i)||'Sob Consulta',isCustom:false});});document.querySelectorAll('.customBlock').forEach(div=>{const g=cls=>div.querySelector('.'+cls)?.value.trim()||'';const nome=g('cust_nome');if(nome)shows.push({isCustom:true,nome,preco:formatarPreco(g('cust_preco')),tag:g('cust_tag')||'Exclusivo',destaque:g('cust_destaque'),desc:g('cust_desc'),porte:g('cust_porte')||'Personalizado',publico:g('cust_publico')||'Geral',duracao:g('cust_duracao')||'A combinar'});});const slugAtual=val('pedidoSlug');const slugFinal=slugAtual||gerarSlug(val('cliente'));const payload={cliente:val('cliente').toUpperCase(),data_evento:val('data'),horario:val('horario'),convidados:val('convidados').toUpperCase(),tipo_festa:val('tipo').toUpperCase(),local:val('local').toUpperCase(),observacoes:val('obs').toUpperCase(),validade_dias:parseInt(val('validade'),10)||7,shows,slug:slugFinal};try{const id=val('pedidoId');const result=await salvarProposta(payload,id||null);if(!result.data?.public_token)throw new Error('O pedido foi salvo, mas não retornou o identificador público. Confira se o SQL de configuração foi aplicado.');document.getElementById('pedidoSlug').value=result.data.slug||slugFinal;const link=new URL(result.data.slug||slugFinal,SITE_BASE);document.getElementById('linkGerado').value=link.href;document.getElementById('abrir').href=link.href;document.getElementById('linkBox').classList.remove('hidden');await carregarPedidos();}catch(err){setError('formError','Falha ao salvar a proposta: '+err.message);}finally{btn.disabled=false;btn.textContent=val('pedidoId')?'Atualizar proposta e gerar link':'Criar proposta e gerar link';}});
 document.getElementById('copiar').onclick=async()=>{try{await navigator.clipboard.writeText(document.getElementById('linkGerado').value);document.getElementById('copiar').textContent='Copiado!';setTimeout(()=>document.getElementById('copiar').textContent='Copiar',1500)}catch{document.getElementById('linkGerado').select();document.execCommand('copy')}};
 let pedidosCache=[];
 let abaPedidos='ativos';
