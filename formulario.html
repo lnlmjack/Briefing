@@ -1,56 +1,138 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
 <script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","errorBeacon":"bam.nr-data.net","licenseKey":"NRBR-79c55be788cf6d20c36","applicationID":"552100530","transactionName":"el0NTBAMDVxdSxoFSVAdFQlNAAlRTBZUFk1QVAJbFhBOU1dXQQFXTQ==","queueTime":0,"applicationTime":336,"agent":""}</script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formulário de Pedido - Jack Ilusionista</title>
-  <script src="https://cdn.tailwindcss.com"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>body{font-family:'Plus Jakarta Sans',sans-serif;background:#050507;color:#f4f4f5}.gold-btn{background:linear-gradient(135deg,#fce082,#d4af37 50%,#996515);color:#000;font-weight:800}</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulário de Pedido - Jack Ilusionista</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#050507;color:#f4f4f5}
+.gold-btn{background:linear-gradient(135deg,#fce082,#d4af37 50%,#996515);color:#000;font-weight:800}
+</style>
 </head>
-<body class="p-4 sm:p-6 pb-20"><main class="max-w-2xl mx-auto">
-  <section class="bg-zinc-900 border border-zinc-800 p-6 sm:p-8 rounded-3xl shadow-2xl">
-    <header class="flex items-center gap-4 border-b border-zinc-800 pb-4 mb-6"><div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-xl"><i class="fa-solid fa-file-pen"></i></div><div><h1 class="text-xl sm:text-2xl font-bold">Solicitar Proposta</h1><p class="text-xs text-zinc-400">Preencha os dados do seu evento</p></div></header>
-    <form id="pedidoForm" class="space-y-4">
-      <div><label for="form_cliente" class="text-xs text-zinc-400 block mb-1">Nome do Cliente / Contratante</label><input required maxlength="180" id="form_cliente" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm uppercase" placeholder="EX: JOÃO E MARIA"></div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div><label for="form_data" class="text-xs text-zinc-400 block mb-1">Data (DD/MM/AAAA)</label><input id="form_data" maxlength="10" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-sm" placeholder="EX: 25/11/2026"></div>
-        <div><label for="form_horario" class="text-xs text-zinc-400 block mb-1">Horário</label><input id="form_horario" maxlength="5" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-sm" placeholder="EX: 20:00"></div>
-        <div><label for="form_convidados" class="text-xs text-zinc-400 block mb-1">Convidados</label><input maxlength="100" id="form_convidados" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-sm uppercase" placeholder="EX: 150 PESSOAS"></div>
-        <div><label for="form_tipo" class="text-xs text-zinc-400 block mb-1">Tipo de Festa</label><input maxlength="120" id="form_tipo" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-sm uppercase" placeholder="EX: CASAMENTO"></div>
-      </div>
-      <div><label for="form_local" class="text-xs text-zinc-400 block mb-1">Local / Cidade</label><input maxlength="200" id="form_local" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-sm uppercase" placeholder="EX: ESPAÇO MEET - BH"></div>
-      <div><label for="form_obs" class="text-xs text-zinc-400 block mb-1">Observações do Evento</label><textarea maxlength="2000" id="form_obs" rows="3" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-sm uppercase" placeholder="COLOQUE AQUI MAIS INFORMAÇÕES DO SEU EVENTO"></textarea></div>
-      <p id="formErro" class="hidden text-sm text-red-400" role="alert"></p>
-      <button id="btnEnviar" type="submit" class="w-full py-4 gold-btn rounded-xl uppercase tracking-widest shadow-xl transition"><i class="fa-solid fa-paper-plane mr-2"></i>Enviar Pedido de Proposta</button>
-    </form>
-    <div id="formResultado" class="hidden py-8 text-center space-y-4"><div class="w-16 h-16 bg-amber-500/20 border border-amber-500/40 rounded-full flex items-center justify-center mx-auto text-amber-400 text-2xl"><i class="fa-solid fa-check"></i></div><h2 class="text-xl font-bold">Obrigado pelo seu pedido!</h2><p class="text-sm text-zinc-300 max-w-md mx-auto">Seus dados foram enviados. Entraremos em contato em breve para apresentar sua proposta personalizada.</p></div>
-  </section>
+<body class="p-4 sm:p-6 pb-20">
+<main class="max-w-2xl mx-auto">
+<section class="bg-zinc-900 border border-zinc-800 p-6 sm:p-8 rounded-3xl shadow-2xl">
+<header class="flex items-center gap-4 border-b border-zinc-800 pb-4 mb-6">
+<div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-xl"><i class="fa-solid fa-file-pen"></i></div>
+<div><h1 class="text-xl sm:text-2xl font-bold">Solicitar Proposta</h1><p class="text-xs text-zinc-400">Preencha os dados do seu evento</p></div>
+</header>
+
+<form id="pedidoForm" class="space-y-4">
+<div>
+<label for="form_cliente" class="text-xs text-zinc-400 block mb-1">Nome do Cliente / Contratante</label>
+<input required maxlength="180" id="form_cliente" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-white text-sm uppercase" placeholder="EX: JOÃO E MARIA">
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div>
+<label for="form_data" class="text-xs text-zinc-400 block mb-1">Data (DD/MM/AAAA)</label>
+<input id="form_data" maxlength="10" inputmode="numeric" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-sm" placeholder="EX: 25/11/2026">
+</div>
+<div>
+<label for="form_horario" class="text-xs text-zinc-400 block mb-1">Horário (HH:MM)</label>
+<input id="form_horario" maxlength="5" inputmode="numeric" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-sm" placeholder="EX: 20:00">
+</div>
+<div>
+<label for="form_convidados" class="text-xs text-zinc-400 block mb-1">Convidados</label>
+<input maxlength="100" id="form_convidados" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-sm uppercase" placeholder="EX: 150 PESSOAS">
+</div>
+<div>
+<label for="form_tipo" class="text-xs text-zinc-400 block mb-1">Tipo de Festa</label>
+<input maxlength="120" id="form_tipo" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-sm uppercase" placeholder="EX: CASAMENTO">
+</div>
+</div>
+<div><label for="form_local" class="text-xs text-zinc-400 block mb-1">Local / Cidade</label><input maxlength="200" id="form_local" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-sm uppercase" placeholder="EX: ESPAÇO MEET - BH"></div>
+<div><label for="form_obs" class="text-xs text-zinc-400 block mb-1">Observações do Evento</label><textarea maxlength="2000" id="form_obs" rows="3" class="w-full p-3 bg-zinc-950 border border-zinc-700 rounded-xl text-sm uppercase" placeholder="COLOQUE AQUI MAIS INFORMAÇÕES DO SEU EVENTO"></textarea></div>
+<p id="formErro" class="hidden text-sm text-red-400" role="alert"></p>
+<button id="btnEnviar" type="submit" class="w-full py-4 gold-btn rounded-xl uppercase tracking-widest shadow-xl transition"><i class="fa-solid fa-paper-plane mr-2"></i>Enviar Pedido de Proposta</button>
+</form>
+
+<div id="formResultado" class="hidden py-8 text-center space-y-4">
+<div class="w-16 h-16 bg-amber-500/20 border border-amber-500/40 rounded-full flex items-center justify-center mx-auto text-amber-400 text-2xl"><i class="fa-solid fa-check"></i></div>
+<h2 class="text-xl font-bold">Obrigado pelo seu pedido!</h2>
+<p class="text-sm text-zinc-300 max-w-md mx-auto">Seus dados foram enviados. Entraremos em contato em breve para apresentar sua proposta personalizada.</p>
+</div>
+</section>
 </main>
+
 <script>
-  const SUPABASE_URL = 'https://ilvzmuvxloqrpqbuyvrb.supabase.co';
-  const SUPABASE_ANON = 'sb_publishable_KIGYo0gheSoB6DqG_o6IxQ_ceB2xcww';
-  const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
-  const form = document.getElementById('pedidoForm');
-  document.getElementById('form_data').addEventListener('input', e => { let v=e.target.value.replace(/\D/g,'').slice(0,8); if(v.length>4)v=v.slice(0,2)+'/'+v.slice(2,4)+'/'+v.slice(4); else if(v.length>2)v=v.slice(0,2)+'/'+v.slice(2); e.target.value=v; });
-  document.getElementById('form_horario').addEventListener('input', e => { let v=e.target.value.replace(/\D/g,'').slice(0,4); if(v.length>2)v=v.slice(0,2)+':'+v.slice(2); e.target.value=v; });
-  form.addEventListener('submit', async e => {
-    e.preventDefault();
-    const button=document.getElementById('btnEnviar'), errorBox=document.getElementById('formErro');
-    errorBox.classList.add('hidden'); button.disabled=true;
-    button.innerHTML='<i class="fa-solid fa-spinner fa-spin mr-2"></i>Enviando...';
-    const value=id=>document.getElementById(id).value.trim();
-    const payload={cliente:value('form_cliente').toUpperCase(),data_evento:value('form_data'),horario:value('form_horario'),convidados:value('form_convidados').toUpperCase(),tipo_festa:value('form_tipo').toUpperCase(),local:value('form_local').toUpperCase(),observacoes:value('form_obs').toUpperCase(),shows:[]};
-    try {
-      const {error}=await supabaseClient.from('propostas').insert(payload);
-      if(error) throw error;
-      form.classList.add('hidden'); document.getElementById('formResultado').classList.remove('hidden');
-    } catch(err) {
-      console.error('Falha ao enviar pedido:',err);
-      errorBox.textContent='Não foi possível enviar agora. Confira sua conexão e tente novamente. ('+(err.message||'erro de comunicação')+')'; errorBox.classList.remove('hidden');
-      button.disabled=false; button.innerHTML='<i class="fa-solid fa-paper-plane mr-2"></i>Tentar novamente';
-    }
-  });
-</script></body></html>
+const SUPABASE_URL='https://ilvzmuvxloqrpqbuyvrb.supabase.co';
+const SUPABASE_ANON='sb_publishable_KIGYo0gheSoB6DqG_o6IxQ_ceB2xcww';
+const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
+const form=document.getElementById('pedidoForm');
+
+document.getElementById('form_data').addEventListener('input',e=>{
+  let v=e.target.value.replace(/\D/g,'').slice(0,8);
+  if(v.length>4)v=v.slice(0,2)+'/'+v.slice(2,4)+'/'+v.slice(4);
+  else if(v.length>2)v=v.slice(0,2)+'/'+v.slice(2);
+  e.target.value=v;
+});
+document.getElementById('form_horario').addEventListener('input',e=>{
+  let v=e.target.value.replace(/\D/g,'').slice(0,4);
+  if(v.length>2)v=v.slice(0,2)+':'+v.slice(2);
+  e.target.value=v;
+});
+function dataValida(v){
+  if(!v)return true;
+  const m=v.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+  if(!m)return false;
+  const d=Number(m[1]),mo=Number(m[2]),y=Number(m[3]);
+  const dt=new Date(y,mo-1,d);
+  return dt.getFullYear()===y&&dt.getMonth()===mo-1&&dt.getDate()===d;
+}
+function horaValida(v){
+  if(!v)return true;
+  const m=v.match(/^(\d{2}):(\d{2})$/);
+  return !!m&&Number(m[1])<=23&&Number(m[2])<=59;
+}
+
+form.addEventListener('submit',async e=>{
+  e.preventDefault();
+  const button=document.getElementById('btnEnviar');
+  const errorBox=document.getElementById('formErro');
+  errorBox.classList.add('hidden');
+  const value=id=>document.getElementById(id).value.trim();
+
+  if(!dataValida(value('form_data'))){
+    errorBox.textContent='Digite a data no formato DD/MM/AAAA, usando uma data válida.';
+    errorBox.classList.remove('hidden');return;
+  }
+  if(!horaValida(value('form_horario'))){
+    errorBox.textContent='Digite o horário no formato HH:MM, entre 00:00 e 23:59.';
+    errorBox.classList.remove('hidden');return;
+  }
+
+  button.disabled=true;
+  button.innerHTML='<i class="fa-solid fa-spinner fa-spin mr-2"></i>Enviando...';
+
+  const payload={
+    cliente:value('form_cliente').toUpperCase(),
+    data_evento:value('form_data'),
+    horario:value('form_horario'),
+    convidados:value('form_convidados').toUpperCase(),
+    tipo_festa:value('form_tipo').toUpperCase(),
+    local:value('form_local').toUpperCase(),
+    observacoes:value('form_obs').toUpperCase(),
+    shows:[]
+  };
+
+  try{
+    const {error}=await supabaseClient.from('propostas').insert(payload);
+    if(error)throw error;
+    form.classList.add('hidden');
+    document.getElementById('formResultado').classList.remove('hidden');
+  }catch(err){
+    console.error('Falha ao enviar pedido:',err);
+    errorBox.textContent='Não foi possível enviar agora. Confira sua conexão e tente novamente. ('+(err.message||'erro de comunicação')+')';
+    errorBox.classList.remove('hidden');
+    button.disabled=false;
+    button.innerHTML='<i class="fa-solid fa-paper-plane mr-2"></i>Tentar novamente';
+  }
+});
+</script>
+</body>
+</html>
