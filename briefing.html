@@ -5,5 +5,268 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=C
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#050507;color:#f4f4f5}
+.font-gold{font-family:'Cinzel',serif}
+.gold{background:linear-gradient(135deg,#fce082,#d4af37 50%,#aa771c);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.gold-btn{background:linear-gradient(135deg,#fce082,#d4af37 50%,#996515);color:#000;font-weight:800}
+.card{background:rgba(18,18,22,.88);border:1px solid rgba(212,175,55,.24);border-radius:1.5rem}
+.icon-circle{width:2.5rem;height:2.5rem;border-radius:9999px;background:rgba(212,175,55,.12);color:#d4af37;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mini-box{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:.75rem;padding:.6rem;transition:border-color .2s}
+</style></head>
+<body class="pb-20">
+<header class="sticky top-0 z-10 border-b border-zinc-800 bg-black/80 backdrop-blur">
+<div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+<div class="flex items-center gap-2">
+<i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i>
+<div><span class="font-gold font-bold text-sm">JACK ILUSIONISTA</span><span class="block text-[10px] text-zinc-400 uppercase">O Ilusionista Mais Aloprado do Brasil</span></div>
+</div>
+<a href="https://api.whatsapp.com/send?phone=5531987114131" target="_blank" rel="noopener" class="gold-btn px-4 py-2 rounded-xl text-xs"><i class="fa-brands fa-whatsapp mr-1"></i>Falar com Jack Ilusionista</a>
+</div></header>
 
+<main class="max-w-3xl mx-auto px-4 py-8 space-y-7">
+
+<section class="text-center py-5">
+<span class="text-amber-400 text-xs uppercase tracking-widest">Apresentação & Orçamento Exclusivo</span>
+<h1 class="font-gold text-3xl sm:text-5xl font-black mt-3">PROPOSTA <span class="gold">PERSONALIZADA</span></h1>
+<p class="text-sm text-zinc-400 mt-3">Preparada sob medida para criar uma experiência inesquecível no seu evento.</p>
+</section>
+
+<div id="aviso" class="hidden card p-6 text-center text-amber-300">Não foi possível localizar esta proposta. Peça ao Jack um novo link.</div>
+
+<div id="expirado" class="hidden card p-8 text-center space-y-4">
+<i class="fa-solid fa-hourglass-end text-amber-400 text-4xl"></i>
+<h2 class="font-gold text-2xl">Esta proposta expirou</h2>
+<p class="text-sm text-zinc-400">O prazo de validade desta proposta já passou. Fale com o Jack para solicitar um novo orçamento atualizado.</p>
+<a href="https://api.whatsapp.com/send?phone=5531987114131&text=Ol%C3%A1%20Jack!%20Minha%20proposta%20expirou%2C%20poderia%20gerar%20um%20novo%20or%C3%A7amento%3F" target="_blank" rel="noopener" class="gold-btn inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm"><i class="fa-brands fa-whatsapp"></i>Pedir novo orçamento</a>
+</div>
+
+<div id="conteudo" class="hidden space-y-7">
+
+<section class="card p-6 sm:p-8 space-y-4">
+<h2 class="font-gold text-xl flex items-center gap-2"><i class="fa-regular fa-calendar text-amber-400"></i>Dados do Seu Evento</h2>
+<div class="grid sm:grid-cols-2 gap-3 text-sm" id="dados"></div>
+<div id="obsBox" class="hidden bg-amber-500/5 border border-amber-500/20 p-4 rounded-xl">
+<span class="text-xs text-amber-400 font-bold">OBSERVAÇÕES</span>
+<p id="obs" class="text-sm text-zinc-300 mt-1"></p>
+</div>
+</section>
+
+<section class="card p-6 sm:p-8 space-y-5">
+<span class="text-amber-400 text-xs uppercase tracking-widest">Trajetória & Credibilidade</span>
+<h2 class="font-gold text-2xl">QUEM É JACK ILUSIONISTA</h2>
+<div class="grid sm:grid-cols-3 gap-6 items-start">
+<div class="sm:col-span-1">
+<img src="https://github.com/lnlmjack/Briefing/blob/main/jack-cartas-voando.jpeg?raw=true" alt="Jack Ilusionista" class="w-full h-56 sm:h-full object-cover rounded-xl border border-amber-400/40">
+</div>
+<div class="sm:col-span-2 space-y-3">
+<p class="text-sm font-bold text-amber-200 leading-relaxed">Com mais de 29 anos de carreira, Jack Ilusionista transforma o impossível em entretenimento, desafia os limites da percepção e conquista o público com uma combinação única de ilusionismo, humor e interação.</p>
+<p class="text-sm text-zinc-300 leading-relaxed">Reconhecido como uma referência no ilusionismo moderno, acumula mais de 1.500 apresentações, construindo uma trajetória marcada pela criatividade, pelo domínio técnico e pela capacidade de surpreender plateias de diferentes perfis.</p>
+<p class="text-sm text-zinc-300 leading-relaxed">À frente do espetáculo "Las Vegas é Aqui", leva a atmosfera dos grandes shows internacionais para uma experiência envolvente, na qual a mágica acontece a poucos centímetros dos olhos do público. Combinando ilusionismo, mentalismo, humor, teatro e improvisação, transforma cada apresentação em um momento imprevisível, divertido e memorável.</p>
+<p class="text-sm text-zinc-300 leading-relaxed">Sua trajetória também inclui a presidência da Academia Mineira de Ilusionismo (AMI), formação em hipnose e participação em congressos nacionais e internacionais, reforçando seu compromisso com o desenvolvimento e a valorização da arte mágica.</p>
+<p class="text-sm text-zinc-300 leading-relaxed">Com uma personalidade irreverente e presença de palco marcante, Jack vai além dos truques tradicionais: surpreende, provoca risadas, desafia certezas e cria experiências nas quais o público se torna parte fundamental do espetáculo.</p>
+<p class="text-sm font-gold text-amber-400 italic">Jack Ilusionista. Mais do que assistir à mágica, é viver o impossível.</p>
+</div>
+</div>
+</section>
+
+<section class="space-y-4">
+<div class="text-center"><span class="text-amber-400 text-xs uppercase tracking-widest">Diferenciais Exclusivos</span><h2 class="font-gold text-2xl mt-1">POR QUE CONTRATAR</h2></div>
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="card p-5 space-y-2"><div class="icon-circle"><i class="fa-solid fa-comments"></i></div><h3 class="font-bold text-sm">Entretenimento que Vira Assunto</h3><p class="text-xs text-zinc-400">Esqueça o tradicional. Meu show une mágica e humor inteligente, criando uma experiência memorável que o público vai querer compartilhar.</p></div>
+<div class="card p-5 space-y-2"><div class="icon-circle"><i class="fa-solid fa-shapes"></i></div><h3 class="font-bold text-sm">Performance Totalmente Adaptável</h3><p class="text-xs text-zinc-400">De eventos corporativos a festas privadas, o show se molda ao seu público e tema. É entretenimento versátil com impacto garantido.</p></div>
+<div class="card p-5 space-y-2"><div class="icon-circle"><i class="fa-solid fa-people-group"></i></div><h3 class="font-bold text-sm">Uma Experiência Totalmente Interativa</h3><p class="text-xs text-zinc-400">O público não assiste, participa. Criamos juntos uma atmosfera divertida, com risadas e surpresas que quebram o gelo na hora.</p></div>
+<div class="card p-5 space-y-2"><div class="icon-circle"><i class="fa-solid fa-star"></i></div><h3 class="font-bold text-sm">Um Showman, não Apenas um Mágico</h3><p class="text-xs text-zinc-400">Não é apenas um artista de truques. É um criador de experiências, combinando mágica, humor e performance para um show completo.</p></div>
+</div>
+</section>
+
+<section class="space-y-4">
+<div class="text-center"><span class="text-amber-400 text-xs uppercase tracking-widest">Investimento & Formatos</span><h2 class="font-gold text-2xl mt-1">MODALIDADES DO SHOW</h2><p class="text-xs text-zinc-500 mt-1">Opções selecionadas especialmente para o seu evento</p></div>
+<div id="shows" class="space-y-4"></div>
+<div id="escolhaShow" class="hidden card p-3 text-center text-amber-300 text-sm"></div>
+</section>
+
+<section class="card p-6 sm:p-8 space-y-4">
+<span class="text-amber-400 text-xs uppercase tracking-widest">Publicações & Bastidores</span>
+<div class="flex flex-wrap justify-between items-center gap-3"><h2 class="font-gold text-xl">Instagram Oficial</h2><a href="https://instagram.com/jackilusionista" target="_blank" rel="noopener" class="gold-btn px-4 py-2 rounded-xl text-xs"><i class="fa-brands fa-instagram mr-1"></i>Seguir @jackilusionista</a></div>
+<script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+<div class="elfsight-app-6630be00-6361-43e3-b077-c9a6954bce92" data-elfsight-app-lazy></div>
+</section>
+
+<section class="card p-6 sm:p-8 space-y-4">
+<h2 class="font-gold text-xl flex items-center gap-2"><i class="fa-regular fa-credit-card text-amber-400"></i>Formas de Pagamento & Condições</h2>
+<p class="text-xs text-zinc-400">Escolha a condição que melhor atende você:</p>
+<div id="pagamentos" class="grid sm:grid-cols-3 gap-3"></div>
+<div id="escolhaPagamento" class="hidden text-center text-amber-300 text-xs"></div>
+</section>
+
+<section class="card p-6 sm:p-8 space-y-4">
+<span class="text-amber-400 text-xs uppercase tracking-widest">Canais de Atendimento</span>
+<h2 class="font-gold text-xl">Contatos e Mídias</h2>
+<div class="grid sm:grid-cols-2 gap-3 text-sm">
+<a href="https://instagram.com/jackilusionista" target="_blank" rel="noopener" class="mini-box flex items-center gap-3 hover:border-amber-400"><div class="icon-circle"><i class="fa-brands fa-instagram"></i></div><div><span class="block text-[10px] text-zinc-500 uppercase">Instagram</span><span class="font-semibold">@jackilusionista</span></div></a>
+<a href="https://www.jackilusionista.com.br" target="_blank" rel="noopener" class="mini-box flex items-center gap-3 hover:border-amber-400"><div class="icon-circle"><i class="fa-solid fa-globe"></i></div><div><span class="block text-[10px] text-zinc-500 uppercase">Website</span><span class="font-semibold">www.jackilusionista.com.br</span></div></a>
+<a href="https://api.whatsapp.com/send?phone=5531987114131" target="_blank" rel="noopener" class="mini-box flex items-center gap-3 hover:border-amber-400"><div class="icon-circle"><i class="fa-brands fa-whatsapp"></i></div><div><span class="block text-[10px] text-zinc-500 uppercase">Telefone / WhatsApp</span><span class="font-semibold">(31) 98711-4131</span></div></a>
+<a href="mailto:jackilusionista@gmail.com" class="mini-box flex items-center gap-3 hover:border-amber-400"><div class="icon-circle"><i class="fa-regular fa-envelope"></i></div><div><span class="block text-[10px] text-zinc-500 uppercase">E-mail</span><span class="font-semibold">jackilusionista@gmail.com</span></div></a>
+</div>
+<p class="text-xs text-zinc-500 text-center pt-1">CNPJ: 66.723.962/0001-87</p>
+</section>
+
+<section class="card p-6 sm:p-8 space-y-3">
+<h2 class="font-gold text-lg flex items-center gap-2"><i class="fa-solid fa-circle-info text-amber-400"></i>Observações Importantes & Prazos</h2>
+<div class="bg-amber-500/10 border border-amber-400/40 rounded-xl p-4 flex items-center gap-3">
+<i class="fa-solid fa-clock text-amber-400 text-2xl"></i>
+<p class="text-sm text-amber-200"><strong>Esta proposta tem validade de <span id="diasValidadeTxt">7</span> dias corridos</strong> a contar desta data.</p>
+</div>
+<ul class="space-y-2 text-xs text-zinc-400">
+<li class="flex items-start gap-2"><i class="fa-solid fa-check text-amber-400 mt-0.5"></i>O contratante disponibilizará água potável ilimitada para o artista e sua equipe.</li>
+<li class="flex items-start gap-2"><i class="fa-solid fa-check text-amber-400 mt-0.5"></i>O contratante terá o direito de arrependimento segundo a lei no prazo de 07 (sete) dias, mediante e-mail.</li>
+<li class="flex items-start gap-2"><i class="fa-solid fa-check text-amber-400 mt-0.5"></i>Após os 07 dias de direito de arrependimento, o evento será considerado fechado e, por estar reservada a data e horário, só haverá cancelamento por caso fortuito ou força maior.</li>
+</ul>
+</section>
+
+<div class="text-center">
+<a id="aprovar" target="_blank" rel="noopener" class="gold-btn inline-flex items-center gap-2 px-8 py-4 rounded-2xl uppercase text-sm"><i class="fa-brands fa-whatsapp"></i><span>Aprovar Proposta com Jack Ilusionista</span></a>
+<p class="text-xs text-zinc-500 mt-2">Em breve enviaremos a confirmação e entraremos em contato.</p>
+</div>
+
+</div>
+<footer class="text-center text-xs text-zinc-500 border-t border-zinc-800 pt-6">
+<p class="font-gold text-amber-400">MAGICORDIALMENTE</p>
+<p class="font-bold text-white">Jack Ilusionista</p>
+<p>CNPJ: 66.723.962-0001-87 | (31) 98711-4131 | Belo Horizonte - MG</p>
+</footer>
+</main>
+
+<script>
+const SUPABASE_URL='https://ilvzmuvxloqrpqbuyvrb.supabase.co', SUPABASE_ANON='sb_publishable_KIGYo0gheSoB6DqG_o6IxQ_ceB2xcww';
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
+let cliente='Cliente',showEscolhido='',precoEscolhido='',pagamentoEscolhido='';
+const escapeHtml=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&','<':'<','>':'>','"':'&quot;',"'":'&#39;'}[c]));
+
+const oficiais={
+'Las Vegas é Aqui':{tag:'Show de Mesa / Close-up',preco:'R$ 1.200,00',porte:'Todos',publico:'Familiar',duracao:'A partir de 1 hora',
+desc:"O SHOW LAS VEGAS É AQUI é um ataque direto à sua percepção da realidade.\n\nUm espetáculo de mágica de proximidade, humor e interação, onde não existe palco para se esconder, a mágica acontece a poucos centímetros de você.\n\nA magia de Las Vegas vem para o seu evento: um baralho, uma moeda, uma caneta, um celular... e, principalmente, você.\n\nObjetos desaparecem, pensamentos são antecipados e lidos, impossibilidades acontecem diante dos seus olhos e, no meio de tudo isso, boas doses de humor tornam cada momento ainda mais imprevisível.\n\nAs regras da física são colocadas à prova. A lógica é desafiada. E seus próprios olhos podem se tornar o seu pior inimigo.\n\nA única aposta da noite é descobrir até onde você está disposto a acreditar no impossível."},
+'Uma Hora de Enganação':{tag:'Show de Palco Adulto',preco:'R$ 1.990,00',porte:'Todos',publico:'Adulto',duracao:'50 minutos a 1 hora',
+desc:"E se a melhor parte da enganação fosse a diversão que ela provoca?\n\nO espetáculo \"Uma Hora de Enganação\" eleva a mágica e a comédia a um novo patamar de cumplicidade com o público. Com mais de 29 anos de carreira e consagrado como uma das referências do ilusionismo moderno, Jack Ilusionista traz ao palco um show feito para não ser apenas assistido, mas intensamente vivido.\n\nAtravés de uma sequência de ilusões repletas de humor, suspense e altíssima interatividade, você será desafiado a decifrar o mistério enquanto ri de si mesmo. É a prova definitiva de que ser enganado nunca foi tão divertido, nem tão surpreendente!"},
+'Show Misto':{tag:'O Pacote Completo',preco:'R$ 2.600,00',porte:'Todos',publico:'Geral',duracao:'Show de mesa + show de palco',
+desc:"O Show Misto une em um único evento os dois espetáculos de Jack Ilusionista: a mágica de proximidade e interação do \"Las Vegas é Aqui\", direto no meio dos convidados, seguida pela experiência teatral e cômica de \"Uma Hora de Enganação\", em formato de palco.\n\nÉ a combinação completa: aproximação, surpresa e intimidade na recepção, e um espetáculo estruturado como ponto alto da festa."},
+'Brincando com o Impossível':{tag:'Espetáculo Infantil e Familiar',preco:'R$ 1.990,00',porte:'Infantil / Escolar',publico:'Infantil e Familiar',duracao:'50 minutos a 1 hora',
+desc:"Mais do que um show de mágica: uma verdadeira experiência divertida e educativa!\n\nPensado especialmente para o público infantil, familiar e o ambiente escolar, este espetáculo une humor, ilusionismo e interatividade para despertar a curiosidade e o raciocínio dos pequenos.\n\nCom participação ativa do público, as crianças sobem ao palco, interagem com o artista e vivem momentos inesquecíveis, provando que aprender também pode ser pura diversão!\n\nShow de palco ideal para escolas, festas infantis e eventos adolescentes."},
+'Mágica e Humor Corporativo':{tag:'Eventos Corporativos',preco:'Sob Consulta',porte:'Corporativo',publico:'Profissional',duracao:'~50 min (ou até 5 intervenções de 7 min como Mestre de Cerimônias)',
+desc:"O show MÁGICA E HUMOR CORPORATIVO é uma intervenção envolvente que mistura ilusionismo, comédia e conteúdo para provocar reflexões profundas de forma leve e surpreendente. Através da mágica, o público é conduzido a enxergar além do óbvio, questionar crenças limitantes e transformar o \"impossível\" em meta.\n\nMais do que um show, essa apresentação também pode ser adaptada para eventos como \"MESTRE SEM CERIMÔNIA\", oferecendo uma condução criativa, bem humorada e interativa, bem diferente do modelo tradicional. Uma maneira original de manter a atenção da plateia, criar conexões e tornar cada momento memorável."}
+};
+
+function setWhats(){
+let msg=`Olá Jack! Analisei a proposta para ${cliente}.`;
+if(showEscolhido)msg+=`\nShow escolhido: ${showEscolhido} (${precoEscolhido})`;
+if(pagamentoEscolhido)msg+=`\nForma de pagamento: ${pagamentoEscolhido}`;
+msg+='\nGostaria de conversar sobre a confirmação da data.';
+document.getElementById('aprovar').href='https://api.whatsapp.com/send?phone=5531987114131&text='+encodeURIComponent(msg);
+}
+
+function renderShow(show){
+const nome=String(show.nome||'Modalidade'),base=oficiais[nome]||{tag:'Espetáculo Exclusivo',preco:'Sob Consulta',porte:'A combinar',publico:'A combinar',duracao:'A combinar',desc:'Uma experiência personalizada para o seu evento.'};
+let detalhes=show.isCustom?(show.desc||base.desc):base.desc;
+const card=document.createElement('article');
+card.className='card p-5 sm:p-6 space-y-4';
+const titulo=document.createElement('div');
+titulo.innerHTML=`<span class="text-[10px] uppercase tracking-wider text-amber-400">${escapeHtml(show.tag||base.tag)}</span><h3 class="font-gold text-xl font-bold mt-1">${escapeHtml(nome)}</h3><div class="mt-2"><span class="block text-[9px] text-zinc-500 uppercase">Investimento</span><strong class="text-amber-300 text-lg">${escapeHtml(show.preco||base.preco)}</strong></div>`;
+const desc=document.createElement('p');
+desc.className='text-sm text-zinc-300 leading-relaxed whitespace-pre-line';
+desc.textContent=(show.destaque?show.destaque+'\n\n':'')+detalhes;
+const mini=document.createElement('div');
+mini.className='grid grid-cols-3 gap-2 text-xs';
+mini.innerHTML=`<div class="mini-box"><span class="block text-[9px] text-zinc-500 uppercase">Porte</span><span class="font-semibold">${escapeHtml(show.porte||base.porte)}</span></div><div class="mini-box"><span class="block text-[9px] text-zinc-500 uppercase">Público</span><span class="font-semibold">${escapeHtml(show.publico||base.publico)}</span></div><div class="mini-box"><span class="block text-[9px] text-zinc-500 uppercase">Duração</span><span class="font-semibold">${escapeHtml(show.duracao||base.duracao)}</span></div>`;
+const button=document.createElement('button');
+button.type='button';
+button.className='w-full bg-zinc-800 hover:bg-zinc-700 border border-amber-400/30 rounded-xl py-3 text-xs font-bold text-amber-300';
+button.textContent='✓ ESCOLHER ESTA OPÇÃO';
+button.addEventListener('click',()=>{
+showEscolhido=nome;precoEscolhido=show.preco||base.preco;
+document.getElementById('escolhaShow').textContent=`Show selecionado: ${nome} (${precoEscolhido})`;
+document.getElementById('escolhaShow').classList.remove('hidden');
+setWhats();
+});
+card.append(titulo,desc,mini,button);
+return card;
+}
+
+function preencherPagina(data){
+const diasValidade=data.validade_dias||7;
+if(data.created_at){
+const criadoEm=new Date(data.created_at);
+const expiraEm=new Date(criadoEm.getTime()+diasValidade*24*60*60*1000);
+if(new Date()>expiraEm){document.getElementById('expirado').classList.remove('hidden');return;}
+}
+document.getElementById('diasValidadeTxt').textContent=diasValidade;
+
+cliente=data.cliente||'Cliente';
+const dados=[['Contratante',data.cliente],['Data do evento',data.data_evento||'A confirmar'],['Horário',data.horario||'A combinar'],['Convidados',data.convidados||'Não informado'],['Tipo de festa',data.tipo_festa||'Evento'],['Local',data.local||'A combinar']];
+document.getElementById('dados').innerHTML=dados.map(([k,v])=>`<div class="bg-zinc-900 p-3 rounded-xl"><span class="block text-[10px] text-zinc-500 uppercase">${escapeHtml(k)}</span><span class="font-semibold">${escapeHtml(v||'Não informado')}</span></div>`).join('');
+if(data.observacoes){document.getElementById('obs').textContent=data.observacoes;document.getElementById('obsBox').classList.remove('hidden');}
+
+let shows=data.shows||[];
+if(typeof shows==='string'){try{shows=JSON.parse(shows)}catch{shows=[]}}
+if(!Array.isArray(shows)||!shows.length)shows=[{nome:'Las Vegas é Aqui',preco:oficiais['Las Vegas é Aqui'].preco}];
+
+shows.forEach(s=>document.getElementById('shows').appendChild(renderShow(s)));
+
+const pagamentos=[
+{titulo:'Opção 01',label:'50% + 50%',desc:'50% de sinal para reserva da data e 50% no dia do evento (antes do início do show).'},
+{titulo:'Opção 02',label:'Até 10x no Cartão',desc:'Parcelamento antecipado em até 10 vezes com a taxa administrativa da maquininha.'},
+{titulo:'Opção 03',label:'PIX Integral',desc:'Pagamento à vista do valor total via chave PIX no momento da confirmação.'}
+];
+const box=document.getElementById('pagamentos');
+pagamentos.forEach(p=>{
+const card=document.createElement('div');
+card.className='bg-zinc-900 border border-zinc-700 rounded-xl p-4 text-center space-y-1 hover:border-amber-400 flex flex-col';
+card.innerHTML=`<span class="text-[9px] text-amber-400 uppercase tracking-wider">${escapeHtml(p.titulo)}</span><strong class="text-sm">${escapeHtml(p.label)}</strong><p class="text-[11px] text-zinc-400 flex-1">${escapeHtml(p.desc)}</p>`;
+const btn=document.createElement('button');
+btn.type='button';
+btn.className='mt-2 w-full bg-zinc-800 border border-amber-400/30 rounded-lg py-2 text-[11px] font-bold text-amber-300 hover:bg-zinc-700';
+btn.textContent='ESCOLHER';
+btn.onclick=()=>{
+pagamentoEscolhido=p.label;
+document.getElementById('escolhaPagamento').textContent='Condição selecionada: '+p.label;
+document.getElementById('escolhaPagamento').classList.remove('hidden');
+setWhats();
+};
+card.appendChild(btn);
+box.appendChild(card);
+});
+
+setWhats();
+document.getElementById('conteudo').classList.remove('hidden');
+}
+
+async function carregar(){
+const params=new URLSearchParams(location.search);
+const token=params.get('token');
+const slug=params.get('slug');
+
+try{
+let data,error;
+
+if(slug){
+const r=await db.rpc('get_public_proposta_by_slug',{p_slug:slug});
+data=r.data;error=r.error;
+}else if(token&&/^[0-9a-f-]{36}$/i.test(token)){
+const r=await db.rpc('get_public_proposta',{p_token:token});
+data=r.data;error=r.error;
+}else{
+document.getElementById('aviso').classList.remove('hidden');
+return;
+}
+
+if(error||!data)throw error||new Error('Proposta não encontrada');
+preencherPagina(data);
+}catch(err){
+console.error(err);
+document.getElementById('aviso').classList.remove('hidden');
+}
+}
+carregar();
+</script>
+</body></html>
